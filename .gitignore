@@ -1,0 +1,9 @@
+# OS / editor junk
+Thumbs.db
+.DS_Store
+*.log
+.idea/
+.vscode/
+
+# wrangler / cloudflare local cache
+.wrangler/

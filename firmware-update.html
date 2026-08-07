@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title data-i18n-title="title">Firmware Update Tool - Upgrade Your socolode Device</title>
+<meta name="description" data-i18n-desc="meta_desc" content="Connect your socolode device in the browser and upgrade to the latest firmware.">
+<meta name="keywords" content="firmware update, socolode firmware, 固件更新, WebUSB">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Firmware Update Tool - socolode">
+<meta property="og:description" content="Update your socolode device firmware in the browser.">
+<meta property="og:url" content="https://tools.socolode.com/firmware-update.html">
+<meta name="twitter:card" content="summary">
+<script src="assets/i18n.js"></script>
+<script>
+window.SocolodeI18nDict = {
+  en: {
+    title: "Firmware Update Tool - Upgrade Your socolode Device",
+    meta_desc: "Connect your socolode device in the browser and upgrade to the latest firmware.",
+    back: "← Back to socolode tools",
+    page_title: "socolode Firmware Update Tool",
+    page_sub: "Fully automatic flashing · No software to install",
+    step1: "Press and hold the <strong>right direction key</strong> (BOOT) on the joystick, do not release",
+    step2: "Connect to your computer with a USB cable",
+    step3: "Select the firmware file and connect the device",
+    step4: "Flashing firmware...",
+    step5: "Flashing complete, disconnect USB and restart the device",
+    waiting: "Waiting",
+    device_status: "🔌 Device status",
+    status_disconnected: "⚪ Not connected",
+    status_connecting: "⏳ Detecting...",
+    status_connected: "✅ Connected",
+    select_firmware: "📁 Select firmware file",
+    no_file: "No file selected",
+    select: "Select",
+    connect_btn: "🔗 Connect device",
+    connected_btn: "🔌 Connected",
+    flash_btn: "⚡ Start update",
+    flash_done: "Complete",
+    update_done_title: "Update Complete!",
+    update_done_text: "Disconnect USB and reconnect power to boot the new firmware",
+    compat: "⚠️ Supports Chrome / Edge · Windows / Mac / Linux<br>Not supported on iOS devices — please use a computer",
+    log_selected: "Selected firmware: ",
+    log_port_open: "Serial port opened, detecting chip...",
+    log_chip: "✅ Detected chip: ",
+    log_download_mode: "⚠️ Warning: make sure the device is in download mode (hold BOOT while connecting)",
+    log_connected: "✅ Device connected! Select a firmware file and click \"Start update\"",
+    log_no_device: "❌ No device selected, please try again",
+    log_no_permission: "❌ Browser denied serial port access",
+    log_connect_fail: "❌ Connection failed: ",
+    log_flash_start: "🚀 Starting firmware flash...",
+    log_flash_done: "✅ Firmware written!",
+    log_reboot: "Restarting device...",
+    log_success: "🎉 Firmware updated! Device restarted, disconnect USB and power on again",
+    log_flash_fail: "❌ Flash failed: ",
+    log_steps_hint: "💡 Steps: hold BOOT → connect USB → select firmware → click update",
+    log_waiting: "Waiting to connect device...",
+    progress_loading: "Loading",
+    update_name: "已更新"
+  },
+  zh: {
+    title: "socolode 固件更新工具",
+    meta_desc: "通过浏览器直连 socolode 设备，在线升级最新固件。",
+    back: "← 返回 socolode 工具集",
+    page_title: "socolode 固件更新工具",
+    page_sub: "全自动固件烧录 · 无需安装任何软件",
+    step1: "按住摇杆的 <strong>右方向键</strong>（BOOT键），不要松开",
+    step2: "用 USB 数据线连接到电脑",
+    step3: "选择固件文件并连接设备",
+    step4: "正在烧录固件...",
+    step5: "烧录完成，断开 USB 重启设备",
+    waiting: "等待操作",
+    device_status: "🔌 设备状态",
+    status_disconnected: "⚪ 未连接",
+    status_connecting: "⏳ 正在检测...",
+    status_connected: "✅ 已连接",
+    select_firmware: "📁 选择固件文件",
+    no_file: "未选择文件",
+    select: "选择",
+    connect_btn: "🔗 连接设备",
+    connected_btn: "🔌 已连接",
+    flash_btn: "⚡ 开始更新",
+    flash_done: "完成",
+    update_done_title: "更新完成！",
+    update_done_text: "请断开 USB 连接，重新插电即可启动新固件",
+    compat: "⚠️ 支持 Chrome / Edge 浏览器 · Windows / Mac / Linux<br>不支持 iOS 设备，请使用电脑操作",
+    log_selected: "已选择固件: ",
+    log_port_open: "串口已打开，正在检测芯片...",
+    log_chip: "✅ 检测到芯片: ",
+    log_download_mode: "⚠️ 警告: 请确认设备处于下载模式（按住BOOT键连接）",
+    log_connected: "✅ 设备连接成功！请选择固件文件后点击 \"开始更新\"",
+    log_no_device: "❌ 未选择设备，请重试",
+    log_no_permission: "❌ 浏览器未授权串口访问",
+    log_connect_fail: "❌ 连接失败: ",
+    log_flash_start: "🚀 开始烧录固件...",
+    log_flash_done: "✅ 固件写入完成！",
+    log_reboot: "正在重启设备...",
+    log_success: "🎉 固件更新成功！设备已重启，请断开 USB 后重新上电",
+    log_flash_fail: "❌ 烧录失败: ",
+    log_steps_hint: "💡 使用步骤: 按住BOOT键 → 连接USB → 选择固件 → 点击更新",
+    log_waiting: "等待连接设备...",
+    progress_loading: "加载中",
+    update_name: "已更新"
+  }
+};
+</script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 680px;
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+}
+.header { text-align: center; margin-bottom: 32px; }
+.header .icon { font-size: 48px; margin-bottom: 12px; }
+.header h1 { color: #fff; font-size: 1.8em; font-weight: 700; }
+.header p { color: rgba(255,255,255,0.6); font-size: 0.95em; margin-top: 6px; }
+
+.steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.step {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 18px; background: rgba(255,255,255,0.06);
+    border-radius: 14px; border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+}
+.step.active { background: rgba(255,255,255,0.12); border-color: rgba(110, 89, 245, 0.5); box-shadow: 0 0 20px rgba(110, 89, 245, 0.15); }
+.step.done { background: rgba(46, 213, 115, 0.12); border-color: rgba(46, 213, 115, 0.3); }
+.step.done .step-num { background: #2ed573; }
+.step .step-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 0.85em; flex-shrink: 0;
+    transition: all 0.3s;
+}
+.step .step-text { color: rgba(255,255,255,0.7); font-size: 0.95em; flex: 1; }
+.step.active .step-text { color: #fff; }
+.step .step-status {
+    font-size: 0.8em; padding: 4px 12px; border-radius: 20px;
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5);
+}
+.step.active .step-status { background: rgba(110, 89, 245, 0.3); color: #b8a9ff; }
+.step.done .step-status { background: rgba(46, 213, 115, 0.2); color: #7beca5; }
+
+.section { margin-bottom: 20px; }
+.section-label { color: rgba(255,255,255,0.5); font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+
+.btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 28px; border: none; border-radius: 12px;
+    font-size: 1em; font-weight: 600; cursor: pointer; transition: all 0.3s;
+    width: 100%; color: #fff;
+}
+.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+.btn-primary { background: linear-gradient(135deg, #6e59f5 0%, #8b5cf6 100%); box-shadow: 0 4px 15px rgba(110, 89, 245, 0.3); }
+.btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(110, 89, 245, 0.4); }
+.btn-success { background: linear-gradient(135deg, #2ed573 0%, #26de81 100%); box-shadow: 0 4px 15px rgba(46, 213, 115, 0.3); }
+.btn-success:hover:not(:disabled) { transform: translateY(-2px); }
+.btn-secondary { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); }
+.btn-secondary:hover:not(:disabled) { background: rgba(255,255,255,0.15); }
+
+.file-select { display: flex; gap: 10px; align-items: center; }
+.file-select input[type="file"] { display: none; }
+.file-select .file-name {
+    flex: 1; padding: 12px 16px; background: rgba(255,255,255,0.06);
+    border-radius: 10px; color: rgba(255,255,255,0.5); font-size: 0.9em;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.file-select .file-name.has-file { color: #fff; }
+.file-select .btn { width: auto; padding: 12px 20px; font-size: 0.85em; }
+
+.progress-wrap { margin-top: 16px; display: none; }
+.progress-wrap.show { display: block; }
+.progress-bar { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
+.progress-bar .fill { height: 100%; width: 0%; background: linear-gradient(90deg, #6e59f5, #8b5cf6, #2ed573); border-radius: 4px; transition: width 0.3s ease; }
+.progress-text { display: flex; justify-content: space-between; color: rgba(255,255,255,0.6); font-size: 0.85em; }
+
+.log-area {
+    margin-top: 16px; background: rgba(0,0,0,0.3); border-radius: 12px;
+    padding: 14px; max-height: 200px; overflow-y: auto; display: none;
+    font-family: 'Courier New', monospace; font-size: 0.82em; line-height: 1.5;
+}
+.log-area.show { display: block; }
+.log-area .line { color: rgba(255,255,255,0.6); padding: 1px 0; }
+.log-area .line.info { color: #8bb9fe; }
+.log-area .line.success { color: #2ed573; }
+.log-area .line.error { color: #ff6b6b; }
+.log-area .line.warn { color: #ffa502; }
+
+.status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; font-size: 0.85em; font-weight: 500; }
+.status-badge.connected { background: rgba(46, 213, 115, 0.15); color: #2ed573; }
+.status-badge.disconnected { background: rgba(255, 107, 107, 0.15); color: #ff6b6b; }
+.status-badge.selecting { background: rgba(255, 165, 2, 0.15); color: #ffa502; }
+
+.conn-info { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: rgba(255,255,255,0.06); border-radius: 12px; margin-bottom: 16px; }
+.conn-info .label { color: rgba(255,255,255,0.5); font-size: 0.85em; }
+
+.actions { display: flex; gap: 10px; margin-top: 16px; }
+.actions .btn { flex: 1; }
+
+.result-success { text-align: center; padding: 30px 20px; display: none; }
+.result-success.show { display: block; }
+.result-success .big-icon { font-size: 64px; margin-bottom: 16px; }
+.result-success h2 { color: #2ed573; font-size: 1.5em; margin-bottom: 8px; }
+.result-success p { color: rgba(255,255,255,0.6); font-size: 0.95em; }
+
+.compat-note { margin-top: 20px; padding: 12px 16px; background: rgba(255, 165, 2, 0.08); border: 1px solid rgba(255, 165, 2, 0.15); border-radius: 10px; color: rgba(255,255,255,0.5); font-size: 0.8em; text-align: center; }
+
+.back-link { margin-bottom: 20px; }
+.back-link a {
+    color: rgba(255,255,255,0.6); font-size: 0.85em; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px; transition: color 0.3s;
+}
+.back-link a:hover { color: #b8a9ff; }
+
+@media (max-width: 480px) {
+    .card { padding: 24px 20px; }
+    .header h1 { font-size: 1.4em; }
+    .step { padding: 12px 14px; }
+    .step .step-text { font-size: 0.85em; }
+    .actions { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <div class="back-link"><a href="index.html" data-i18n="back">← 返回 socolode 工具集</a></div>
+    <div class="header">
+        <div class="icon">🔧</div>
+        <h1 data-i18n="page_title">socolode 固件更新工具</h1>
+        <p data-i18n="page_sub">全自动固件烧录 · 无需安装任何软件</p>
+    </div>
+
+    <div class="steps" id="steps">
+        <div class="step active" id="step1">
+            <div class="step-num">1</div>
+            <div class="step-text" data-i18n-html="step1">按住摇杆的 <strong>右方向键</strong>（BOOT键），不要松开</div>
+            <div class="step-status" data-i18n="waiting">等待操作</div>
+        </div>
+        <div class="step" id="step2">
+            <div class="step-num">2</div>
+            <div class="step-text" data-i18n="step2">用 USB 数据线连接到电脑</div>
+            <div class="step-status" data-i18n="waiting">等待操作</div>
+        </div>
+        <div class="step" id="step3">
+            <div class="step-num">3</div>
+            <div class="step-text" data-i18n="step3">选择固件文件并连接设备</div>
+            <div class="step-status" data-i18n="waiting">等待操作</div>
+        </div>
+        <div class="step" id="step4">
+            <div class="step-num">4</div>
+            <div class="step-text" data-i18n="step4">正在烧录固件...</div>
+            <div class="step-status" data-i18n="waiting">等待操作</div>
+        </div>
+        <div class="step" id="step5">
+            <div class="step-num">5</div>
+            <div class="step-text" data-i18n="step5">烧录完成，断开 USB 重启设备</div>
+            <div class="step-status" data-i18n="waiting">等待操作</div>
+        </div>
+    </div>
+
+    <div class="conn-info">
+        <span class="label" data-i18n="device_status">🔌 设备状态</span>
+        <span class="status-badge disconnected" id="statusBadge">⚪ 未连接</span>
+    </div>
+
+    <div class="section">
+        <div class="section-label" data-i18n="select_firmware">📁 选择固件文件</div>
+        <div class="file-select">
+            <input type="file" id="fileInput" accept=".bin">
+            <div class="file-name" id="fileNameDisplay" data-i18n="no_file">未选择文件</div>
+            <button class="btn btn-secondary" onclick="document.getElementById('fileInput').click()" data-i18n="select">选择</button>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary" id="btnConnect" onclick="connectDevice()" data-i18n="connect_btn">🔗 连接设备</button>
+        <button class="btn btn-success" id="btnFlash" onclick="startFlash()" disabled data-i18n="flash_btn">⚡ 开始更新</button>
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+        <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+        <div class="progress-text">
+            <span id="progressPercent">0%</span>
+            <span id="progressSpeed"></span>
+        </div>
+    </div>
+
+    <div class="log-area" id="logArea"></div>
+
+    <div class="result-success" id="resultSuccess">
+        <div class="big-icon">✅</div>
+        <h2 data-i18n="update_done_title">更新完成！</h2>
+        <p data-i18n="update_done_text">请断开 USB 连接，重新插电即可启动新固件</p>
+    </div>
+
+    <div class="compat-note" data-i18n-html="compat">
+        ⚠️ 支持 Chrome / Edge 浏览器 · Windows / Mac / Linux<br>
+        不支持 iOS 设备，请使用电脑操作
+    </div>
+</div>
+
+<script type="importmap">
+{
+    "imports": {
+        "esptool-js": "https://unpkg.com/esptool-js/bundle.js"
+    }
+}
+</script>
+
+<script type="module">
+import { ESPLoader, Transport } from 'esptool-js';
+
+SocolodeI18n.init(window.SocolodeI18nDict);
+const T = SocolodeI18n.t;
+
+const steps = [1,2,3,4,5].map(i => document.getElementById('step'+i));
+const statusBadge = document.getElementById('statusBadge');
+const fileInput = document.getElementById('fileInput');
+const fileNameDisplay = document.getElementById('fileNameDisplay');
+const btnConnect = document.getElementById('btnConnect');
+const btnFlash = document.getElementById('btnFlash');
+const progressWrap = document.getElementById('progressWrap');
+const progressFill = document.getElementById('progressFill');
+const progressPercent = document.getElementById('progressPercent');
+const progressSpeed = document.getElementById('progressSpeed');
+const logArea = document.getElementById('logArea');
+const resultSuccess = document.getElementById('resultSuccess');
+
+let port = null, transport = null, loader = null;
+let firmwareData = null, isConnected = false, isFlashing = false;
+
+function log(msg, type = 'info') {
+    logArea.classList.add('show');
+    const div = document.createElement('div');
+    div.className = 'line ' + type;
+    div.textContent = '> ' + msg;
+    logArea.appendChild(div);
+    logArea.scrollTop = logArea.scrollHeight;
+}
+function clearLog() { logArea.innerHTML = ''; logArea.classList.remove('show'); }
+function setStep(n, state) {
+    steps.forEach((s, i) => {
+        s.classList.remove('active', 'done');
+        if (i + 1 === n) { if (state === 'active') s.classList.add('active'); if (state === 'done') s.classList.add('done'); }
+    });
+}
+function setStatus(text, type = 'disconnected') { statusBadge.className = 'status-badge ' + type; statusBadge.textContent = text; }
+function setProgress(pct, speed = '') { const p = Math.min(100, Math.max(0, pct)); progressFill.style.width = p + '%'; progressPercent.textContent = Math.round(p) + '%'; progressSpeed.textContent = speed; }
+function updateUIState() {
+    const hasFile = firmwareData !== null;
+    btnConnect.disabled = isConnected || isFlashing;
+    btnFlash.disabled = !isConnected || !hasFile || isFlashing;
+    if (isConnected) { btnConnect.innerHTML = T('connected_btn'); btnConnect.className = 'btn btn-success'; btnConnect.disabled = true; }
+    else { btnConnect.innerHTML = T('connect_btn'); btnConnect.className = 'btn btn-primary'; }
+}
+
+fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    fileNameDisplay.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
+    fileNameDisplay.classList.add('has-file');
+    firmwareData = new Uint8Array(await file.arrayBuffer());
+    log(T('log_selected') + file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)', 'success');
+    updateUIState(); setStep(3, 'active');
+});
+
+window.connectDevice = async function() {
+    if (isConnected) return;
+    try {
+        setStep(1, 'active'); setStep(2, 'active');
+        setStatus(T('status_connecting'), 'selecting');
+        port = await navigator.serial.requestPort();
+        transport = new Transport(port, true);
+        loader = new ESPLoader({
+            transport, baudrate: 115200,
+            terminal: { clean: () => {}, writeLine: (data) => log(data, 'info'), write: () => {} },
+            debugLogging: false,
+        });
+        log(T('log_port_open'), 'info');
+        const chipName = await loader.main();
+        log(T('log_chip') + chipName, 'success');
+        if (!chipName.toLowerCase().includes('esp32')) log(T('log_download_mode'), 'warn');
+        isConnected = true;
+        setStatus(T('status_connected') + ' (' + chipName + ')', 'connected');
+        setStep(1, 'done'); setStep(2, 'done'); setStep(3, 'active');
+        updateUIState();
+        log(T('log_connected'), 'success');
+    } catch (err) {
+        if (err.name === 'NotFoundError') log(T('log_no_device'), 'error');
+        else if (err.name === 'SecurityError' || err.message?.includes('security')) log(T('log_no_permission'), 'error');
+        else log(T('log_connect_fail') + (err.message || err), 'error');
+        setStatus(T('status_disconnected'), 'disconnected');
+        try { await port?.close(); } catch(e) {} try { await transport?.disconnect(); } catch(e) {}
+        port = null; transport = null; loader = null;
+    }
+};
+
+window.startFlash = async function() {
+    if (!isConnected || !loader || !firmwareData || isFlashing) return;
+    isFlashing = true; updateUIState(); clearLog();
+    resultSuccess.classList.remove('show'); progressWrap.classList.add('show'); setProgress(0);
+    setStep(1,'done'); setStep(2,'done'); setStep(3,'done'); setStep(4,'active');
+    log(T('log_flash_start'), 'info');
+    try {
+        await loader.writeFlash({
+            fileArray: [{ data: firmwareData, address: 0x0 }],
+            flashMode: 'qio', flashFreq: '80m', flashSize: '8MB',
+            eraseAll: true, compress: true,
+            reportProgress: (fileIndex, written, total) => {
+                const pct = (written / total) * 100;
+                setProgress(pct, (written / 1024).toFixed(0) + ' KB / ' + (total / 1024).toFixed(0) + ' KB');
+            },
+            calculateMD5Hash: () => '',
+        });
+        setProgress(100, T('flash_done'));
+        log(T('log_flash_done'), 'success');
+        log(T('log_reboot'), 'info');
+        await loader.after('hard_reset');
+        setStep(4, 'done'); setStep(5, 'active');
+        resultSuccess.classList.add('show');
+        log(T('log_success'), 'success');
+    } catch (err) {
+        log(T('log_flash_fail') + (err.message || err), 'error');
+        setProgress(0); setStep(4, 'active');
+    } finally { isFlashing = false; updateUIState(); }
+};
+
+window.addEventListener('beforeunload', async () => {
+    try { await transport?.disconnect(); } catch(e) {} try { await port?.close(); } catch(e) {}
+});
+
+log(T('log_steps_hint'), 'info');
+log(T('log_waiting'), 'info');
+
+document.addEventListener('socolode:lang', function () {
+    if (!isConnected) setStatus(T('status_disconnected'), 'disconnected');
+    updateUIState();
+});
+</script>
+</body>
+</html>

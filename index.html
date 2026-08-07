@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n-title="title">socolode · Tools</title>
+<meta name="description" data-i18n-desc="meta_desc" content="socolode official tools — create light painting material and update socolode firmware.">
+<meta name="keywords" content="socolode, light painting, 光绘素材制作, 固件更新">
+<meta property="og:type" content="website">
+<meta property="og:title" content="socolode · Tools">
+<meta property="og:description" content="socolode official tools — create light painting material and update socolode firmware.">
+<meta property="og:url" content="https://tools.socolode.com/">
+<meta name="twitter:card" content="summary">
+<script src="assets/i18n.js"></script>
+<script>
+window.SocolodeI18nDict = {
+  en: {
+    title: "socolode · Tools",
+    meta_desc: "socolode official tools — create light painting material and update socolode firmware.",
+    tagline: "Official Tools",
+    eyebrow: "Authoring Suite",
+    hero_html: 'Crafted for <span class="grad">light painting</span><br>— the socolode tool suite',
+    hero_sub: "From sketch to glow in two steps. Turn images into light-painting material, or update your socolode device's firmware — all right in your browser.",
+    tool_mat_title: "Create Light Painting Material",
+    tool_mat_desc: "Crop, resize, and convert a normal image into device-ready light-painting data, with batch export to prepare your design in one go.",
+    tool_mat_tag1: "Image conversion",
+    tool_mat_tag2: "Batch export",
+    tool_mat_tag3: "Runs locally",
+    cta: "Open Tool",
+    tool_fw_title: "Update socolode Firmware",
+    tool_fw_desc: "Connect your socolode device right in the browser, upgrade to the latest firmware, unlock new features and fix known issues — no extra software.",
+    tool_fw_tag1: "Online flashing",
+    tool_fw_tag2: "WebUSB",
+    tool_fw_tag3: "Safe &amp; reliable",
+    footer: "© socolode · Tools <span class=\"sep\">·</span> Questions? <a href=\"mailto:hello@socolode.com\">hello@socolode.com</a>"
+  },
+  zh: {
+    title: "socolode · 工具集",
+    meta_desc: "socolode 官方工具集 — 制作光绘素材图片与更新 socolode 固件。",
+    tagline: "官方工具",
+    eyebrow: "创作工具集",
+    hero_html: '为 <span class="grad">光绘创作</span><br>打造的 socolode 工具集',
+    hero_sub: "从画稿到光绘，只需两步。将图片制作为光绘素材，或为 socolode 设备升级固件——全部在浏览器内完成。",
+    tool_mat_title: "制作光绘素材图片",
+    tool_mat_desc: "将普通图片裁剪、缩放并转换为光绘棒专用的数据素材，支持批量导出，一键准备好你的光绘画稿。",
+    tool_mat_tag1: "图片转换",
+    tool_mat_tag2: "批量导出",
+    tool_mat_tag3: "本地处理",
+    cta: "打开工具",
+    tool_fw_title: "更新 socolode 固件",
+    tool_fw_desc: "通过浏览器直连 socolode 设备，升级到最新固件，解锁新功能并修复已知问题，全程无需额外软件。",
+    tool_fw_tag1: "在线刷写",
+    tool_fw_tag2: "WebUSB",
+    tool_fw_tag3: "安全可靠",
+    footer: "© socolode · 工具集 <span class=\"sep\">·</span> 有问题请联系 <a href=\"mailto:hello@socolode.com\">hello@socolode.com</a>"
+  }
+};
+</script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #07080f;
+  --bg-2: #0c0e1c;
+  --ink: #f4f5ff;
+  --muted: #9aa3c7;
+  --rule: rgba(255,255,255,0.09);
+  --accent: #7c6cf0;
+  --accent-2: #22d3ee;
+  --accent-3: #f472b6;
+  --surface: rgba(255,255,255,0.045);
+  --surface-strong: rgba(255,255,255,0.075);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(900px 600px at 85% -10%, rgba(124,108,240,0.16), transparent 60%),
+    radial-gradient(800px 520px at 0% 110%, rgba(34,211,238,0.12), transparent 55%),
+    radial-gradient(560px 420px at 50% 120%, rgba(124,108,240,0.10), transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  width: 100%;
+  max-width: 1080px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 26px 0;
+}
+.brand { display: flex; align-items: center; text-decoration: none; color: var(--ink); }
+.brand-logo { height: 34px; width: auto; display: block; }
+.topbar .tagline { font-size: 13px; color: var(--muted); }
+
+/* ---------- Hero ---------- */
+.hero { text-align: center; max-width: 720px; margin: 64px 0 72px; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12.5px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--accent-2); padding: 7px 16px; border-radius: 999px;
+  border: 1px solid rgba(34,211,238,0.22);
+  background: rgba(34,211,238,0.06);
+  margin-bottom: 26px;
+}
+.eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 10px var(--accent-2); }
+.hero h1 {
+  font-size: clamp(34px, 6vw, 56px); font-weight: 800; line-height: 1.12; letter-spacing: -.5px;
+}
+.hero h1 .grad {
+  background: linear-gradient(92deg, var(--accent-2) 0%, var(--accent) 55%, var(--accent-3) 105%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero p { margin-top: 22px; color: var(--muted); font-size: 16.5px; line-height: 1.75; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+/* ---------- Tool cards ---------- */
+.tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; width: 100%; max-width: 860px; margin-bottom: 40px; }
+.card {
+  position: relative; overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 22px;
+  padding: 34px 30px 30px;
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  text-decoration: none; color: var(--ink);
+  display: flex; flex-direction: column;
+  transition: transform .28s cubic-bezier(.2,.7,.3,1), border-color .28s ease, background .28s ease, box-shadow .28s ease;
+}
+.card::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(420px 220px at 25% 0%, var(--glow, rgba(124,108,240,0.22)), transparent 70%);
+  opacity: 0; transition: opacity .3s ease; pointer-events: none;
+}
+.card::after {
+  content: ""; position: absolute; left: 30px; right: 30px; bottom: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glow-line, rgba(124,108,240,0.5)), transparent);
+  opacity: 0; transition: opacity .3s ease;
+}
+.card:hover { transform: translateY(-7px); border-color: var(--glow-line, rgba(124,108,240,0.5)); background: var(--surface-strong); box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+.card:hover::before, .card:hover::after { opacity: 1; }
+
+.card .icon {
+  width: 58px; height: 58px; border-radius: 17px; margin-bottom: 24px;
+  display: grid; place-items: center; font-size: 26px; color: #fff;
+  box-shadow: 0 10px 26px var(--icon-glow, rgba(124,108,240,0.4));
+}
+.card h2 { font-size: 21px; font-weight: 700; margin-bottom: 10px; letter-spacing: -.2px; }
+.card p { color: var(--muted); font-size: 14.5px; line-height: 1.75; flex: 1; margin-bottom: 24px; }
+.card .meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+.card .meta span {
+  font-size: 12px; color: var(--muted);
+  background: rgba(255,255,255,0.05); border: 1px solid var(--rule);
+  padding: 4px 11px; border-radius: 999px;
+}
+.card .cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-weight: 700; font-size: 15.5px;
+  padding: 15px 22px; border-radius: 13px; color: #fff;
+  background: var(--cta, linear-gradient(135deg, #7c6cf0, #8b5cf6));
+  box-shadow: 0 14px 34px var(--cta-glow, rgba(124,108,240,0.4));
+  transition: transform .2s ease, filter .2s ease;
+}
+.card:hover .cta { filter: brightness(1.08); }
+.card .cta .arrow { transition: transform .2s ease; }
+.card:hover .cta .arrow { transform: translateX(4px); }
+
+/* per-card theme */
+.theme-a { --glow: rgba(124,108,240,0.24); --glow-line: rgba(139,124,246,0.55); --icon-glow: rgba(109,92,224,0.45); }
+.theme-a .icon { background: linear-gradient(135deg, #6d5ce0, #a29bfe); }
+.theme-a .cta { --cta: linear-gradient(135deg, #6d5ce0, #8b7cf6); --cta-glow: rgba(109,92,224,0.42); }
+.theme-b { --glow: rgba(34,211,238,0.22); --glow-line: rgba(34,211,238,0.55); --icon-glow: rgba(2,136,209,0.45); }
+.theme-b .icon { background: linear-gradient(135deg, #0ea5e9, #22d3ee); }
+.theme-b .cta { --cta: linear-gradient(135deg, #0284c7, #22d3ee); --cta-glow: rgba(2,132,199,0.42); }
+
+/* ---------- Footer ---------- */
+footer { margin: 24px 0 44px; text-align: center; color: var(--muted); font-size: 13px; }
+footer a { color: var(--accent-2); text-decoration: none; }
+footer .sep { margin: 0 8px; opacity: .4; }
+
+/* ---------- Animations ---------- */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.topbar { animation: fadeUp .6s ease; }
+.hero { animation: fadeUp .7s .08s ease backwards; }
+.card { animation: fadeUp .7s ease backwards; }
+.card:nth-child(1) { animation-delay: .18s; }
+.card:nth-child(2) { animation-delay: .28s; }
+footer { animation: fadeUp .7s .4s ease backwards; }
+
+@media (max-width: 640px) {
+  .topbar .tagline { display: none; }
+  .hero { margin: 44px 0 52px; }
+  .tools { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="index.html">
+    <img src="assets/logo-white.png" alt="socolode" class="brand-logo">
+  </a>
+  <span class="tagline" data-i18n="tagline">Official Tools</span>
+</header>
+
+<section class="hero">
+  <div class="eyebrow"><span class="dot"></span> <span data-i18n="eyebrow">Authoring Suite</span></div>
+  <h1 data-i18n-html="hero_html">为 <span class="grad">光绘创作</span><br>打造的 socolode 工具集</h1>
+  <p data-i18n="hero_sub">从画稿到光绘，只需两步。将图片制作为光绘素材，或为 socolode 设备升级固件——全部在浏览器内完成。</p>
+</section>
+
+<main class="tools">
+  <a class="card theme-a" href="light-painting-material-generator.html">
+    <div class="icon">🎨</div>
+    <h2 data-i18n="tool_mat_title">制作光绘素材图片</h2>
+    <p data-i18n="tool_mat_desc">将普通图片裁剪、缩放并转换为光绘棒专用的数据素材，支持批量导出，一键准备好你的光绘画稿。</p>
+    <div class="meta"><span data-i18n="tool_mat_tag1">图片转换</span><span data-i18n="tool_mat_tag2">批量导出</span><span data-i18n="tool_mat_tag3">本地处理</span></div>
+    <span class="cta"><span data-i18n="cta">打开工具</span> <span class="arrow">→</span></span>
+  </a>
+
+  <a class="card theme-b" href="firmware-update.html">
+    <div class="icon">⚡</div>
+    <h2 data-i18n="tool_fw_title">更新 socolode 固件</h2>
+    <p data-i18n="tool_fw_desc">通过浏览器直连 socolode 设备，升级到最新固件，解锁新功能并修复已知问题，全程无需额外软件。</p>
+    <div class="meta"><span data-i18n="tool_fw_tag1">在线刷写</span><span data-i18n="tool_fw_tag2">WebUSB</span><span data-i18n="tool_fw_tag3">安全可靠</span></div>
+    <span class="cta"><span data-i18n="cta">打开工具</span> <span class="arrow">→</span></span>
+  </a>
+</main>
+
+<footer>
+  <p data-i18n-html="footer">© socolode · 工具集 <span class="sep">·</span> 有问题请联系 <a href="mailto:hello@socolode.com">hello@socolode.com</a></p>
+</footer>
+
+<script>
+  SocolodeI18n.init(window.SocolodeI18nDict);
+</script>
+</body>
+</html>
