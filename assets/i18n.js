@@ -12,7 +12,17 @@
   var current = DEFAULT_LANG;
   var dict = { en: {}, zh: {} };
 
+  function getUrlLang() {
+    try {
+      var lang = new URLSearchParams(location.search).get('lang');
+      if (lang === 'en' || lang === 'zh') return lang;
+    } catch (e) {}
+    return null;
+  }
+
   function load() {
+    var urlLang = getUrlLang();
+    if (urlLang) { current = urlLang; save(urlLang); return; }
     try {
       var saved = localStorage.getItem(STORAGE_KEY);
       if (saved === 'en' || saved === 'zh') current = saved;
@@ -84,10 +94,36 @@
     document.dispatchEvent(evt);
   }
 
+  // Append ?lang=xx to internal links so navigation keeps the same language
+  function localizeLinks() {
+    var lang = current;
+    document.querySelectorAll('a[href$=".html"], a[href$=".html?"], a[href*=".html?"]').forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (!href || href.indexOf('http') === 0) return;
+      var marker = '?lang=';
+      var hash = '';
+      var hashIdx = href.indexOf('#');
+      if (hashIdx >= 0) { hash = href.slice(hashIdx); href = href.slice(0, hashIdx); }
+      if (href.indexOf(marker) >= 0) {
+        href = href.replace(/(\?lang=)[a-zA-Z]+/, '$1' + lang);
+      } else {
+        href += (href.indexOf('?') >= 0 ? '&' : '?') + 'lang=' + lang;
+      }
+      a.setAttribute('href', href + hash);
+    });
+  }
+
   function toggle() {
     current = current === 'zh' ? 'en' : 'zh';
     save(current);
+    // Sync the ?lang= query param in the address bar (no reload)
+    try {
+      var url = new URL(window.location.href);
+      url.searchParams.set('lang', current);
+      window.history.replaceState({}, '', url.toString());
+    } catch (e) {}
     apply();
+    localizeLinks();
   }
 
   function init(userDict) {
@@ -96,6 +132,7 @@
     // Build the floating toggle button
     buildToggle();
     apply();
+    localizeLinks();
   }
 
   function buildToggle() {
@@ -119,5 +156,5 @@
     document.body.appendChild(btn);
   }
 
-  window.SocolodeI18n = { init: init, toggle: toggle, apply: apply, t: t, getLang: function () { return current; } };
+  window.SocolodeI18n = { init: init, toggle: toggle, apply: apply, t: t, getLang: function () { return current; }, getUrlLang: getUrlLang };
 })();
