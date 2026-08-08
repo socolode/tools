@@ -22,7 +22,7 @@ window.SocolodeI18nDict = {
     page_sub: "Fully automatic flashing · No software to install",
     step1: "Press and hold the <strong>right direction key</strong> (BOOT) on the joystick, do not release",
     step2: "Connect to your computer with a USB cable",
-    step3: "Select the firmware file and connect the device",
+    step3: "Select a firmware model and connect the device",
     step4: "Flashing firmware...",
     step5: "Flashing complete, disconnect USB and restart the device",
     waiting: "Waiting",
@@ -30,9 +30,22 @@ window.SocolodeI18nDict = {
     status_disconnected: "⚪ Not connected",
     status_connecting: "⏳ Detecting...",
     status_connected: "✅ Connected",
-    select_firmware: "📁 Select firmware file",
+    select_firmware: "📁 Select firmware model",
     no_file: "No file selected",
     select: "Select",
+    model_placeholder: "Select a firmware model",
+    loading_models: "Loading firmware list...",
+    no_models: "No firmware found. Add firmware to GitHub first.",
+    version: "Version",
+    notes: "Notes",
+    refresh: "↻ Refresh",
+    or_local: "or select a local file (advanced)",
+    log_manifest_fail: "❌ Failed to load firmware list from GitHub: ",
+    log_manifest_ok: "✅ Firmware list loaded from GitHub",
+    log_downloading: "⬇️ Downloading firmware from GitHub: ",
+    log_downloaded: "✅ Firmware downloaded: ",
+    model_load_fail: "❌ Download failed: ",
+    size_kb: " KB",
     connect_btn: "🔗 Connect device",
     connected_btn: "🔌 Connected",
     flash_btn: "⚡ Start update",
@@ -66,7 +79,7 @@ window.SocolodeI18nDict = {
     page_sub: "全自动固件烧录 · 无需安装任何软件",
     step1: "按住摇杆的 <strong>右方向键</strong>（BOOT键），不要松开",
     step2: "用 USB 数据线连接到电脑",
-    step3: "选择固件文件并连接设备",
+    step3: "选择固件型号并连接设备",
     step4: "正在烧录固件...",
     step5: "烧录完成，断开 USB 重启设备",
     waiting: "等待操作",
@@ -74,9 +87,22 @@ window.SocolodeI18nDict = {
     status_disconnected: "⚪ 未连接",
     status_connecting: "⏳ 正在检测...",
     status_connected: "✅ 已连接",
-    select_firmware: "📁 选择固件文件",
+    select_firmware: "📁 选择固件型号",
     no_file: "未选择文件",
     select: "选择",
+    model_placeholder: "请选择固件型号",
+    loading_models: "正在加载固件列表...",
+    no_models: "暂无可用固件，请先在 GitHub 添加固件",
+    version: "版本",
+    notes: "说明",
+    refresh: "↻ 刷新",
+    or_local: "或从本地选择文件（高级）",
+    log_manifest_fail: "❌ 无法从 GitHub 加载固件列表: ",
+    log_manifest_ok: "✅ 已从 GitHub 加载固件列表",
+    log_downloading: "⬇️ 正在从 GitHub 下载固件: ",
+    log_downloaded: "✅ 固件下载完成: ",
+    model_load_fail: "❌ 下载失败: ",
+    size_kb: " KB",
     connect_btn: "🔗 连接设备",
     connected_btn: "🔌 已连接",
     flash_btn: "⚡ 开始更新",
@@ -185,6 +211,40 @@ body {
 .file-select .file-name.has-file { color: #fff; }
 .file-select .btn { width: auto; padding: 12px 20px; font-size: 0.85em; }
 
+.model-select { display: flex; gap: 10px; align-items: center; }
+.model-select select {
+    flex: 1; padding: 12px 14px; background: rgba(255,255,255,0.06);
+    border-radius: 10px; color: #fff; font-size: 0.95em; font-family: inherit;
+    border: 1px solid rgba(110, 89, 245, 0.35); outline: none; cursor: pointer;
+    -webkit-appearance: none; appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #b8a9ff 50%), linear-gradient(135deg, #b8a9ff 50%, transparent 50%);
+    background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%;
+    background-size: 5px 5px; background-repeat: no-repeat;
+}
+.model-select select:disabled { opacity: 0.5; cursor: not-allowed; }
+.model-select select option { background: #1c1a35; color: #fff; }
+.model-select .btn-refresh { width: auto; padding: 12px 16px; font-size: 0.85em; flex-shrink: 0; }
+
+.model-info {
+    margin-top: 12px; padding: 12px 16px; background: rgba(110, 89, 245, 0.08);
+    border: 1px solid rgba(110, 89, 245, 0.2); border-radius: 10px;
+    font-size: 0.88em; color: rgba(255,255,255,0.75); line-height: 1.6;
+}
+.model-info b { color: #b8a9ff; }
+.model-info .mi-notes { margin-top: 2px; color: rgba(255,255,255,0.55); }
+
+.model-error {
+    margin-top: 12px; padding: 12px 16px; background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.25); border-radius: 10px;
+    color: #ff6b6b; font-size: 0.85em;
+}
+
+.divider {
+    display: flex; align-items: center; gap: 12px; margin: 18px 0 12px;
+    color: rgba(255,255,255,0.35); font-size: 0.78em; white-space: nowrap;
+}
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+
 .progress-wrap { margin-top: 16px; display: none; }
 .progress-wrap.show { display: block; }
 .progress-bar { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
@@ -282,7 +342,19 @@ body {
     </div>
 
     <div class="section">
-        <div class="section-label" data-i18n="select_firmware">📁 选择固件文件</div>
+        <div class="section-label" data-i18n="select_firmware">📁 选择固件型号</div>
+        <div class="model-select">
+            <select id="modelSelect" disabled>
+                <option value="" data-i18n="loading_models">正在加载固件列表...</option>
+            </select>
+            <button class="btn btn-secondary btn-refresh" id="btnRefresh" onclick="loadManifest()" data-i18n="refresh">↻ 刷新</button>
+        </div>
+        <div class="model-info" id="modelInfo" style="display:none">
+            <div id="miLine"></div>
+            <div class="mi-notes" id="miNotes"></div>
+        </div>
+        <div class="model-error" id="modelError" style="display:none"></div>
+        <div class="divider"><span data-i18n="or_local">或从本地选择文件（高级）</span></div>
         <div class="file-select">
             <input type="file" id="fileInput" accept=".bin">
             <div class="file-name" id="fileNameDisplay" data-i18n="no_file">未选择文件</div>
@@ -331,8 +403,18 @@ import { ESPLoader, Transport } from 'esptool-js';
 SocolodeI18n.init(window.SocolodeI18nDict);
 const T = SocolodeI18n.t;
 
+// GitHub 固件来源（固件与 manifest.json 都存放在该仓库的 firmware/ 目录）
+const FW_SOURCE = { owner: 'socolode', repo: 'tools', branch: 'main', path: 'firmware' };
+const FW_BASE = `https://cdn.jsdelivr.net/gh/${FW_SOURCE.owner}/${FW_SOURCE.repo}@${FW_SOURCE.branch}/${FW_SOURCE.path}`;
+const FW_RAW_BASE = `https://raw.githubusercontent.com/${FW_SOURCE.owner}/${FW_SOURCE.repo}/${FW_SOURCE.branch}/${FW_SOURCE.path}`;
+
 const steps = [1,2,3,4,5].map(i => document.getElementById('step'+i));
 const statusBadge = document.getElementById('statusBadge');
+const modelSelect = document.getElementById('modelSelect');
+const modelInfo = document.getElementById('modelInfo');
+const modelError = document.getElementById('modelError');
+const miLine = document.getElementById('miLine');
+const miNotes = document.getElementById('miNotes');
 const fileInput = document.getElementById('fileInput');
 const fileNameDisplay = document.getElementById('fileNameDisplay');
 const btnConnect = document.getElementById('btnConnect');
@@ -346,6 +428,7 @@ const resultSuccess = document.getElementById('resultSuccess');
 
 let port = null, transport = null, loader = null;
 let firmwareData = null, isConnected = false, isFlashing = false;
+let manifest = null, selectedModel = null;
 
 function log(msg, type = 'info') {
     logArea.classList.add('show');
@@ -372,12 +455,126 @@ function updateUIState() {
     else { btnConnect.innerHTML = T('connect_btn'); btnConnect.className = 'btn btn-primary'; }
 }
 
+// ---- GitHub 固件清单 ----
+async function fetchWithFallback(urls) {
+    let lastErr;
+    for (const u of urls) {
+        try {
+            const r = await fetch(u);
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            return await r.arrayBuffer();
+        } catch (e) { lastErr = e; }
+    }
+    throw lastErr;
+}
+
+async function fetchManifest() {
+    const buf = await fetchWithFallback([`${FW_BASE}/manifest.json`, `${FW_RAW_BASE}/manifest.json`]);
+    return JSON.parse(new TextDecoder().decode(buf));
+}
+
+function modelName(m) {
+    return SocolodeI18n.getLang() === 'zh' ? (m.name.zh || m.name.en) : (m.name.en || m.name.zh);
+}
+
+function renderManifest() {
+    const prev = modelSelect.value;
+    modelSelect.innerHTML = '';
+    if (!manifest || !Array.isArray(manifest.models) || manifest.models.length === 0) {
+        const opt = document.createElement('option');
+        opt.value = ''; opt.textContent = T('no_models');
+        modelSelect.appendChild(opt);
+        modelSelect.disabled = true;
+        clearFirmware();
+        return;
+    }
+    const empty = document.createElement('option');
+    empty.value = ''; empty.textContent = T('model_placeholder');
+    modelSelect.appendChild(empty);
+    manifest.models.forEach(m => {
+        const opt = document.createElement('option');
+        opt.value = m.id;
+        opt.textContent = modelName(m) + ' · ' + (m.version || '');
+        modelSelect.appendChild(opt);
+    });
+    modelSelect.disabled = false;
+    if (prev && manifest.models.some(m => m.id === prev)) modelSelect.value = prev;
+    if (prev) onModelChange();
+}
+
+function renderModelInfo() {
+    if (!selectedModel) { modelInfo.style.display = 'none'; return; }
+    const m = selectedModel;
+    const sizeText = m.size ? (m.size / 1024).toFixed(1) + T('size_kb') : '';
+    miLine.innerHTML = '<b>' + modelName(m) + '</b> · ' + (m.version || '') + (sizeText ? ' · ' + sizeText : '');
+    miNotes.textContent = (SocolodeI18n.getLang() === 'zh' ? (m.notes && m.notes.zh) : (m.notes && m.notes.en)) || '';
+    modelInfo.style.display = 'block';
+}
+
+async function loadManifest() {
+    modelError.style.display = 'none';
+    modelInfo.style.display = 'none';
+    modelSelect.disabled = true;
+    modelSelect.innerHTML = '<option value="">' + T('loading_models') + '</option>';
+    try {
+        manifest = await fetchManifest();
+        log(T('log_manifest_ok') || 'Firmware list loaded', 'success');
+        renderManifest();
+    } catch (e) {
+        manifest = null;
+        log(T('log_manifest_fail') + (e.message || e), 'error');
+        modelSelect.innerHTML = '<option value="">' + T('no_models') + '</option>';
+        modelSelect.disabled = false;
+        clearFirmware();
+    }
+}
+
+async function onModelChange() {
+    modelError.style.display = 'none';
+    const id = modelSelect.value;
+    if (!id) { clearFirmware(); modelInfo.style.display = 'none'; return; }
+    const m = (manifest && manifest.models || []).find(x => x.id === id);
+    if (!m) return;
+    selectedModel = m;
+    renderModelInfo();
+    try {
+        log(T('log_downloading') + m.file, 'info');
+        const buf = await fetchWithFallback([`${FW_BASE}/${m.file}`, `${FW_RAW_BASE}/${m.file}`]);
+        firmwareData = new Uint8Array(buf);
+        const sizeKb = (firmwareData.length / 1024).toFixed(1);
+        fileNameDisplay.textContent = m.file + ' (' + sizeKb + T('size_kb') + ')';
+        fileNameDisplay.classList.add('has-file');
+        log(T('log_downloaded') + m.file + ' (' + sizeKb + T('size_kb') + ')', 'success');
+    } catch (e) {
+        firmwareData = null;
+        fileNameDisplay.textContent = T('no_file');
+        fileNameDisplay.classList.remove('has-file');
+        modelError.textContent = T('model_load_fail') + (e.message || e);
+        modelError.style.display = 'block';
+        log(T('model_load_fail') + (e.message || e), 'error');
+    }
+    updateUIState(); setStep(3, 'active');
+}
+
+function clearFirmware() {
+    firmwareData = null; selectedModel = null;
+    fileNameDisplay.textContent = T('no_file');
+    fileNameDisplay.classList.remove('has-file');
+    modelInfo.style.display = 'none';
+    updateUIState();
+}
+
+modelSelect.addEventListener('change', onModelChange);
+
 fileInput.addEventListener('change', async (e) => {
     const file = e.target.files[0];
     if (!file) return;
     fileNameDisplay.textContent = file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
     fileNameDisplay.classList.add('has-file');
     firmwareData = new Uint8Array(await file.arrayBuffer());
+    selectedModel = null;
+    modelInfo.style.display = 'none';
+    if (modelSelect.value) modelSelect.value = '';
     log(T('log_selected') + file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)', 'success');
     updateUIState(); setStep(3, 'active');
 });
@@ -420,9 +617,10 @@ window.startFlash = async function() {
     setStep(1,'done'); setStep(2,'done'); setStep(3,'done'); setStep(4,'active');
     log(T('log_flash_start'), 'info');
     try {
+        const cfg = selectedModel || {};
         await loader.writeFlash({
-            fileArray: [{ data: firmwareData, address: 0x0 }],
-            flashMode: 'qio', flashFreq: '80m', flashSize: '8MB',
+            fileArray: [{ data: firmwareData, address: parseInt(cfg.flashOffset || '0x0', 16) }],
+            flashMode: cfg.flashMode || 'qio', flashFreq: cfg.flashFreq || '80m', flashSize: cfg.flashSize || '8MB',
             eraseAll: true, compress: true,
             reportProgress: (fileIndex, written, total) => {
                 const pct = (written / total) * 100;
@@ -449,10 +647,12 @@ window.addEventListener('beforeunload', async () => {
 
 log(T('log_steps_hint'), 'info');
 log(T('log_waiting'), 'info');
+loadManifest();
 
 document.addEventListener('socolode:lang', function () {
     if (!isConnected) setStatus(T('status_disconnected'), 'disconnected');
     updateUIState();
+    if (manifest) renderManifest();
 });
 </script>
 </body>
