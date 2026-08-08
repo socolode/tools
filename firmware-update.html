@@ -44,6 +44,8 @@ window.SocolodeI18nDict = {
     log_manifest_ok: "✅ Firmware list loaded from GitHub",
     log_downloading: "⬇️ Downloading firmware from GitHub: ",
     log_downloaded: "✅ Firmware downloaded: ",
+    log_model_selected: "✅ Selected ",
+    log_model_dl_hint: " (will download when update starts)",
     model_load_fail: "❌ Download failed: ",
     size_kb: " KB",
     connect_btn: "🔗 Connect device",
@@ -101,6 +103,8 @@ window.SocolodeI18nDict = {
     log_manifest_ok: "✅ 已从 GitHub 加载固件列表",
     log_downloading: "⬇️ 正在从 GitHub 下载固件: ",
     log_downloaded: "✅ 固件下载完成: ",
+    log_model_selected: "✅ 已选择 ",
+    log_model_dl_hint: "（开始更新时下载）",
     model_load_fail: "❌ 下载失败: ",
     size_kb: " KB",
     connect_btn: "🔗 连接设备",
@@ -448,9 +452,9 @@ function setStep(n, state) {
 function setStatus(text, type = 'disconnected') { statusBadge.className = 'status-badge ' + type; statusBadge.textContent = text; }
 function setProgress(pct, speed = '') { const p = Math.min(100, Math.max(0, pct)); progressFill.style.width = p + '%'; progressPercent.textContent = Math.round(p) + '%'; progressSpeed.textContent = speed; }
 function updateUIState() {
-    const hasFile = firmwareData !== null;
+    const hasSel = selectedModel !== null || firmwareData !== null;
     btnConnect.disabled = isConnected || isFlashing;
-    btnFlash.disabled = !isConnected || !hasFile || isFlashing;
+    btnFlash.disabled = !isConnected || !hasSel || isFlashing;
     if (isConnected) { btnConnect.innerHTML = T('connected_btn'); btnConnect.className = 'btn btn-success'; btnConnect.disabled = true; }
     else { btnConnect.innerHTML = T('connect_btn'); btnConnect.className = 'btn btn-primary'; }
 }
@@ -529,30 +533,19 @@ async function loadManifest() {
     }
 }
 
-async function onModelChange() {
+function onModelChange() {
     modelError.style.display = 'none';
     const id = modelSelect.value;
     if (!id) { clearFirmware(); modelInfo.style.display = 'none'; return; }
     const m = (manifest && manifest.models || []).find(x => x.id === id);
     if (!m) return;
     selectedModel = m;
+    firmwareData = null;
     renderModelInfo();
-    try {
-        log(T('log_downloading') + m.file, 'info');
-        const buf = await fetchWithFallback([`${FW_BASE}/${m.file}`, `${FW_RAW_BASE}/${m.file}`]);
-        firmwareData = new Uint8Array(buf);
-        const sizeKb = (firmwareData.length / 1024).toFixed(1);
-        fileNameDisplay.textContent = m.file + ' (' + sizeKb + T('size_kb') + ')';
-        fileNameDisplay.classList.add('has-file');
-        log(T('log_downloaded') + m.file + ' (' + sizeKb + T('size_kb') + ')', 'success');
-    } catch (e) {
-        firmwareData = null;
-        fileNameDisplay.textContent = T('no_file');
-        fileNameDisplay.classList.remove('has-file');
-        modelError.textContent = T('model_load_fail') + (e.message || e);
-        modelError.style.display = 'block';
-        log(T('model_load_fail') + (e.message || e), 'error');
-    }
+    const sizeText = m.size ? ' (' + (m.size / 1024).toFixed(1) + T('size_kb') + ')' : '';
+    fileNameDisplay.textContent = m.file + sizeText;
+    fileNameDisplay.classList.add('has-file');
+    log(T('log_model_selected') + modelName(m) + ' · ' + (m.version || '') + T('log_model_dl_hint'), 'info');
     updateUIState(); setStep(3, 'active');
 }
 
@@ -611,10 +604,26 @@ window.connectDevice = async function() {
 };
 
 window.startFlash = async function() {
-    if (!isConnected || !loader || !firmwareData || isFlashing) return;
+    if (!isConnected || !loader || (!selectedModel && !firmwareData) || isFlashing) return;
     isFlashing = true; updateUIState(); clearLog();
     resultSuccess.classList.remove('show'); progressWrap.classList.add('show'); setProgress(0);
     setStep(1,'done'); setStep(2,'done'); setStep(3,'done'); setStep(4,'active');
+
+    // 选择的是 GitHub 型号：此时才下载固件
+    if (selectedModel && !firmwareData) {
+        log(T('log_downloading') + selectedModel.file, 'info');
+        try {
+            const buf = await fetchWithFallback([`${FW_BASE}/${selectedModel.file}`, `${FW_RAW_BASE}/${selectedModel.file}`]);
+            firmwareData = new Uint8Array(buf);
+            log(T('log_downloaded') + selectedModel.file + ' (' + (firmwareData.length / 1024).toFixed(1) + T('size_kb') + ')', 'success');
+        } catch (e) {
+            log(T('model_load_fail') + (e.message || e), 'error');
+            setStep(3, 'active');
+            isFlashing = false; updateUIState();
+            return;
+        }
+    }
+
     log(T('log_flash_start'), 'info');
     try {
         const cfg = selectedModel || {};
