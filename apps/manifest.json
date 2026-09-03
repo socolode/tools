@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-09-04",
+  "devices": {
+    "firefly-t1": {
+      "name": {
+        "zh": "萤火虫 T1",
+        "en": "Firefly T1"
+      },
+      "apps": [
+        {
+          "id": "light-painter",
+          "name": {
+            "zh": "光绘棒",
+            "en": "Glow"
+          },
+          "version": "1.0.0",
+          "icon": "✨",
+          "desc": "专业光绘摄影应用，支持 BMP 图片逐行播放，长曝光拍摄绚丽光绘。",
+          "features": [
+            "BMP 图片逐行播放，长曝光拍摄光绘作品",
+            "亮度 / 速度 / 同步 / 倒计时 / 循环 五参数可调",
+            "支持多设备同步，多人协作绘制宽幅图案",
+            "倒计时拍摄，方便就位减少机身震动"
+          ],
+          "usage": [
+            "进入应用后，主界面为光绘预览区",
+            "长按「上键」进入设置",
+            "用 ↑↓ 选择参数（亮度 / 速度 / 同步 / 倒计时 / 循环），用 ↔ 调节数值",
+            "「中键」返回主界面",
+            "按下「确认键」开始播放光绘图案"
+          ],
+          "screenshots": [
+            {
+              "src": "firefly-t1/light-painter/main.jpg",
+              "label": "主界面"
+            },
+            {
+              "src": "firefly-t1/light-painter/set.jpg",
+              "label": "设置界面"
+            }
+          ],
+          "zip": "firefly-t1/light-painter.zip",
+          "size": 230594,
+          "minFw": "1.4.0"
+        },
+        {
+          "id": "color-wheel",
+          "name": {
+            "zh": "色相环",
+            "en": "Hue"
+          },
+          "version": "1.0.0",
+          "icon": "🎨",
+          "desc": "通过色相 / 饱和度 / 亮度三参数，精确控制 WS2812 灯棒颜色。",
+          "features": [
+            "HSL 三参数调节：色相 H / 饱和度 S / 亮度 L",
+            "中键一键开关色相环显示",
+            "灯棒实时预览所选颜色"
+          ],
+          "usage": [
+            "「中键」开关色相环显示",
+            "用 ↑↓ 选择参数（色相 / 饱和度 / 亮度）",
+            "用 ↔ 调节选中参数的数值",
+            "灯棒实时显示当前所选颜色"
+          ],
+          "screenshots": [
+            {
+              "src": "firefly-t1/color-wheel/colorwheel.jpg",
+              "label": "主界面"
+            }
+          ],
+          "zip": "firefly-t1/color-wheel.zip",
+          "size": 379857,
+          "minFw": "1.4.0"
+        },
+        {
+          "id": "palette",
+          "name": {
+            "zh": "调色盘",
+            "en": "Tone"
+          },
+          "version": "1.0.0",
+          "icon": "🎯",
+          "desc": "从内置色板快速选色，支持多种光效模式与自动轮播。",
+          "features": [
+            "内置色相光谱 + 常用色板，快速选色",
+            "顶部灰度色阶条辅助亮度调节",
+            "支持颜色自动轮播，间隔可调"
+          ],
+          "usage": [
+            "「中键」开关灯棒",
+            "用 ⇅ 在色板间移动选择目标颜色",
+            "用 ⇆ 调节选中颜色的亮度",
+            "长按「上键」设置颜色切换间隔（自动轮播）"
+          ],
+          "screenshots": [
+            {
+              "src": "firefly-t1/palette/main.jpg",
+              "label": "主界面"
+            }
+          ],
+          "zip": "firefly-t1/palette.zip",
+          "size": 159280,
+          "minFw": "1.4.0"
+        },
+        {
+          "id": "soundlight",
+          "name": {
+            "zh": "拾音灯",
+            "en": "Beat"
+          },
+          "version": "1.0.0",
+          "icon": "🎵",
+          "desc": "根据环境声音控制灯棒亮度与模式，随音乐律动。",
+          "features": [
+            "随环境声音实时律动",
+            "亮度 / 灵敏 / 模式 三参数可调",
+            "多种律动模式切换"
+          ],
+          "usage": [
+            "用 ⇧⇩ 选择参数（亮度 / 灵敏 / 模式）",
+            "用 ⇦⇨ 调节选中参数的数值",
+            "切换「模式」体验不同的律动效果"
+          ],
+          "screenshots": [
+            {
+              "src": "firefly-t1/soundlight/jiezhou.jpg",
+              "label": "主界面"
+            }
+          ],
+          "zip": "firefly-t1/soundlight.zip",
+          "size": 175470,
+          "minFw": "1.4.0"
+        },
+        {
+          "id": "wifi-send",
+          "name": {
+            "zh": "热点通",
+            "en": "WiFi"
+          },
+          "version": "1.0.0",
+          "icon": "📡",
+          "desc": "设备开启 WiFi 热点，通过手机 / 电脑浏览器上传与管理图片文件。",
+          "features": [
+            "设备一键开启 WiFi 热点",
+            "浏览器网页上传 / 管理图片文件",
+            "无需安装任何 App"
+          ],
+          "usage": [
+            "打开应用，查看热点名称、密码与登录地址",
+            "手机 / 电脑连接该 WiFi 热点",
+            "浏览器输入登录地址（如 192.168.4.1）",
+            "在网页中上传 / 管理图片文件",
+            "提示：如无法登录，可尝试关闭手机数据流量"
+          ],
+          "screenshots": [
+            {
+              "src": "firefly-t1/wifi-send/main.jpg",
+              "label": "主界面"
+            }
+          ],
+          "zip": "firefly-t1/wifi-send.zip",
+          "size": 708625,
+          "minFw": "1.4.0"
+        }
+      ]
+    },
+    "beetle-s1": {
+      "name": {
+        "zh": "独角仙 S1",
+        "en": "Beetle S1"
+      },
+      "apps": [
+        {
+          "id": "light-painter",
+          "name": {
+            "zh": "光绘棒",
+            "en": "Glow"
+          },
+          "version": "1.0.0",
+          "icon": "✨",
+          "desc": "专业光绘摄影应用，支持 BMP 图片逐行播放，长曝光拍摄绚丽光绘。",
+          "features": [
+            "BMP 图片逐行播放，长曝光拍摄光绘作品",
+            "亮度 / 速度 / 同步 / 倒计时 / 循环 五参数可调",
+            "支持多设备同步，多人协作绘制宽幅图案",
+            "倒计时拍摄，方便就位减少机身震动"
+          ],
+          "usage": [
+            "进入应用后，主界面为光绘预览区",
+            "长按「上键」进入设置",
+            "用 ↑↓ 选择参数（亮度 / 速度 / 同步 / 倒计时 / 循环），用 ↔ 调节数值",
+            "「中键」返回主界面",
+            "按下「确认键」开始播放光绘图案"
+          ],
+          "screenshots": [
+            {
+              "src": "beetle-s1/light-painter/main.jpg",
+              "label": "主界面"
+            },
+            {
+              "src": "beetle-s1/light-painter/set.jpg",
+              "label": "设置界面"
+            }
+          ],
+          "zip": "beetle-s1/light-painter.zip",
+          "size": 212937,
+          "minFw": "1.4.0"
+        },
+        {
+          "id": "color-wheel",
+          "name": {
+            "zh": "色相环",
+            "en": "Hue"
+          },
+          "version": "1.0.0",
+          "icon": "🎨",
+          "desc": "通过色相 / 饱和度 / 亮度三参数，精确控制 WS2812 灯棒颜色。",
+          "features": [
+            "HSL 三参数调节：色相 H / 饱和度 S / 亮度 L",
+            "中键一键开关色相环显示",
+            "灯棒实时预览所选颜色"
+          ],
+          "usage": [
+            "「中键」开关色相环显示",
+            "用 ↑↓ 选择参数（色相 / 饱和度 / 亮度）",
+            "用 ↔ 调节选中参数的数值",
+            "灯棒实时显示当前所选颜色"
+          ],
+          "screenshots": [
+            {
+              "src": "beetle-s1/color-wheel/colorwheel.jpg",
+              "label": "主界面"
+            }
+          ],
+          "zip": "beetle-s1/color-wheel.zip",
+          "size": 369995,
+          "minFw": "1.4.0"
+        },
+        {
+          "id": "palette",
+          "name": {
+            "zh": "调色盘",
+            "en": "Tone"
+          },
+          "version": "1.0.0",
+          "icon": "🎯",
+          "desc": "从内置色板快速选色，支持多种光效模式与自动轮播。",
+          "features": [
+            "内置色相光谱 + 常用色板，快速选色",
+            "顶部灰度色阶条辅助亮度调节",
+            "支持颜色自动轮播，间隔可调"
+          ],
+          "usage": [
+            "「中键」开关灯棒",
+            "用 ⇅ 在色板间移动选择目标颜色",
+            "用 ⇆ 调节选中颜色的亮度",
+            "长按「上键」设置颜色切换间隔（自动轮播）"
+          ],
+          "screenshots": [
+            {
+              "src": "beetle-s1/palette/main.jpg",
+              "label": "主界面"
+            }
+          ],
+          "zip": "beetle-s1/palette.zip",
+          "size": 148883,
+          "minFw": "1.4.0"
+        },
+        {
+          "id": "wifi-send",
+          "name": {
+            "zh": "热点通",
+            "en": "WiFi"
+          },
+          "version": "1.0.0",
+          "icon": "📡",
+          "desc": "设备开启 WiFi 热点，通过手机 / 电脑浏览器上传与管理图片文件。",
+          "features": [
+            "设备一键开启 WiFi 热点",
+            "浏览器网页上传 / 管理图片文件",
+            "无需安装任何 App"
+          ],
+          "usage": [
+            "打开应用，查看热点名称、密码与登录地址",
+            "手机 / 电脑连接该 WiFi 热点",
+            "浏览器输入登录地址（如 192.168.4.1）",
+            "在网页中上传 / 管理图片文件",
+            "提示：如无法登录，可尝试关闭手机数据流量"
+          ],
+          "screenshots": [
+            {
+              "src": "beetle-s1/wifi-send/main.jpg",
+              "label": "主界面"
+            }
+          ],
+          "zip": "beetle-s1/wifi-send.zip",
+          "size": 691059,
+          "minFw": "1.4.0"
+        }
+      ]
+    }
+  }
+}

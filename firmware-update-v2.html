@@ -106,7 +106,7 @@ body{
 .fw-current{display:flex;align-items:center;gap:14px;padding:16px 18px;background:rgba(110,89,245,.08);border:1px solid rgba(110,89,245,.22);border-radius:14px;margin-bottom:18px;}
 .fw-current .lbl{font-size:.76em;color:var(--text-faint);letter-spacing:1px;}
 .fw-current .ver{font-size:1.5em;font-weight:800;color:#b8a9ff;margin-top:2px;}
-.fw-current .st{margin-left:auto;font-size:.8em;color:var(--text-dim);}
+.fw-current .st{margin-left:auto;font-size:.8em;color:var(--text-dim);text-align:right;line-height:1.5;}
 .fw-current .st b{color:var(--success);}
 .fw-list .item{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border-soft);border-radius:12px;margin-bottom:10px;background:rgba(255,255,255,.03);transition:all .2s;cursor:pointer;}
 .fw-list .item:hover{background:rgba(255,255,255,.06);}
@@ -119,47 +119,69 @@ body{
 .fw-list .item .tag{margin-left:auto;font-size:.68em;padding:3px 10px;border-radius:12px;flex-shrink:0;}
 .fw-list .item .tag.new{background:rgba(46,213,115,.15);color:var(--success);}
 .fw-list .item .tag.his{background:rgba(255,255,255,.08);color:var(--text-faint);}
+.fw-empty{text-align:center;padding:26px;color:var(--text-faint);font-size:.88em;border:1px dashed var(--border-soft);border-radius:12px;}
 .fw-action{display:flex;gap:10px;margin-top:16px;}
 .fw-tip{margin-top:14px;font-size:.78em;color:var(--text-faint);text-align:center;line-height:1.7;}
 .fw-note{margin-top:10px;font-size:.78em;color:var(--text-faint);text-align:center;}
 .fw-note b{color:#b8a9ff;}
 
+/* progress + log */
+.progress-wrap{margin-top:16px;display:none;}
+.progress-wrap.show{display:block;}
+.progress-bar{width:100%;height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden;margin-bottom:8px;}
+.progress-bar .fill{height:100%;width:0%;background:linear-gradient(90deg,#6e59f5,#8b5cf6,#2ed573);border-radius:4px;transition:width .3s ease;}
+.progress-text{display:flex;justify-content:space-between;color:var(--text-dim);font-size:.82em;}
+.log-area{margin-top:12px;background:rgba(0,0,0,.3);border-radius:12px;padding:12px;max-height:180px;overflow-y:auto;display:none;font-family:'Courier New',monospace;font-size:.8em;line-height:1.5;}
+.log-area.show{display:block;}
+.log-area .line{color:var(--text-dim);padding:1px 0;}
+.log-area .line.info{color:#8bb9fe;}
+.log-area .line.success{color:var(--success);}
+.log-area .line.error{color:var(--danger);}
+.log-area .line.warn{color:var(--warn);}
+
 /* app tab */
-.app-sync{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card);border:1px solid var(--border-soft);border-radius:14px;margin-bottom:18px;}
-.app-sync .info{flex:1;font-size:.85em;color:var(--text-dim);line-height:1.6;}
-.app-sync .info b{color:#fff;}
-.app-sync .info .hint{font-size:.75em;color:var(--text-faint);margin-top:3px;}
-
-.seg{display:inline-flex;gap:4px;background:rgba(255,255,255,.05);border:1px solid var(--border-soft);border-radius:12px;padding:4px;margin-bottom:16px;}
-.seg button{border:none;background:transparent;color:var(--text-dim);font-size:.88em;font-weight:600;padding:8px 18px;border-radius:9px;cursor:pointer;font-family:inherit;transition:all .2s;}
-.seg button.active{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;}
-.seg button .c{font-size:.72em;opacity:.85;margin-left:2px;}
-.seg-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.seg-head .lg{font-size:.8em;color:var(--text-faint);letter-spacing:1px;}
-.app-sec{display:none;}
-.app-sec.active{display:block;}
-
-.app-row{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border-soft);border-radius:12px;margin-bottom:10px;background:rgba(255,255,255,.03);transition:all .2s;}
-.app-row:hover{background:rgba(255,255,255,.06);}
-.app-row .ai{width:46px;height:46px;border-radius:12px;background:rgba(110,89,245,.15);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
-.app-row .an{font-weight:700;font-size:.98em;}
-.app-row .an small{font-weight:600;color:var(--text-faint);margin-left:6px;font-size:.78em;}
-.app-row .adesc{font-size:.76em;color:var(--text-faint);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px;}
-.app-row .cur{font-size:.76em;color:var(--text-faint);text-align:center;line-height:1.5;}
-.app-row .cur b{color:#b8a9ff;font-size:1.05em;}
-.app-row .cur .lbl{font-size:.68em;letter-spacing:.5px;}
-.app-row .updateable{border-color:rgba(255,165,2,.35);background:rgba(255,165,2,.06);}
-.app-row .r{margin-left:auto;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.app-row select{background:rgba(255,255,255,.06);border:1px solid rgba(110,89,245,.4);color:#fff;padding:8px 10px;border-radius:9px;font-family:inherit;font-size:.82em;outline:none;cursor:pointer;}
-.app-row select option{background:#1c1a35;color:#fff;}
-.app-row .st-tag{font-size:.7em;padding:4px 10px;border-radius:12px;font-weight:600;}
-.app-row .st-current{background:rgba(46,213,115,.15);color:var(--success);}
-.app-row .st-update{background:rgba(255,165,2,.16);color:var(--warn);}
-.app-row .st-miss{background:rgba(110,89,245,.15);color:#b8a9ff;}
+.app-note{display:flex;gap:12px;padding:14px 16px;background:rgba(110,89,245,.08);border:1px solid rgba(110,89,245,.22);border-radius:14px;margin-bottom:18px;align-items:flex-start;}
+.app-note .ic{font-size:1.4em;flex-shrink:0;line-height:1.2;}
+.app-note .t{font-size:.92em;font-weight:700;}
+.app-note .d{font-size:.8em;color:var(--text-dim);margin-top:4px;line-height:1.6;}
+.app-note .d b{color:#b8a9ff;}
+.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.app-card{
+  border:1.5px solid var(--border-soft);border-radius:16px;padding:20px 18px;cursor:pointer;
+  background:rgba(255,255,255,.04);transition:all .25s;display:flex;flex-direction:column;align-items:center;text-align:center;
+}
+.app-card:hover{transform:translateY(-3px);background:var(--card-hover);border-color:rgba(110,89,245,.5);}
+.app-card .ai{font-size:42px;margin-bottom:10px;line-height:1;}
+.app-card .an{font-weight:700;font-size:1.05em;}
+.app-card .an small{font-weight:600;color:var(--text-faint);margin-left:6px;font-size:.72em;}
+.app-card .adesc{font-size:.76em;color:var(--text-faint);margin-top:6px;line-height:1.6;}
+.app-card .ameta{margin-top:10px;font-size:.7em;color:#b8a9ff;border:1px solid rgba(110,89,245,.35);padding:3px 12px;border-radius:14px;background:rgba(110,89,245,.12);}
 .app-empty{text-align:center;padding:30px;color:var(--text-faint);font-size:.88em;}
-.sync-demo{font-size:.7em;color:var(--text-faint);}
 
-/* ===== 帮助 / 说明块 ===== */
+/* app detail */
+.detail-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.detail-hero{display:flex;align-items:center;gap:16px;padding:20px;background:rgba(110,89,245,.1);border:1px solid rgba(110,89,245,.25);border-radius:16px;margin-bottom:18px;}
+.detail-hero .dh-icon{font-size:52px;line-height:1;}
+.detail-hero .dh-name{font-size:1.4em;font-weight:800;}
+.detail-hero .dh-name small{font-weight:600;color:var(--text-faint);margin-left:8px;font-size:.6em;}
+.detail-hero .dh-desc{font-size:.85em;color:var(--text-dim);margin-top:6px;line-height:1.6;}
+.detail-hero .dh-tag{display:inline-block;margin-top:10px;font-size:.7em;color:#b8a9ff;border:1px solid rgba(110,89,245,.4);padding:3px 12px;border-radius:14px;background:rgba(110,89,245,.12);}
+.dh-sec{margin-top:20px;}
+.dh-sec-title{font-size:.85em;font-weight:700;color:#b8a9ff;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.dh-list{list-style:none;}
+.dh-list li{position:relative;padding:6px 0 6px 26px;font-size:.88em;color:var(--text-dim);line-height:1.6;}
+.dh-list li::before{content:"✓";position:absolute;left:0;top:6px;width:18px;height:18px;border-radius:50%;background:rgba(46,213,115,.15);color:var(--success);font-size:.7em;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid rgba(46,213,115,.35);}
+.dh-steps{margin:0;padding:0;list-style:none;counter-reset:ds;}
+.dh-steps li{position:relative;padding:6px 0 6px 34px;font-size:.88em;color:var(--text-dim);line-height:1.6;counter-increment:ds;}
+.dh-steps li::before{content:counter(ds);position:absolute;left:0;top:6px;width:22px;height:22px;border-radius:50%;background:rgba(110,89,245,.2);color:#b8a9ff;font-size:.72em;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid rgba(110,89,245,.35);}
+.dh-screens{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;}
+.dh-screens .shot{border:1px solid var(--border-soft);border-radius:14px;overflow:hidden;background:rgba(0,0,0,.25);}
+.dh-screens .shot img{width:100%;display:block;}
+.dh-screens .shot .cap{font-size:.72em;color:var(--text-faint);text-align:center;padding:8px;}
+.dh-dl{margin-top:24px;padding-top:20px;border-top:1px solid var(--border-soft);}
+.dh-dl-hint{font-size:.76em;color:var(--text-faint);text-align:center;margin-top:10px;line-height:1.6;}
+
+/* help blocks */
 .help{background:rgba(255,255,255,.04);border:1px solid var(--border-soft);border-radius:14px;margin-top:16px;overflow:hidden;}
 .help summary{list-style:none;cursor:pointer;padding:13px 16px;font-size:.88em;font-weight:600;color:var(--text-dim);display:flex;align-items:center;gap:10px;transition:color .2s;user-select:none;}
 .help summary::-webkit-details-marker{display:none;}
@@ -179,7 +201,6 @@ body{
 .help-callout.warn{background:rgba(255,165,2,.08);border:1px solid rgba(255,165,2,.22);color:#ffd27a;}
 .help-callout.info{background:rgba(110,89,245,.09);border:1px solid rgba(110,89,245,.22);color:#d3c9ff;}
 .help-callout.ok{background:rgba(46,213,115,.08);border:1px solid rgba(46,213,115,.22);color:#9df0be;}
-.help-tag{display:inline-block;font-size:.68em;padding:1px 8px;border-radius:10px;margin-right:6px;background:rgba(110,89,245,.15);color:#b8a9ff;font-weight:600;}
 
 /* toast */
 .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);background:rgba(20,16,46,.95);border:1px solid var(--border);color:#fff;padding:12px 22px;border-radius:12px;font-size:.85em;opacity:0;pointer-events:none;transition:all .3s;z-index:99;box-shadow:0 10px 30px rgba(0,0,0,.4);backdrop-filter:blur(10px);}
@@ -192,11 +213,11 @@ body{
 
 @media(max-width:640px){
   .dev-grid{grid-template-columns:1fr;}
+  .app-grid{grid-template-columns:1fr;}
+  .dh-screens{grid-template-columns:1fr;}
   .ws-bar{flex-direction:column;align-items:flex-start;}
   .ws-right{width:100%;}
   .ws-right .conn-btn{flex:1;}
-  .app-row{flex-wrap:wrap;}
-  .app-row .r{width:100%;justify-content:flex-start;margin-left:0;margin-top:4px;}
   .fw-list .item .meta{white-space:normal;}
 }
 </style>
@@ -214,7 +235,7 @@ body{
     <div class="logo">🛠️</div>
     <h1>socolode 设备工具</h1>
     <p>固件升级 · 应用管理 · 浏览器直连设备</p>
-    <div class="chips"><span class="chip">无需安装软件</span><span class="chip">支持 Chrome / Edge</span><span class="chip">在线同步设备</span></div>
+    <div class="chips"><span class="chip">无需安装软件</span><span class="chip">支持 Chrome / Edge</span><span class="chip">固件在线烧录</span></div>
   </div>
 
   <!-- ===== 视图 1：设备选择 ===== -->
@@ -222,50 +243,22 @@ body{
     <div class="card">
       <div class="sec-label">01 · 选择设备类型</div>
       <div class="dev-grid">
-        <div class="dev-card" data-dev="firefly-t1" onclick="pickDevice('firefly-t1',this)">
+        <div class="dev-card" data-dev="firefly-t1" onclick="enterDevice('firefly-t1',this)">
           <div class="check">✓</div>
           <div class="dev-icon">🪄</div>
           <div class="dev-name">萤火虫 T1</div>
-          <div class="dev-sub">Firefly T1 · 光绘 / 彩灯<br>5 款应用可管理</div>
+          <div class="dev-sub">Firefly T1 · 光绘 / 彩灯<br>5 款应用可下载</div>
           <div class="dev-tag">ESP32-S3 · 8MB</div>
         </div>
-        <div class="dev-card" data-dev="beetle-s1" onclick="pickDevice('beetle-s1',this)">
+        <div class="dev-card" data-dev="beetle-s1" onclick="enterDevice('beetle-s1',this)">
           <div class="check">✓</div>
           <div class="dev-icon">🪲</div>
           <div class="dev-name">独角仙 S1</div>
-          <div class="dev-sub">Beetle S1 · 光绘 / 彩灯<br>4 款应用可管理</div>
+          <div class="dev-sub">Beetle S1 · 光绘 / 彩灯<br>4 款应用可下载</div>
           <div class="dev-tag">ESP32-S3 · 8MB</div>
         </div>
       </div>
-      <div style="margin-top:22px;">
-        <button class="btn btn-primary btn-block" id="btnInto" style="max-width:260px;margin:0 auto;display:flex;" onclick="intoWorkspace()" disabled>进入设备工作台</button>
-        <div class="fw-note" style="margin-top:12px;">进入后将提供<strong>固件升级</strong>与<strong>应用管理</strong>两类操作</div>
-      </div>
-
-      <details class="help">
-        <summary>💡 使用前必读 · 环境与连接说明 <span class="arrow">▾</span></summary>
-        <div class="help-body">
-          <div class="help-callout info"><span class="ic">🌐</span><span><b>浏览器要求：</b>请使用电脑端的 <span class="hl">Chrome / Edge</span> 浏览器。本工具通过 Web 串口直连设备，<b>不支持 iOS / Safari 手机浏览器</b>。</span></div>
-          <div style="margin-top:12px;"><b>三种操作，各需什么前置条件：</b></div>
-          <ol class="help-steps">
-            <li><b>固件升级</b><small>需要把设备进入「下载模式」（按住 BOOT 再插 USB），才能烧录固件。</small></li>
-            <li><b>读取当前固件版本</b><small>普通连接即可，设备直接通过串口上报当前版本。</small></li>
-            <li><b>应用管理（同步 / 安装 / 升级应用）</b><small>普通连接设备即可，通过串口读取设备上的应用列表。</small></li>
-          </ol>
-          <div style="margin-top:10px;"><b>如何进入「下载模式」：</b></div>
-          <ol class="help-steps">
-            <li>拿起设备，<span class="hl">按住摇杆的右方向键（BOOT 键）不动</span><small>无需松开，保持按住。</small></li>
-            <li>把 USB 数据线插到电脑<small>保持按住直到页面出现「已连接」。</small></li>
-            <li>松开按键，点击页面的「连接设备」<small>下载模式与普通模式都能被识别，页面会自动区分。</small></li>
-          </ol>
-          <div style="margin-top:10px;"><b>连接要求：</b></div>
-          <ol class="help-steps">
-            <li>使用<u>数据线</u>而非仅充电线<small>部分线材仅供电，无法传输数据，会导致识别不到设备。</small></li>
-            <li>浏览器弹出串口授权窗口时，选择你的设备并「允许」</li>
-          </ol>
-          <div class="help-callout warn"><span class="ic">⚠️</span><span><b>烧录风险提示：</b>升级固件前请确认电量充足、过程不要拔线断电。一旦断电中断可能造成固件损坏，需要重新烧录。</span></div>
-        </div>
-      </details>
+      <div class="fw-note" style="margin-top:18px;text-align:center;">👆 点击上方设备卡片即可进入工作台，提供<strong>固件升级</strong>与<strong>应用管理</strong>两类操作</div>
     </div>
   </div>
 
@@ -303,14 +296,19 @@ body{
             <div class="lbl">当前固件版本</div>
             <div class="ver" id="fwCurVer">—</div>
           </div>
-          <div class="st" id="fwCurState">未连接设备<br><b>连接后可读取当前版本</b></div>
+          <div class="st" id="fwCurState">未连接设备<br><b>连接后可开始升级</b></div>
         </div>
         <div class="sec-label">可选固件版本 <span class="n" id="fwCount"></span></div>
         <div class="fw-list" id="fwList"></div>
         <div class="fw-action">
           <button class="btn btn-ghost" id="btnFwRefresh" onclick="loadFirmware()">↻ 刷新版本列表</button>
-          <button class="btn btn-success" id="btnFwGo" style="flex:1" disabled onclick="startUpgrade()">开始升级所选固件</button>
+          <button class="btn btn-success" id="btnFwGo" style="flex:1" disabled onclick="startFlash()">⚡ 开始升级所选固件</button>
         </div>
+        <div class="progress-wrap" id="progressWrap">
+          <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+          <div class="progress-text"><span id="progressPercent">0%</span><span id="progressSpeed"></span></div>
+        </div>
+        <div class="log-area" id="logArea"></div>
 
         <details class="help" open>
           <summary>🤔 如何进行固件升级 <span class="arrow">▾</span></summary>
@@ -319,14 +317,12 @@ body{
             <ol class="help-steps">
               <li><b>进入下载模式</b><small>按住摇杆<b>右方向键（BOOT）不松</b>，再插入 USB 数据线，等页面识别到设备。</small></li>
               <li><b>点击「连接设备」</b><small>浏览器弹出串口授权时选择设备并允许；连接成功后顶栏变为「已连接」。</small></li>
-              <li id="fwhelp_read"><b>读取当前版本</b><small>页面会自动读出你设备正在运行的固件版本，并和最新版对比。</small></li>
               <li><b>选择目标固件版本</b><small>点击列表中的版本；已标记「最新」的即推荐版本，也可选择历史版本。</small></li>
               <li><b>点击「开始升级所选固件」</b><small>等待进度条走完，期间<b>保持连接、不要拔线</b>。</small></li>
               <li><b>完成后重启</b><small>升级成功会提示；断开 USB 重新上电即可使用新固件。</small></li>
             </ol>
             <div class="help-callout warn"><span class="ic">⚠️</span><span><b>重要：</b>升级过程中设备会重启进入 bootloader，请<span class="hl">避免中途断线 / 断电 / 关闭标签页</span>，否则可能损坏固件。</span></div>
-            <div class="help-callout info"><span class="ic">💡</span><span><b>区分：</b>若仅想「查看当前固件版本」而<b>不升级</b>，普通连接即可，无需进入下载模式。</span></div>
-            <div class="help-callout ok"><span class="ic">✅</span><span><b>升级固件不会删除你的应用和数据</b>（应用在 SD 卡上），但为确保兼容，升级后建议到「应用管理」同步一次，检查是否有需要更新的应用。</span></div>
+            <div class="help-callout ok"><span class="ic">✅</span><span><b>升级固件不会删除你的应用和数据</b>（应用在 SD 卡上），但为确保兼容，升级后建议到「应用管理」重新下载需要的应用。</span></div>
           </div>
         </details>
       </div>
@@ -336,299 +332,378 @@ body{
     <div class="view" id="panelApp">
       <div class="card">
         <div class="sec-label">03 · 应用管理</div>
-        <div class="app-sync">
-          <div class="info">
-            <b class="sync-title">未同步设备</b>
-            <div class="hint">连接设备后，通过串口读取设备的应用列表，自动识别已安装 / 未安装</div>
+        <div class="app-note">
+          <div class="ic">📦</div>
+          <div>
+            <div class="t">下载应用包，手动安装到设备</div>
+            <div class="d">点击下方应用卡片查看详情与下载应用包。下载后解压，将 <b>apps</b> 文件夹整体复制到设备 U 盘的根目录即可。</div>
           </div>
-          <button class="btn btn-ghost" id="btnSync" onclick="syncDevice()">🔗 连接并同步</button>
         </div>
-
-        <div class="seg-head">
-          <div class="seg">
-            <button class="active" id="segInst" onclick="switchSeg('inst')">已安装 <span class="c" id="cntInst">0</span></button>
-            <button id="segMissing" onclick="switchSeg('missing')">未安装 <span class="c" id="cntMiss">0</span></button>
-          </div>
-          <span class="sync-demo" id="syncState">示例数据 · 尚未同步</span>
-        </div>
-
-        <div class="app-sec active" id="secInst">
-          <div id="instList"></div>
-        </div>
-        <div class="app-sec" id="secMissing">
-          <div id="missList"></div>
-        </div>
+        <div class="app-grid" id="appList"></div>
 
         <details class="help">
-          <summary>🤔 应用管理 · 已安装 / 未安装 / 版本说明 <span class="arrow">▾</span></summary>
+          <summary>🤔 应用如何安装到设备 <span class="arrow">▾</span></summary>
           <div class="help-body">
-            <div style="margin-bottom:4px;"><b>什么是「同步」？</b></div>
-            <div>点击<b>「连接并同步」</b>后，工具通过串口读取设备 SD 卡中已安装的应用列表，与线上应用库比对，自动归入「已安装」或「未安装」。<span class="help-tag">需要连接设备</span></div>
-
-            <div style="margin:12px 0 4px;"><b>「已安装」分组里的几种状态：</b></div>
+            <div style="margin-bottom:2px;"><b>安装步骤：</b></div>
             <ol class="help-steps">
-              <li><b>已最新</b><small>设备上的版本已是最新，无需操作。</small></li>
-              <li><b>可升级</b><small>设备版本落后于线上最新版，可点击「升级」按钮，或在下拉中选择想升到的版本。</small></li>
+              <li><b>下载应用包</b><small>点击应用卡片进入详情页，点击「下载应用包」得到 ZIP 压缩包。</small></li>
+              <li><b>解压压缩包</b><small>解压后得到一个 <b>apps</b> 文件夹，里面是各应用的子文件夹。</small></li>
+              <li><b>复制到设备 U 盘</b><small>用 USB 数据线连接设备（U 盘模式），把 <b>apps</b> 文件夹整体复制到 U 盘根目录，覆盖即可。</small></li>
+              <li><b>重启设备</b><small>安全弹出 U 盘，重启设备后在主页即可看到新应用。</small></li>
             </ol>
-
-            <div style="margin:12px 0 4px;"><b>「未安装」分组：</b></div>
-            <div>设备上尚未安装这些应用。<b>点击「安装」</b>即可安装，安装后可到「已安装」分组查看与管理。</div>
-
-            <div style="margin:12px 0 4px;"><b>版本下拉框说明：</b></div>
-            <div>每个应用都有一个版本下拉框，用于<b>选择要升级到的版本</b>。默认选中线上最新版；对已是最新的应用，仅显示当前版本。</div>
-
-            <div class="help-callout info"><span class="ic">📦</span><span><b>应用也是升级包：</b>升级 / 安装应用<b>不影响固件</b>，也不会影响其它应用的数据（每个应用的数据独立存放，卸载时一并删除）。</span></div>
-            <div class="help-callout ok"><span class="ic">✅</span><span><b>安全提示：</b>应用安装 / 升级无需进入下载模式，<b>普通连接</b>即可完成，风险远低于固件烧录，可随时重复执行。</span></div>
+            <div class="help-callout info"><span class="ic">💡</span><span><b>说明：</b>应用安装 / 升级<b>不影响固件</b>，也不会影响其它应用的数据（每个应用的数据独立存放）。</span></div>
+            <div class="help-callout warn"><span class="ic">⚠️</span><span><b>提示：</b>请勿删除 <b>apps</b> 文件夹中其它应用的子文件夹，否则对应应用会从设备消失。</span></div>
           </div>
         </details>
       </div>
     </div>
   </div>
 
-  <div class="foot">该页面为<strong>交互方案演示版</strong> · 固件与应用列表当前为示例数据，串口读取逻辑将在后续接入<br>不支持 iOS 设备，请使用电脑 Chrome / Edge 浏览器操作</div>
+  <!-- ===== 视图 3：应用详情 ===== -->
+  <div id="viewDetail" class="view">
+    <div class="card" id="detailCard"></div>
+  </div>
+
+  <div class="foot">固件与应用列表均从 GitHub 实时拉取 · 固件通过浏览器串口直连烧录<br>不支持 iOS 设备，请使用电脑 Chrome / Edge 浏览器操作</div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script type="importmap">
+{
+  "imports": {
+    "esptool-js": "https://unpkg.com/esptool-js/bundle.js"
+  }
+}
+</script>
+
+<script type="module">
+import { ESPLoader, Transport } from 'esptool-js';
+
 /* =========================================================================
-   交互方案演示版（UI First）
-   - 当前为示例数据，用于确认交互逻辑
-   - 串口（Web Serial）读取设备应用列表、版本比对等数据逻辑将在后续接入
+   socolode 设备工具（正式版）
+   - 固件：Web Serial + esptool-js 直连烧录（逻辑与 firmware-update.html 一致）
+   - 应用：从 GitHub 拉取应用清单，下载 ZIP 到本地，由用户手动放入 U 盘
    ========================================================================= */
 
-/* ---------- 每类设备的固件版本库（示例） ---------- */
-const LIB = {
-  "firefly-t1": {
-    name:"萤火虫 T1", en:"Firefly T1", icon:"🪄",
-    firmwares:[
-      {v:"FFYT1_V1.4.0", tag:"new",   date:"2026-08-20", note:"最新 · 支持老设备在线升级", file:"fireflyt1-v1.4.0.bin"},
-      {v:"FFYT1_V1.3.2", tag:"his",   date:"2026-06-11", note:"稳定版 · 修复休眠偶发问题", file:"fireflyt1-v1.3.2.bin"},
-      {v:"FFYT1_V1.2.0", tag:"his",   date:"2026-03-02", note:"增加拾音灯应用", file:"fireflyt1-v1.2.0.bin"}
-    ],
-    apps:[
-      {id:"color-wheel",  name:"色相环", en:"Hue",  icon:"🎨", desc:"调节色相 / 饱和度 / 亮度", ver:"1.2.0"},
-      {id:"light-painter",name:"光绘棒", en:"Glow", icon:"✨", desc:"专业光绘摄影，BMP 逐行播放", ver:"2.1.0"},
-      {id:"palette",      name:"调色盘", en:"Tone", icon:"🎯", desc:"从色板选色，多种光效模式", ver:"1.1.0"},
-      {id:"soundlight",   name:"拾音灯", en:"Beat", icon:"🎵", desc:"随环境声音律动", ver:"1.0.0"},
-      {id:"wifi-send",    name:"热点通", en:"WiFi", icon:"📡", desc:"WiFi 网页上传管理图片", ver:"1.0.0"}
-    ]
-  },
-  "beetle-s1": {
-    name:"独角仙 S1", en:"Beetle S1", icon:"🪲",
-    firmwares:[
-      {v:"OSS1_V1.3.0", tag:"new", date:"2026-08-01", note:"最新 · 优化电源管理功耗", file:"beetle-s1-v1.3.0.bin"},
-      {v:"OSS1_V1.2.1", tag:"his", date:"2026-05-18", note:"稳定版 · 修复 ADC 电量读数", file:"beetle-s1-v1.2.1.bin"}
-    ],
-    apps:[
-      {id:"color-wheel",  name:"色相环", en:"Hue",  icon:"🎨", desc:"调节色相 / 饱和度 / 亮度", ver:"1.2.0"},
-      {id:"light-painter",name:"光绘棒", en:"Glow", icon:"✨", desc:"专业光绘摄影，BMP 逐行播放", ver:"2.1.0"},
-      {id:"palette",      name:"调色盘", en:"Tone", icon:"🎯", desc:"从色板选色，多种光效模式", ver:"1.1.0"},
-      {id:"wifi-send",    name:"热点通", en:"WiFi", icon:"📡", desc:"WiFi 网页上传管理图片", ver:"1.0.0"}
-    ]
+const FW_SOURCE = { owner:'socolode', repo:'tools', branch:'main', path:'firmware' };
+const FW_BASE = `https://cdn.jsdelivr.net/gh/${FW_SOURCE.owner}/${FW_SOURCE.repo}@${FW_SOURCE.branch}/${FW_SOURCE.path}`;
+const FW_RAW_BASE = `https://raw.githubusercontent.com/${FW_SOURCE.owner}/${FW_SOURCE.repo}/${FW_SOURCE.branch}/${FW_SOURCE.path}`;
+const APPS_BASE = `https://cdn.jsdelivr.net/gh/${FW_SOURCE.owner}/${FW_SOURCE.repo}@${FW_SOURCE.branch}/apps`;
+const APPS_RAW_BASE = `https://raw.githubusercontent.com/${FW_SOURCE.owner}/${FW_SOURCE.repo}/${FW_SOURCE.branch}/apps`;
+
+const DEV = {
+  "firefly-t1": { name:"萤火虫 T1", en:"Firefly T1", icon:"🪄" },
+  "beetle-s1":  { name:"独角仙 S1", en:"Beetle S1", icon:"🪲" }
+};
+
+let curDev=null, connected=false, isFlashing=false, selFw=null;
+let fwManifest=null, appsManifest=null, curApp=null;
+let port=null, transport=null, loader=null;
+
+/* ---------- 通用 ---------- */
+function verNum(v){
+  const m=String(v||'').match(/(\d+)\.(\d+)\.(\d+)/);
+  return m?(+m[1])*10000+(+m[2])*100+(+m[3]):0;
+}
+async function fetchWithFallback(urls){
+  let lastErr;
+  for(const u of urls){
+    try{
+      const r=await fetch(u);
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return await r.arrayBuffer();
+    }catch(e){ lastErr=e; }
   }
-};
-
-/* ---------- 演示用：设备端已安装应用（用于"连接并同步"之后） ---------- */
-/* 每个设备演示一种典型场景：有最新、可升级、未安装 */
-const DEVICESTATE = {
-  "firefly-t1":[
-    {id:"light-painter", installed:"1.8.0"},   // 可升级到 2.1.0
-    {id:"color-wheel",   installed:"1.2.0"},   // 已最新
-    {id:"palette",       installed:"1.0.0"}    // 可升级到 1.1.0
-    // soundlight / wifi-send 未安装
-  ],
-  "beetle-s1":[
-    {id:"color-wheel", installed:"1.2.0"},     // 已最新
-    {id:"light-painter", installed:"2.1.0"}    // 已最新
-    // palette / wifi-send 未安装
-  ]
-};
-
-let curDev=null, synced=false, connected=false, selFw=null;
-let instApps=[], missApps=[], selSeg='inst';
+  throw lastErr;
+}
+function toast(msg,type){ const t=document.getElementById('toast'); t.textContent=msg; t.className='toast show'+(type?' '+type:''); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2600); }
+let toastTimer;
 
 /* ---------- 视图切换 ---------- */
-function pickDevice(dev, el){
+function enterDevice(dev, el){
   document.querySelectorAll('.dev-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   curDev=dev;
-  document.getElementById('btnInto').disabled=false;
-  // 预填工作台设备信息
-  const d=LIB[dev];
+  const d=DEV[dev];
   document.getElementById('wsIcon').textContent=d.icon;
   document.getElementById('wsName').textContent=d.name;
   document.getElementById('wsSub').textContent=d.en;
   resetWorkspace();
-}
-function intoWorkspace(){
-  if(!curDev) return;
   document.getElementById('viewSelect').classList.remove('active');
   document.getElementById('viewWork').classList.add('active');
   loadFirmware();
-  renderAppPlaceholder();
-  toast('已选择 '+LIB[curDev].name+'，进入工作台','ok');
+  loadApps();
+  toast('已选择 '+d.name+'，进入工作台','ok');
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function resetWorkspace(){
-  connected=false; synced=false; selFw=null; selSeg='inst';
+  disconnectSerial();
+  connected=false; isFlashing=false; selFw=null;
   setConnState(false);
   document.getElementById('fwCurVer').textContent='—';
-  document.getElementById('fwCurState').innerHTML='未连接设备<br><b>连接后可读取当前版本</b>';
+  document.getElementById('fwCurState').innerHTML='未连接设备<br><b>连接后可开始升级</b>';
   document.getElementById('btnFwGo').disabled=true;
-  document.getElementById('instList').innerHTML='';
-  document.getElementById('missList').innerHTML='';
-  setCnts(0,0);
-  setSyncState('示例数据 · 尚未同步');
-  setSeg('inst');
-  try{loadFirmware();}catch(e){}
+  document.getElementById('fwList').innerHTML='';
+  document.getElementById('fwCount').textContent='';
+  document.getElementById('appList').innerHTML='';
+  document.getElementById('progressWrap').classList.remove('show');
+  document.getElementById('logArea').classList.remove('show');
+  switchTab('fw');
 }
-
-/* ---------- 连接 ---------- */
-function toggleConnect(){
-  if(connected){ setConnState(false); toast('已断开设备',''); return; }
-  // 演示：点击即进入"连接中"
-  setConnState('scan');
-  setTimeout(()=>{
-    connected=true;
-    document.getElementById('fwCurVer').textContent = curDev==='firefly-t1'?'FFYT1_V1.2.0':'OSS1_V1.1.0';
-    document.getElementById('fwCurState').innerHTML='设备版本已读取<br><b style="color:#ffa502;">FFYT1_V1.2.0 → 可升级至最新</b>'.replace('FFYT1_V1.2.0', curDev==='firefly-t1'?'FFYT1_V1.2.0':'OSS1_V1.1.0');
-    setConnState(true);
-    toast('设备连接成功','ok');
-  }, 900);
-}
-function setConnState(s){
-  const b=document.getElementById('devBadge'), c=document.getElementById('btnConn');
-  if(s===true){ b.className='badge on'; b.textContent='🟢 已连接'; c.textContent='🔌 断开'; c.classList.add('on'); }
-  else if(s==='scan'){ b.className='badge scan'; b.textContent='⏳ 连接中…'; c.textContent='⏳ 检测中…'; c.classList.add('scanning'); }
-  else { b.className='badge off'; b.textContent='⚪ 未连接'; c.textContent='🔗 连接设备'; c.classList.remove('on','scanning'); }
-}
-
-/* ---------- 设备端同步（演示） ---------- */
-function syncDevice(){
-  if(connected && synced){ toast('已同步最新状态',''); return; }
-  if(!connected){
-    setConnState('scan');
-    setTimeout(()=>{ connected=true; setConnState(true); doSync(); },900);
-    return;
-  }
-  doSync();
-}
-function doSync(){
-  const btn=document.getElementById('btnSync');
-  btn.innerHTML='⏳ 同步中…'; btn.disabled=true; setConnState('scan');
-  setSyncState('正在读取设备应用列表…');
-  setTimeout(()=>{
-    connected=true; setConnState(true);
-    btn.innerHTML='↻ 重新同步'; btn.disabled=false;
-    synced=true;
-    const state=DEVICESTATE[curDev];
-    const apps=LIB[curDev].apps;
-    instApps = state.map(s=>{
-      const m=apps.find(a=>a.id===s.id);
-      const latest=m.ver;
-      return {id:m.id,name:m.name,en:m.en,icon:m.icon,desc:m.desc,latest,installed:s.installed,needUp:m.ver!==s.installed};
-    });
-    missApps = apps.filter(a=>!state.some(s=>s.id===a.id));
-    renderApps();
-    setCnts(instApps.length, missApps.length);
-    setSyncState('已同步 · 共 '+apps.length+' 款应用');
-    toast('应用列表已同步','ok');
-  },1200);
-}
-function setSyncState(t){ document.getElementById('syncState').textContent=t; }
-function setCnts(i,m){ document.getElementById('cntInst').textContent=i; document.getElementById('cntMiss').textContent=m; }
-
-function renderApps(){
-  const instEl=document.getElementById('instList'), missEl=document.getElementById('missList');
-  instEl.innerHTML = instApps.length? instApps.map(a=>appRow(a,true)).join('') : emptyRow('该设备暂无已安装应用');
-  missEl.innerHTML = missApps.length? missApps.map(a=>appRow(a,false)).join('') : emptyRow('所有应用均已安装 🎉');
-  document.querySelectorAll('#instList select').forEach(s=>s.onchange=e=>toast('已选择 '+s.dataset.name+' 版本 '+e.target.value,''));
-  document.querySelectorAll('#missList select').forEach(s=>s.onchange=e=>toast('已选择 '+s.dataset.name+' 版本 '+e.target.value,''));
-  document.querySelectorAll('[data-act]').forEach(b=>b.onclick=e=>{
-    const act=e.target.dataset.act, name=e.target.dataset.name;
-    if(act==='update') toast('开始升级 '+name+' …（烧录逻辑后续接入）','');
-    if(act==='install') toast('开始安装 '+name+' …（安装逻辑后续接入）','');
-  });
-}
-function appRow(a,inst){
-  const s=a.needUp?
-      '<span class="st-tag st-update">可升级</span>':
-      '<span class="st-tag st-current">已最新</span>';
-  const r=inst
-    ? `<div class="r">
-         <div class="cur"><div class="lbl">当前</div><b>${a.installed}</b></div>
-         <select data-name="${a.name}">${vers(a.latest, a.installed, a.needUp)}</select>
-         ${a.needUp?'<button class="btn btn-sm btn-success" data-act="update" data-name="'+a.name+'">升级</button>':''}
-      </div>`
-    : `<div class="r">
-         <div class="cur"><div class="lbl">最新</div><b>${a.latest}</b></div>
-         <button class="btn btn-sm btn-success" data-act="install" data-name="${a.name}">安装</button>
-      </div>`;
-  return `<div class="app-row ${a.needUp&&inst?'updateable':''}">
-      <div class="ai">${a.icon}</div>
-      <div>
-        <div class="an">${a.name}<small>${a.en} · ${a.id}</small></div>
-        <div class="adesc">${a.desc}</div>
-      </div>
-      ${inst? s: '<span class="st-tag st-miss">未安装</span>'}
-      ${r}
-    </div>`;
-}
-function vers(latest, installed, needUp){
-  // 已安装应用的可选版本：可升级时置顶"最新"选项，下面为"当前"
-  const opts = [];
-  if(needUp) opts.push({value:latest, text:latest+'（升级到最新）', sel:true});
-  opts.push({value:installed, text:installed+'（当前）', sel:!needUp});
-  return opts.map(o=>`<option value="${o.value}" ${o.sel?'selected':''}>${o.text}</option>`).join('');
-}
-function emptyRow(t){ return `<div class="app-empty">${t}</div>`; }
-
-/* ---------- 应用占位（未同步前） ---------- */
-function renderAppPlaceholder(){
-  const apps=LIB[curDev].apps;
-  document.getElementById('instList').innerHTML='';
-  document.getElementById('missList').innerHTML='';
-  setCnts(0,0);
-  setSyncState('示例数据 · 尚未同步');
-  // 显示可管理应用总数提示
-  document.getElementById('secInst').querySelector('.app-empty')||null;
-}
-
-/* ---------- 固件 ---------- */
-function loadFirmware(){
-  const d=LIB[curDev], el=document.getElementById('fwList');
-  document.getElementById('fwCount').textContent='（'+d.firmwares.length+'）';
-  el.innerHTML=d.firmwares.map((f,i)=>{
-    const tag=f.tag==='new'?'<span class="tag new">最新</span>':'<span class="tag his">历史</span>';
-    return `<div class="item ${i===0?'sel':''}" data-v="${f.v}" onclick="pickFw(this,'${f.v}')">
-      <div class="radio"></div><div><div class="v">${f.v}</div><div class="meta">${f.date} · ${f.note}</div></div>${tag}
-    </div>`;
-  }).join('');
-  if(d.firmwares.length){ selFw=d.firmwares[0].v; document.getElementById('btnFwGo').disabled=false; }
-}
-function pickFw(el,v){ el.parentNode.querySelectorAll('.item').forEach(x=>x.classList.remove('sel')); el.classList.add('sel'); selFw=v; toast('已选择固件 '+v,''); }
-function startUpgrade(){ if(!connected){ toast('请先连接设备','err'); return; } if(!selFw){toast('请先选择固件版本','err');return;} toast('开始升级 '+selFw+' …（烧录逻辑后续接入）',''); }
-
-/* ---------- 页签 / 分组 ---------- */
 function switchTab(t){
   document.getElementById('tabFw').classList.toggle('active',t==='fw');
   document.getElementById('tabApp').classList.toggle('active',t==='app');
   document.getElementById('panelFw').classList.toggle('active',t==='fw');
   document.getElementById('panelApp').classList.toggle('active',t==='app');
 }
-function switchSeg(s){
-  selSeg=s;
-  document.getElementById('segInst').classList.toggle('active',s==='inst');
-  document.getElementById('segMissing').classList.toggle('active',s==='missing');
-  document.getElementById('secInst').classList.toggle('active',s==='inst');
-  document.getElementById('secMissing').classList.toggle('active',s==='missing');
-}
-function setSeg(s){ switchSeg(s); }
 
-/* ---------- toast ---------- */
-let toastTimer;
-function toast(msg,type){ const t=document.getElementById('toast'); t.textContent=msg; t.className='toast show'+(type?' '+type:''); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2200); }
+/* ---------- 串口连接（固件烧录用） ---------- */
+function setConnState(s){
+  const b=document.getElementById('devBadge'), c=document.getElementById('btnConn');
+  if(s===true){ b.className='badge on'; b.textContent='🟢 已连接'; c.textContent='🔌 断开'; c.classList.add('on'); }
+  else if(s==='scan'){ b.className='badge scan'; b.textContent='⏳ 连接中…'; c.textContent='⏳ 检测中…'; c.classList.add('scanning'); }
+  else { b.className='badge off'; b.textContent='⚪ 未连接'; c.textContent='🔗 连接设备'; c.classList.remove('on','scanning'); }
+}
+function log(msg,type){
+  const el=document.getElementById('logArea');
+  el.classList.add('show');
+  const div=document.createElement('div');
+  div.className='line '+(type||'info');
+  div.textContent='> '+msg;
+  el.appendChild(div);
+  el.scrollTop=el.scrollHeight;
+}
+function clearLog(){ document.getElementById('logArea').innerHTML=''; document.getElementById('logArea').classList.remove('show'); }
+function setProgress(pct,speed){
+  const p=Math.min(100,Math.max(0,pct));
+  document.getElementById('progressFill').style.width=p+'%';
+  document.getElementById('progressPercent').textContent=Math.round(p)+'%';
+  document.getElementById('progressSpeed').textContent=speed||'';
+}
+async function disconnectSerial(){
+  if(transport){ try{ await transport.disconnect(); }catch(e){} }
+  if(port){ try{ await port.close(); }catch(e){} }
+  port=null; transport=null; loader=null;
+}
+async function toggleConnect(){
+  if(connected){ await disconnectSerial(); connected=false; setConnState(false); toast('已断开设备',''); return; }
+  setConnState('scan');
+  try{
+    port = await navigator.serial.requestPort();
+    transport = new Transport(port, true);
+    loader = new ESPLoader({
+      transport, baudrate:115200,
+      terminal:{ clean:()=>{}, writeLine:(d)=>log(d,'info'), write:()=>{} },
+      debugLogging:false
+    });
+    log('串口已打开，正在检测芯片…','info');
+    const chipName = await loader.main();
+    log('✅ 检测到芯片: '+chipName,'success');
+    if(!chipName.toLowerCase().includes('esp32')) log('⚠️ 请确认设备处于下载模式（按住 BOOT 键连接）','warn');
+    connected=true;
+    setConnState(true);
+    document.getElementById('fwCurState').innerHTML='设备已连接<br><b>选择固件后点击「开始升级」</b>';
+    log('✅ 设备连接成功！请选择固件版本后点击「开始升级所选固件」','success');
+    toast('设备连接成功','ok');
+  }catch(err){
+    if(err.name==='NotFoundError') log('❌ 未选择设备，请重试','error');
+    else if(err.name==='SecurityError'||(err.message||'').includes('security')) log('❌ 浏览器未授权串口访问','error');
+    else log('❌ 连接失败: '+(err.message||err),'error');
+    setConnState(false);
+    await disconnectSerial();
+  }
+}
+
+/* ---------- 固件 ---------- */
+async function loadFirmware(){
+  const el=document.getElementById('fwList');
+  document.getElementById('fwCount').textContent='';
+  el.innerHTML='<div class="fw-empty">正在加载固件列表…</div>';
+  try{
+    if(!fwManifest){
+      const buf=await fetchWithFallback([`${FW_BASE}/manifest.json`,`${FW_RAW_BASE}/manifest.json`]);
+      fwManifest=JSON.parse(new TextDecoder().decode(buf));
+    }
+    const models=(fwManifest.models||[]).filter(m=>!m.device||m.device===curDev)
+      .sort((a,b)=>verNum(b.version)-verNum(a.version));
+    if(!models.length){
+      el.innerHTML='<div class="fw-empty">该设备暂无可用固件<br><small style="display:block;margin-top:6px;">固件发布后会自动出现在这里</small></div>';
+      document.getElementById('btnFwGo').disabled=true;
+      return;
+    }
+    document.getElementById('fwCount').textContent='（'+models.length+'）';
+    el.innerHTML=models.map((m,i)=>{
+      const tag=i===0?'<span class="tag new">最新</span>':'<span class="tag his">历史</span>';
+      const note=(m.notes&&m.notes.zh)||m.notes?.en||'';
+      const size=m.size?(m.size/1024/1024).toFixed(1)+' MB':'';
+      return `<div class="item ${i===0?'sel':''}" data-id="${m.id}" onclick="pickFw(this,'${m.id}')">
+        <div class="radio"></div>
+        <div><div class="v">${m.version||m.id}</div><div class="meta">${note}${size?' · '+size:''}</div></div>
+        ${tag}
+      </div>`;
+    }).join('');
+    selFw=models[0].id;
+    document.getElementById('btnFwGo').disabled=false;
+  }catch(e){
+    el.innerHTML='<div class="fw-empty">固件列表加载失败<br><small style="display:block;margin-top:6px;">'+((e.message||e).replace(/</g,'&lt;'))+'</small></div>';
+    document.getElementById('btnFwGo').disabled=true;
+  }
+}
+window.pickFw=function(el,id){
+  el.parentNode.querySelectorAll('.item').forEach(x=>x.classList.remove('sel'));
+  el.classList.add('sel');
+  selFw=id;
+  toast('已选择固件 '+id,'');
+};
+window.startFlash=async function(){
+  if(!connected){ toast('请先连接设备（需进入下载模式）','err'); return; }
+  if(!selFw){ toast('请先选择固件版本','err'); return; }
+  if(isFlashing) return;
+  const models=(fwManifest.models||[]).filter(m=>!m.device||m.device===curDev);
+  const m=models.find(x=>x.id===selFw);
+  if(!m){ toast('固件信息缺失，请刷新列表','err'); return; }
+
+  isFlashing=true;
+  document.getElementById('btnFwGo').disabled=true;
+  clearLog();
+  document.getElementById('progressWrap').classList.add('show');
+  setProgress(0);
+
+  // 从 GitHub 下载固件
+  log('⬇️ 正在从 GitHub 下载固件: '+m.file,'info');
+  let firmwareData;
+  try{
+    const buf=await fetchWithFallback([`${FW_BASE}/${m.file}`,`${FW_RAW_BASE}/${m.file}`]);
+    firmwareData=new Uint8Array(buf);
+    log('✅ 固件下载完成: '+m.file+' ('+(firmwareData.length/1024/1024).toFixed(1)+' MB)','success');
+  }catch(e){
+    log('❌ 固件下载失败: '+(e.message||e),'error');
+    isFlashing=false; document.getElementById('btnFwGo').disabled=false;
+    return;
+  }
+
+  log('🚀 开始烧录固件…','info');
+  try{
+    await loader.writeFlash({
+      fileArray:[{ data:firmwareData, address:parseInt(m.flashOffset||'0x0',16) }],
+      flashMode:m.flashMode||'qio', flashFreq:m.flashFreq||'80m', flashSize:m.flashSize||'8MB',
+      eraseAll:true, compress:true,
+      reportProgress:(fi,written,total)=>{
+        setProgress(written/total*100, (written/1024).toFixed(0)+' KB / '+(total/1024).toFixed(0)+' KB');
+      },
+      calculateMD5Hash:()=>''
+    });
+    setProgress(100,'完成');
+    log('✅ 固件写入完成！','success');
+    log('正在重启设备…','info');
+    await loader.after('hard_reset');
+    log('🎉 固件更新成功！请断开 USB 后重新上电','success');
+    toast('固件更新成功！','ok');
+  }catch(err){
+    log('❌ 烧录失败: '+(err.message||err),'error');
+    setProgress(0);
+  }finally{
+    isFlashing=false;
+    document.getElementById('btnFwGo').disabled=false;
+  }
+};
+
+/* ---------- 应用 ---------- */
+async function loadApps(){
+  const el=document.getElementById('appList');
+  el.innerHTML='<div class="app-empty">正在加载应用列表…</div>';
+  try{
+    if(!appsManifest){
+      const buf=await fetchWithFallback([`${APPS_BASE}/manifest.json`,`${APPS_RAW_BASE}/manifest.json`]);
+      appsManifest=JSON.parse(new TextDecoder().decode(buf));
+    }
+    const dev=appsManifest.devices[curDev];
+    const apps=(dev&&dev.apps)||[];
+    if(!apps.length){
+      el.innerHTML='<div class="app-empty">该设备暂无可用应用</div>';
+      return;
+    }
+    el.innerHTML=apps.map(a=>`
+      <div class="app-card" onclick="openApp('${a.id}')">
+        <div class="ai">${a.icon}</div>
+        <div class="an">${a.name.zh}<small>${a.name.en}</small></div>
+        <div class="adesc">${a.desc}</div>
+        <div class="ameta">v${a.version} · ${(a.size/1024).toFixed(0)} KB</div>
+      </div>`).join('');
+  }catch(e){
+    el.innerHTML='<div class="app-empty">应用列表加载失败<br><small style="display:block;margin-top:6px;">'+((e.message||e).replace(/</g,'&lt;'))+'</small></div>';
+  }
+}
+window.openApp=function(id){
+  const dev=appsManifest.devices[curDev];
+  const a=(dev.apps||[]).find(x=>x.id===id);
+  if(!a) return;
+  curApp=a;
+  const shots=(a.screenshots||[]).map(s=>
+    `<div class="shot"><img src="${APPS_BASE}/${s.src}" alt="${s.label}" loading="lazy" onerror="this.parentNode.style.display='none'"><div class="cap">${s.label}</div></div>`
+  ).join('');
+  const feats=(a.features||[]).map(f=>`<li>${f}</li>`).join('');
+  const usage=(a.usage||[]).map(u=>`<li>${u}</li>`).join('');
+  document.getElementById('detailCard').innerHTML=`
+    <div class="detail-head">
+      <button class="btn btn-ghost btn-sm" onclick="backToList()">← 返回应用列表</button>
+    </div>
+    <div class="detail-hero">
+      <div class="dh-icon">${a.icon}</div>
+      <div>
+        <div class="dh-name">${a.name.zh}<small>${a.name.en} · v${a.version}</small></div>
+        <div class="dh-desc">${a.desc}</div>
+        <span class="dh-tag">需固件 v${a.minFw||'1.4.0'} 及以上</span>
+      </div>
+    </div>
+    ${shots?`<div class="dh-screens">${shots}</div>`:''}
+    <div class="dh-sec">
+      <div class="dh-sec-title">✨ 功能特点</div>
+      <ul class="dh-list">${feats}</ul>
+    </div>
+    <div class="dh-sec">
+      <div class="dh-sec-title">🎮 使用方法</div>
+      <ol class="dh-steps">${usage}</ol>
+    </div>
+    <div class="dh-dl">
+      <button class="btn btn-success btn-block" id="btnDl" onclick="downloadApp('${a.id}')">⬇️ 下载应用包</button>
+      <div class="dh-dl-hint">ZIP 压缩包 · 约 ${(a.size/1024).toFixed(0)} KB<br>下载后解压，将 apps 文件夹复制到设备 U 盘根目录</div>
+    </div>`;
+  document.getElementById('viewWork').classList.remove('active');
+  document.getElementById('viewDetail').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+};
+window.backToList=function(){
+  document.getElementById('viewDetail').classList.remove('active');
+  document.getElementById('viewWork').classList.add('active');
+  curApp=null;
+};
+window.downloadApp=async function(id){
+  const dev=appsManifest.devices[curDev];
+  const a=(dev.apps||[]).find(x=>x.id===id);
+  if(!a) return;
+  const btn=document.getElementById('btnDl');
+  btn.disabled=true; btn.innerHTML='⏳ 下载中…';
+  try{
+    const buf=await fetchWithFallback([`${APPS_BASE}/${a.zip}`,`${APPS_RAW_BASE}/${a.zip}`]);
+    const blob=new Blob([buf],{type:'application/zip'});
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement('a');
+    link.href=url;
+    link.download=a.zip.split('/').pop();
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),5000);
+    toast('已开始下载 '+a.name.zh,'ok');
+  }catch(e){
+    toast('下载失败：'+(e.message||e),'err');
+  }
+  btn.disabled=false; btn.innerHTML='⬇️ 下载应用包';
+};
+
+window.addEventListener('beforeunload', async ()=>{ await disconnectSerial(); });
 </script>
 </body>
 </html>

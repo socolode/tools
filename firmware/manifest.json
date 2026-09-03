@@ -4,6 +4,7 @@
   "models": [
     {
       "id": "fireflyt1",
+      "device": "firefly-t1",
       "name": { "en": "Firefly T1", "zh": "光绘棒 T1" },
       "version": "v1.1.0",
       "file": "fireflyt1-v1.1.0.bin",
@@ -16,6 +17,7 @@
     },
     {
       "id": "fireflyt1-v120",
+      "device": "firefly-t1",
       "name": { "en": "Firefly T1", "zh": "光绘棒 T1" },
       "version": "v1.2.0",
       "file": "fireflyt1-v1.2.0.bin",
@@ -28,6 +30,7 @@
     },
     {
       "id": "fireflyt1-v130",
+      "device": "firefly-t1",
       "name": { "en": "Firefly T1", "zh": "光绘棒 T1" },
       "version": "v1.3.0",
       "file": "fireflyt1-v1.3.0.bin",
