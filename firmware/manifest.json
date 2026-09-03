@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-08",
+  "updated": "2026-09-04",
   "models": [
     {
       "id": "fireflyt1",
@@ -25,6 +25,18 @@
       "flashFreq": "80m",
       "flashSize": "8MB",
       "notes": { "en": "Simulated newer version (same binary).", "zh": "模拟的更新版本（同一固件）。" }
+    },
+    {
+      "id": "fireflyt1-v130",
+      "name": { "en": "Firefly T1", "zh": "光绘棒 T1" },
+      "version": "v1.3.0",
+      "file": "fireflyt1-v1.3.0.bin",
+      "size": 2092928,
+      "flashOffset": "0x0",
+      "flashMode": "qio",
+      "flashFreq": "80m",
+      "flashSize": "8MB",
+      "notes": { "en": "Real firmware build (Launcher & system layer frozen).", "zh": "真实固件构建（冻结 Launcher 与系统层）。" }
     }
   ]
 }
