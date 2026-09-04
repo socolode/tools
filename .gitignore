@@ -5,5 +5,8 @@ Thumbs.db
 .idea/
 .vscode/
 
+# 本地项目记录（内部，不上传公开仓库）
+PROJECT_NOTES.md
+
 # wrangler / cloudflare local cache
 .wrangler/

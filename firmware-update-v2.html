@@ -47,32 +47,26 @@ body{
 .sec-label{color:var(--text-faint);font-size:.78em;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .sec-label .n{opacity:.65;}
 
-/* device select */
-.dev-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-.dev-card{
-  border:1.5px solid var(--border-soft);border-radius:var(--radius);padding:26px 22px;
-  background:rgba(255,255,255,0.04);cursor:pointer;transition:all .3s;position:relative;overflow:hidden;text-align:center;
-}
-.dev-card:hover{transform:translateY(-3px);background:var(--card-hover);}
-.dev-card:focus-visible,.app-card:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
-.dev-card.sel{border-color:var(--primary);background:rgba(110,89,245,.14);box-shadow:0 0 0 2px rgba(110,89,245,.25),0 12px 30px rgba(110,89,245,.2);}
-.dev-card .dev-icon{font-size:56px;margin-bottom:14px;line-height:1;}
-.dev-card .dev-icon svg{display:block;margin:0 auto;}
-.dev-card .dev-name{font-size:1.25em;font-weight:700;}
-.dev-card .dev-sub{font-size:.78em;color:var(--text-dim);margin-top:6px;line-height:1.6;min-height:2.6em;}
-.dev-card .dev-tag{display:inline-block;margin-top:12px;font-size:.72em;color:#b8a9ff;border:1px solid rgba(110,89,245,.4);padding:3px 12px;border-radius:16px;background:rgba(110,89,245,.12);}
-.dev-card.sel .dev-tag{border-color:var(--primary);color:#b8a9ff;}
-
 /* connection badge */
 .badge{font-size:.72em;padding:5px 12px;border-radius:16px;font-weight:600;letter-spacing:.5px;}
 .badge.off{background:rgba(255,107,107,.15);color:var(--danger);}
 .badge.on{background:rgba(46,213,115,.15);color:var(--success);}
 .badge.scan{background:rgba(255,165,2,.15);color:var(--warn);}
 
-/* workspace back button */
-.wb-top{margin-bottom:16px;}
-.back-btn{background:rgba(255,255,255,.06);border:1px solid var(--border-soft);color:var(--text-dim);padding:8px 16px;border-radius:10px;font-size:.82em;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px;}
-.back-btn:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(110,89,245,.4);}
+.app-card:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
+
+/* device select */
+.dev-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px;}
+.dev-card{position:relative;border:1.5px solid var(--border-soft);border-radius:16px;padding:22px 18px;cursor:pointer;background:rgba(255,255,255,.04);transition:all .25s;text-align:center;}
+.dev-card:hover{transform:translateY(-3px);background:var(--card-hover);border-color:rgba(110,89,245,.5);}
+.dev-card.sel{border-color:var(--primary);background:rgba(110,89,245,.14);box-shadow:0 0 0 2px rgba(110,89,245,.25),0 12px 30px rgba(110,89,245,.2);}
+.dev-card.soon{opacity:.78;}
+.dev-card.soon .dev-tag{border-color:rgba(255,165,2,.4);color:var(--warn);background:rgba(255,165,2,.1);}
+.dev-card .dev-icon{font-size:56px;margin-bottom:12px;line-height:1;}
+.dev-card .dev-name{font-size:1.2em;font-weight:700;}
+.dev-card .dev-sub{font-size:.78em;color:var(--text-dim);margin-top:6px;line-height:1.6;min-height:2.6em;}
+.dev-card .dev-tag{display:inline-block;margin-top:12px;font-size:.72em;color:#b8a9ff;border:1px solid rgba(110,89,245,.4);padding:3px 12px;border-radius:16px;background:rgba(110,89,245,.12);}
+.dev-empty-note{text-align:center;font-size:.8em;color:var(--text-faint);margin-top:14px;line-height:1.7;}
 
 .tabs{display:flex;gap:8px;background:rgba(255,255,255,.05);border:1px solid var(--border-soft);border-radius:14px;padding:5px;margin-bottom:22px;}
 .tab{flex:1;padding:11px;border:none;background:transparent;color:var(--text-dim);font-size:.95em;font-weight:600;border-radius:10px;cursor:pointer;transition:all .25s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;}
@@ -173,46 +167,50 @@ body{
 .log-area .line.warn{color:var(--warn);}
 
 /* panel note (shared by firmware & apps) */
-.panel-note{display:flex;gap:12px;padding:14px 16px;background:rgba(110,89,245,.08);border:1px solid rgba(110,89,245,.22);border-radius:14px;margin-bottom:18px;align-items:flex-start;}
+.panel-note{display:flex;gap:10px;align-items:flex-start;margin-bottom:16px;}
 .panel-note .ic{font-size:1.4em;flex-shrink:0;line-height:1.2;}
 .panel-note .t{font-size:.92em;font-weight:700;}
 .panel-note .d{font-size:.8em;color:var(--text-dim);margin-top:4px;line-height:1.6;}
 .panel-note .d b{color:#b8a9ff;}
-.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.app-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:10px;}
 .app-card{
-  border:1.5px solid var(--border-soft);border-radius:16px;padding:20px 18px;cursor:pointer;
-  background:rgba(255,255,255,.04);transition:all .25s;display:flex;flex-direction:column;align-items:center;text-align:center;
+  border:1px solid var(--border-soft);border-radius:16px;padding:14px 6px 12px;cursor:pointer;
+  background:rgba(255,255,255,.04);transition:all .2s;display:flex;flex-direction:column;align-items:center;text-align:center;gap:9px;
 }
-.app-card:hover{transform:translateY(-3px);background:var(--card-hover);border-color:rgba(110,89,245,.5);}
-.app-card .ai{font-size:42px;margin-bottom:10px;line-height:1;}
-.app-card .an{font-weight:700;font-size:1.05em;}
-.app-card .an small{font-weight:600;color:var(--text-faint);margin-left:6px;font-size:.72em;}
-.app-card .adesc{font-size:.76em;color:var(--text-faint);margin-top:6px;line-height:1.6;}
-.app-card .ameta{margin-top:10px;font-size:.7em;color:#b8a9ff;border:1px solid rgba(110,89,245,.35);padding:3px 12px;border-radius:14px;background:rgba(110,89,245,.12);}
+.app-card:hover{transform:translateY(-2px);background:var(--card-hover);border-color:rgba(110,89,245,.5);}
+.app-card .ai{width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 4px 12px rgba(110,89,245,.28);}
+.app-card .an{font-size:.78em;font-weight:600;color:var(--text);line-height:1.3;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .app-empty{text-align:center;padding:30px;color:var(--text-faint);font-size:.88em;}
 
 /* app detail */
 .detail-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
 .detail-hero{display:flex;align-items:center;gap:16px;padding:20px;background:rgba(110,89,245,.1);border:1px solid rgba(110,89,245,.25);border-radius:16px;margin-bottom:18px;}
-.detail-hero .dh-icon{font-size:52px;line-height:1;}
-.detail-hero .dh-name{font-size:1.4em;font-weight:800;}
+.detail-hero .dh-icon{width:66px;height:66px;border-radius:18px;background:linear-gradient(135deg,var(--primary),var(--primary-2));display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff;box-shadow:0 6px 18px rgba(110,89,245,.32);flex-shrink:0;}
+.detail-hero .dh-info{flex:1;min-width:0;}
+.detail-hero .dh-name{font-size:1.35em;font-weight:800;}
 .detail-hero .dh-name small{font-weight:600;color:var(--text-faint);margin-left:8px;font-size:.6em;}
 .detail-hero .dh-desc{font-size:.85em;color:var(--text-dim);margin-top:6px;line-height:1.6;}
 .detail-hero .dh-tag{display:inline-block;margin-top:10px;font-size:.7em;color:#b8a9ff;border:1px solid rgba(110,89,245,.4);padding:3px 12px;border-radius:14px;background:rgba(110,89,245,.12);}
-.dh-sec{margin-top:20px;}
-.dh-sec-title{font-size:.85em;font-weight:700;color:#b8a9ff;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.detail-hero .btn-dl{flex-shrink:0;align-self:flex-end;white-space:nowrap;}
+/* doc box（白色文档风格） */
+.doc-box{background:#fff;border-radius:18px;padding:26px 30px;color:#2c2c2c;box-shadow:0 24px 60px rgba(0,0,0,.4);}
+.doc-sec{padding:2px 0 22px;}
+.doc-sec+.doc-sec{border-top:1px solid #e8e8f0;padding-top:22px;}
+.doc-title{font-size:.98em;font-weight:700;color:#5b48d0;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.doc-sec p{font-size:.9em;color:#4a4a4a;line-height:1.75;margin:0;}
 .dh-list{list-style:none;}
-.dh-list li{position:relative;padding:6px 0 6px 26px;font-size:.88em;color:var(--text-dim);line-height:1.6;}
-.dh-list li::before{content:"✓";position:absolute;left:0;top:6px;width:18px;height:18px;border-radius:50%;background:rgba(46,213,115,.15);color:var(--success);font-size:.7em;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid rgba(46,213,115,.35);}
+.dh-list li{position:relative;padding:6px 0 6px 26px;font-size:.9em;color:#4a4a4a;line-height:1.6;}
+.dh-list li::before{content:"✓";position:absolute;left:0;top:6px;width:18px;height:18px;border-radius:50%;background:rgba(46,213,115,.15);color:#1fae64;font-size:.7em;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid rgba(46,213,115,.4);}
 .dh-steps{margin:0;padding:0;list-style:none;counter-reset:ds;}
-.dh-steps li{position:relative;padding:6px 0 6px 34px;font-size:.88em;color:var(--text-dim);line-height:1.6;counter-increment:ds;}
-.dh-steps li::before{content:counter(ds);position:absolute;left:0;top:6px;width:22px;height:22px;border-radius:50%;background:rgba(110,89,245,.2);color:#b8a9ff;font-size:.72em;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid rgba(110,89,245,.35);}
-.dh-screens{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;}
-.dh-screens .shot{border:1px solid var(--border-soft);border-radius:14px;overflow:hidden;background:rgba(0,0,0,.25);}
+.dh-steps li{position:relative;padding:6px 0 6px 34px;font-size:.9em;color:#4a4a4a;line-height:1.6;counter-increment:ds;}
+.dh-steps li::before{content:counter(ds);position:absolute;left:0;top:6px;width:22px;height:22px;border-radius:50%;background:#efeafe;color:#5b48d0;font-size:.72em;font-weight:700;display:flex;align-items:center;justify-content:center;border:1px solid #d8cffb;}
+.dh-needs{margin:0;padding:0;list-style:none;}
+.dh-needs li{position:relative;padding:6px 0 6px 26px;font-size:.9em;color:#4a4a4a;line-height:1.6;}
+.dh-needs li::before{content:"①";position:absolute;left:0;top:6px;width:18px;height:18px;border-radius:50%;background:#efeafe;color:#5b48d0;font-size:.7em;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.dh-screens{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.dh-screens .shot{margin:0;border:1px solid #eee;border-radius:12px;overflow:hidden;background:#f7f7fa;}
 .dh-screens .shot img{width:100%;display:block;}
-.dh-screens .shot .cap{font-size:.72em;color:var(--text-faint);text-align:center;padding:8px;}
-.dh-dl{margin-top:24px;padding-top:20px;border-top:1px solid var(--border-soft);}
-.dh-dl-hint{font-size:.76em;color:var(--text-faint);text-align:center;margin-top:10px;line-height:1.6;}
+.dh-screens .shot .cap{font-size:.76em;color:#8a8a95;text-align:center;padding:9px;}
 
 /* help blocks */
 .help{background:rgba(255,255,255,.04);border:1px solid var(--border-soft);border-radius:14px;margin-top:16px;overflow:hidden;}
@@ -245,8 +243,9 @@ body{
 .foot b{color:#8880ff;}
 
 @media(max-width:640px){
-  .dev-grid{grid-template-columns:1fr;}
-  .app-grid{grid-template-columns:1fr;}
+  .app-grid{grid-template-columns:repeat(auto-fill,minmax(76px,1fr));}
+  .detail-hero{flex-direction:column;align-items:flex-start;}
+  .detail-hero .btn-dl{width:100%;align-self:auto;}
   .dh-screens{grid-template-columns:1fr;}
 }
 </style>
@@ -254,8 +253,6 @@ body{
 <body>
 <div class="back">
   <a href="index.html">← 返回 socolode 工具集</a>
-  <span style="margin:0 8px;color:var(--text-faint);">|</span>
-  <a href="firmware-update.html">查看旧版固件工具</a>
 </div>
 
 <div class="wrap">
@@ -270,30 +267,16 @@ body{
   <!-- ===== 视图 1：设备选择 ===== -->
   <div id="viewSelect" class="view active">
     <div class="card">
-      <div class="sec-label">选择设备类型</div>
-      <div class="dev-grid">
-        <div class="dev-card sel" tabindex="0" data-dev="firefly-t1" onclick="enterDevice('firefly-t1',this)">
-          <div class="dev-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="18.2" cy="15.2" r="7" fill="#ffd94d" opacity=".18"/><circle cx="18.2" cy="15.2" r="4.6" fill="#ffd94d" opacity=".45"/><circle cx="18.2" cy="15.2" r="2.4" fill="#ffe98a"/><ellipse cx="8" cy="13.6" rx="3.4" ry="4.9" fill="#3a2f66"/><circle cx="5.2" cy="10.4" r="2.1" fill="#3a2f66"/><path d="M5.4 8.9 L3.8 6.2 M5.4 8.9 L7 6.2" stroke="#3a2f66" stroke-width=".9" stroke-linecap="round"/><path d="M9.2 11.2 C11.8 8.4 14.6 9.2 15.2 11.2 C13.6 12.8 11 12.6 9.2 11.2 Z" fill="#a58bff" opacity=".5"/><path d="M8.6 14.4 C11 11.6 14 12.6 14.6 14.8 C13 16 10.4 15.8 8.6 14.4 Z" fill="#a58bff" opacity=".32"/><circle cx="10.6" cy="10" r=".6" fill="#ffe98a"/></svg></div>
-          <div class="dev-name">萤火虫 T1</div>
-          <div class="dev-sub">Firefly T1 · 光绘 / 彩灯<br>5 款应用可下载</div>
-          <div class="dev-tag">ESP32-S3 · 8MB</div>
-        </div>
-        <div class="dev-card" tabindex="0" data-dev="beetle-s1" onclick="enterDevice('beetle-s1',this)">
-          <div class="dev-icon">🪲</div>
-          <div class="dev-name">独角仙 S1</div>
-          <div class="dev-sub">Beetle S1 · 光绘 / 彩灯<br>4 款应用可下载</div>
-          <div class="dev-tag">ESP32-S3 · 8MB</div>
-        </div>
-      </div>
-      <div class="sel-note">👆 点击上方设备卡片进入工作台，提供<strong>固件升级</strong>与<strong>应用管理</strong>两类操作</div>
+      <div class="sec-label">01 · 选择设备类型</div>
+      <div class="dev-grid" id="devGrid"></div>
+      <div class="dev-empty-note">选择设备后即可进行<b style="color:#b8a9ff;">固件升级</b>与<b style="color:#b8a9ff;">应用管理</b></div>
     </div>
   </div>
 
-  <!-- ===== 视图 2：工作台 ===== -->
+  <!-- ===== 工作台 ===== -->
   <div id="viewWork" class="view">
-    <!-- 返回 -->
-    <div class="wb-top">
-      <button class="back-btn" onclick="backToSelect()">← 返回设备选择</button>
+    <div style="text-align:left;margin-bottom:12px;">
+      <button class="btn btn-ghost btn-sm" onclick="backToSelect()">← 返回</button>
     </div>
     <!-- 页签 -->
     <div class="tabs">
@@ -304,7 +287,6 @@ body{
     <!-- ===== 固件升级面板 ===== -->
     <div class="view" id="panelFw">
       <div class="panel-note">
-        <div class="ic">⚙️</div>
         <div>
           <div class="t">固件升级</div>
           <div class="d">按顺序完成下方 4 步即可烧录固件，全程通过浏览器直连设备，无需安装软件。</div>
@@ -391,66 +373,35 @@ body{
       <details class="help" open="">
         <summary>⚠️ 注意事项 <span class="arrow">▾</span></summary>
         <div class="help-body">
-          <div class="help-callout warn"><span class="ic">⚠️</span><span><b>升级过程中设备会重启</b>，请<span class="hl">避免中途断线 / 断电 / 关闭标签页</span>，否则可能损坏固件。</span></div>
-          <div class="help-callout ok"><span class="ic">✅</span><span><b>升级固件不会删除你的应用和数据</b>（应用在 SD 卡上），但为确保兼容，升级后建议到「应用下载」重新下载需要的应用。</span></div>
+          <div class="help-callout ok"><span class="ic">✅</span><span><b>升级固件不会删除你的应用和数据</b>。如果升级后某个应用无法正常使用，可以到「应用下载」查看版本，下载相应版本的应用替换即可。</span></div>
         </div>
       </details>
     </div>
 
     <!-- ===== 应用管理面板 ===== -->
     <div class="view active" id="panelApp">
-      <div class="card">
-        <div class="panel-note">
-          <div class="ic">📦</div>
-          <div>
-            <div class="t">应用下载</div>
-            <div class="d">点击下方应用卡片查看详情与下载应用包。下载后解压，将 <b>apps</b> 文件夹整体复制到设备 U 盘的根目录即可。</div>
-          </div>
+      <div class="panel-note">
+        <div>
+          <div class="t">应用下载</div>
+          <div class="d">点击下方应用卡片查看详情与下载应用包。</div>
         </div>
+      </div>
+      <div class="card">
         <div class="app-grid" id="appList">
-      <div class="app-card" tabindex="0" onclick="openApp('light-painter')">
-        <div class="ai">✨</div>
-        <div class="an">光绘棒<small>Glow</small></div>
-        <div class="adesc">专业光绘摄影应用，支持 BMP 图片逐行播放，长曝光拍摄绚丽光绘。</div>
-        <div class="ameta">v1.0.0 · 225 KB</div>
-      </div>
-      <div class="app-card" tabindex="0" onclick="openApp('color-wheel')">
-        <div class="ai">🎨</div>
-        <div class="an">色相环<small>Hue</small></div>
-        <div class="adesc">通过色相 / 饱和度 / 亮度三参数，精确控制 WS2812 灯棒颜色。</div>
-        <div class="ameta">v1.0.0 · 371 KB</div>
-      </div>
-      <div class="app-card" tabindex="0" onclick="openApp('palette')">
-        <div class="ai">🎯</div>
-        <div class="an">调色盘<small>Tone</small></div>
-        <div class="adesc">从内置色板快速选色，支持多种光效模式与自动轮播。</div>
-        <div class="ameta">v1.0.0 · 156 KB</div>
-      </div>
-      <div class="app-card" tabindex="0" onclick="openApp('soundlight')">
-        <div class="ai">🎵</div>
-        <div class="an">拾音灯<small>Beat</small></div>
-        <div class="adesc">根据环境声音控制灯棒亮度与模式，随音乐律动。</div>
-        <div class="ameta">v1.0.0 · 171 KB</div>
-      </div>
-      <div class="app-card" tabindex="0" onclick="openApp('wifi-send')">
-        <div class="ai">📡</div>
-        <div class="an">热点通<small>WiFi</small></div>
-        <div class="adesc">设备开启 WiFi 热点，通过手机 / 电脑浏览器上传与管理图片文件。</div>
-        <div class="ameta">v1.0.0 · 692 KB</div>
-      </div></div>
+        </div>
 
-        <details class="help">
+        <details class="help" open>
           <summary>🤔 应用如何安装到设备 <span class="arrow">▾</span></summary>
           <div class="help-body">
             <div style="margin-bottom:2px;"><b>安装步骤：</b></div>
             <ol class="help-steps">
               <li><b>下载应用包</b><small>点击应用卡片进入详情页，点击「下载应用包」得到 ZIP 压缩包。</small></li>
-              <li><b>解压压缩包</b><small>解压后得到一个 <b>apps</b> 文件夹，里面是各应用的子文件夹。</small></li>
-              <li><b>复制到设备 U 盘</b><small>用 USB 数据线连接设备（U 盘模式），把 <b>apps</b> 文件夹整体复制到 U 盘根目录，覆盖即可。</small></li>
+              <li><b>解压压缩包</b><small>解压后得到的是<b>这个应用</b>的文件夹。</small></li>
+              <li><b>放入设备的 apps 文件夹</b><small>用 USB 数据线连接设备（U 盘模式），把刚解压得到的文件夹放进 U 盘里的 <b>apps</b> 文件夹中即可。</small></li>
               <li><b>重启设备</b><small>安全弹出 U 盘，重启设备后在主页即可看到新应用。</small></li>
             </ol>
             <div class="help-callout info"><span class="ic">💡</span><span><b>说明：</b>应用安装 / 升级<b>不影响固件</b>，也不会影响其它应用的数据（每个应用的数据独立存放）。</span></div>
-            <div class="help-callout warn"><span class="ic">⚠️</span><span><b>提示：</b>请勿删除 <b>apps</b> 文件夹中其它应用的子文件夹，否则对应应用会从设备消失。</span></div>
+            <div class="help-callout warn"><span class="ic">⚠️</span><span><b>提示：</b>请勿随意删除 <b>apps</b> 文件夹里的内容，以免应用丢失。</span></div>
           </div>
         </details>
       </div>
@@ -462,10 +413,10 @@ body{
     <div class="card" id="detailCard"></div>
   </div>
 
-  <div class="foot">固件与应用列表均从 GitHub 实时拉取 · 固件通过浏览器串口直连烧录<br>不支持 iOS 设备，请使用电脑 Chrome / Edge 浏览器操作</div>
+  <div class="foot">不支持 iOS 设备，请使用电脑 Chrome / Edge 浏览器操作</div>
 </div>
 
-<div class="toast ok" id="toast">已选择 萤火虫 T1，进入工作台</div>
+<div class="toast ok" id="toast">操作已生效</div>
 
 <script type="importmap">
 {
@@ -480,25 +431,71 @@ import { ESPLoader, Transport } from 'esptool-js';
 
 /* =========================================================================
    socolode 设备工具（正式版）
-   - 固件：Web Serial + esptool-js 直连烧录（逻辑与 firmware-update.html 一致）
-   - 应用：从 GitHub 拉取应用清单，下载 ZIP 到本地，由用户手动放入 U 盘
+   - 固件：Web Serial + esptool-js 直连烧录
+   - 应用：从 GitHub 产物仓库 corelight-releases 拉取 catalog.json
+     （单仓库文件方式：firmware/ 按版本、apps/ 按应用 zip，catalog 为索引）
    ========================================================================= */
 
-const FW_SOURCE = { owner:'socolode', repo:'tools', branch:'main', path:'firmware' };
-const FW_BASE = `https://cdn.jsdelivr.net/gh/${FW_SOURCE.owner}/${FW_SOURCE.repo}@${FW_SOURCE.branch}/${FW_SOURCE.path}`;
-const FW_RAW_BASE = `https://raw.githubusercontent.com/${FW_SOURCE.owner}/${FW_SOURCE.repo}/${FW_SOURCE.branch}/${FW_SOURCE.path}`;
-const APPS_BASE = `https://cdn.jsdelivr.net/gh/${FW_SOURCE.owner}/${FW_SOURCE.repo}@${FW_SOURCE.branch}/apps`;
-const APPS_RAW_BASE = `https://raw.githubusercontent.com/${FW_SOURCE.owner}/${FW_SOURCE.repo}/${FW_SOURCE.branch}/apps`;
+const CATALOG_SOURCE = { owner:'socolode', repo:'corelight-releases', branch:'main' };
+const CATALOG_BASE = `https://cdn.jsdelivr.net/gh/${CATALOG_SOURCE.owner}/${CATALOG_SOURCE.repo}@${CATALOG_SOURCE.branch}/catalog.json`;
+const CATALOG_RAW_BASE = `https://raw.githubusercontent.com/${CATALOG_SOURCE.owner}/${CATALOG_SOURCE.repo}/${CATALOG_SOURCE.branch}/catalog.json`;
+const REPO_BASE = `https://cdn.jsdelivr.net/gh/${CATALOG_SOURCE.owner}/${CATALOG_SOURCE.repo}@${CATALOG_SOURCE.branch}`;
+const REPO_RAW_BASE = `https://raw.githubusercontent.com/${CATALOG_SOURCE.owner}/${CATALOG_SOURCE.repo}/${CATALOG_SOURCE.branch}`;
 
 const FIREFLY_SVG = `<svg viewBox="0 0 24 24" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="18.2" cy="15.2" r="7" fill="#ffd94d" opacity=".18"/><circle cx="18.2" cy="15.2" r="4.6" fill="#ffd94d" opacity=".45"/><circle cx="18.2" cy="15.2" r="2.4" fill="#ffe98a"/><ellipse cx="8" cy="13.6" rx="3.4" ry="4.9" fill="#3a2f66"/><circle cx="5.2" cy="10.4" r="2.1" fill="#3a2f66"/><path d="M5.4 8.9 L3.8 6.2 M5.4 8.9 L7 6.2" stroke="#3a2f66" stroke-width=".9" stroke-linecap="round"/><path d="M9.2 11.2 C11.8 8.4 14.6 9.2 15.2 11.2 C13.6 12.8 11 12.6 9.2 11.2 Z" fill="#a58bff" opacity=".5"/><path d="M8.6 14.4 C11 11.6 14 12.6 14.6 14.8 C13 16 10.4 15.8 8.6 14.4 Z" fill="#a58bff" opacity=".32"/><circle cx="10.6" cy="10" r=".6" fill="#ffe98a"/></svg>`;
 
+const BEETLE_SVG = `<svg viewBox="0 0 24 24" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="5.8" cy="17" r="6.6" fill="#9b8bff" opacity=".18"/><circle cx="5.8" cy="17" r="4.2" fill="#9b8bff" opacity=".45"/><circle cx="5.8" cy="17" r="2.1" fill="#c9baff"/><ellipse cx="14.6" cy="13.2" rx="4.3" ry="5.9" fill="#2a2143"/><ellipse cx="14.6" cy="13.2" rx="2.7" ry="4" fill="#3a3057"/><path d="M11 9 C9.4 7.4 8.6 5.4 8.6 3.6 C10.4 3.4 12.2 4.2 13.4 5.8 C14.2 7.2 14.6 8.4 14.8 9.6" fill="#9b8bff" opacity=".65"/><path d="M18.2 9 C19.8 7.4 20.6 5.4 20.6 3.6 C18.8 3.4 17 4.2 15.8 5.8 C15 7.2 14.6 8.4 14.4 9.6" fill="#c9baff" opacity=".6"/><rect x="13.2" y="8" width="2.8" height="2" rx="1" fill="#6a5acd"/><circle cx="15.1" cy="13.6" r=".7" fill="#9b8bff"/><path d="M12.4 15.4 C13.6 16.4 14.4 17.8 14.6 19.2 C13.2 19.2 11.8 18.4 11 17 C10.4 16 10.2 15.4 10.2 14.6" fill="#9b8bff" opacity=".5"/></svg>`;
+
 const DEV = {
-  "firefly-t1": { name:"萤火虫 T1", en:"Firefly T1", icon:FIREFLY_SVG, desc:"光绘 / 彩灯", tags:["ESP32-S3 · 8MB","5 款应用可下载"] },
-  "beetle-s1":  { name:"独角仙 S1", en:"Beetle S1", icon:"🪲", desc:"光绘 / 彩灯", tags:["ESP32-S3 · 8MB","4 款应用可下载"] }
+  "firefly-t1": { name:"萤火虫 T1", en:"Firefly T1", icon:FIREFLY_SVG, desc:"光绘 / 彩灯", tags:["ESP32-S3 · 8MB","固件升级 · 应用下载"], ready:true },
+  "beetle-s1": { name:"独角仙 S1", en:"Beetle S1", icon:BEETLE_SVG, desc:"光绘 / 彩灯", tags:["ESP32-S3 · 8MB","即将上线"], ready:false }
 };
 
+/* 应用图标（release catalog 里的 icon 多为占位，这里按 app_id 换成更贴切的表情图标） */
+const APP_ICON = {
+  "light-painter":"✨", "color-wheel":"🎨", "palette":"🎯",
+  "soundlight":"🎵", "wifi-send":"📡"
+};
+function appIcon(a){ return APP_ICON[a.app_id]||a.icon||'📦'; }
+
+/* 应用详情说明（release catalog 只有简短描述，这里按 app_id 提供完整功能/配件/步骤文案） */
+const DETAILS = {
+  "light-painter":{
+    features:["BMP 图片逐行播放，长曝光拍出绚丽光绘","亮度 / 速度 / 同步 / 倒计时 / 循环 五参数可调","支持多设备同步，多人协作绘制宽幅图案","倒计时拍摄，方便就位减少机身震动"],
+    needs:["设备本体（萤火虫 T1）","USB 数据线 · 用来导入 BMP 图片素材","支持长曝光拍摄的相机 / 手机（或三脚架）"],
+    steps:["进入应用，主界面为光绘预览区","长按「上键」进入设置","用 ↑↓ 选择参数（亮度 / 速度 / 同步 / 倒计时 / 循环），用 ←→ 调节数值","「中键」返回主界面","按下「确认键」开始播放光绘图案"]},
+  "color-wheel":{
+    features:["HSL 三参数调节：色相 H / 饱和度 S / 亮度 L","中键一键开关色相环显示","灯棒实时预览所选颜色"],
+    needs:["设备本体（萤火虫 T1）","无需额外配件 · 连接设备即可使用"],
+    steps:["「中键」开关色相环显示","用 ↑↓ 选择参数（色相 / 饱和度 / 亮度）","用 ←→ 调节选中参数的数值","灯棒实时显示当前所选颜色"]},
+  "palette":{
+    features:["内置色相光谱 + 常用色板，快速选色","顶部灰度色阶条辅助亮度调节","支持颜色自动轮播，间隔可调"],
+    needs:["设备本体（萤火虫 T1）","无需额外配件 · 连接设备即可使用"],
+    steps:["「中键」开关灯棒","用 ↑↓ 在色板间移动选择目标颜色","用 ←→ 调节选中颜色的亮度","长按「上键」设置颜色切换间隔（自动轮播）"]},
+  "soundlight":{
+    features:["随环境声音实时律动","亮度 / 灵敏 / 模式 三参数可调","多种律动模式切换"],
+    needs:["设备本体（萤火虫 T1）","手机 / 音响播放音乐（用环境声音驱动律动）"],
+    steps:["用 ↑↓ 选择参数（亮度 / 灵敏 / 模式）","用 ←→ 调节选中参数的数值","切换「模式」体验不同的律动效果"]},
+  "wifi-send":{
+    features:["设备一键开启 WiFi 热点","浏览器网页上传 / 管理图片文件","无需安装任何 App"],
+    needs:["设备本体（萤火虫 T1）","支持 WiFi 的手机或电脑"],
+    steps:["打开应用，查看热点名称、密码与登录地址","手机 / 电脑连接该 WiFi 热点","浏览器输入登录地址（如 192.168.4.1）","在网页中上传 / 管理图片文件","提示：如无法登录，可尝试关闭手机数据流量"]}
+};
+/* 界面截图占位（release 尚未提供截图，先用占位图演示文档效果） */
+const PHOTOS = {
+  "light-painter":["光绘棒主界面 · 预览区","明亮设置页 · 五参数调节"],
+  "color-wheel":["色相环主界面 · 实时选色","色相 / 饱和度 / 亮度调节"],
+  "palette":["调色盘主界面 · 内置色板","灰度色阶 · 自动轮播设置"],
+  "soundlight":["拾音灯主界面 · 律动模式","亮度 / 灵敏 / 模式 调节"],
+  "wifi-send":["热点信息页","网页上传 / 管理界面"]
+};
+function phShot(name){
+  const p=(name||'应用界面')+', 中文界面, 深色科技风 UI 界面设计稿 mockup, 竖屏手机应用界面排版, 干净现代';
+  return "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt="+encodeURIComponent(p)+"&image_size=landscape_4_3";
+}
+
 let curDev=null, connected=false, isFlashing=false, selFw=null;
-let fwManifest=null, appsManifest=null, curApp=null;
+let catalog=null, firmwareList=[], appsList=[], curApp=null;
 let port=null, transport=null, loader=null;
 
 /* ---------- 通用 ---------- */
@@ -506,8 +503,7 @@ document.addEventListener('keydown',e=>{
   if(e.key!=='Enter') return;
   const t=e.target;
   if(!t||!t.classList) return;
-  if(t.classList.contains('dev-card')){ e.preventDefault(); enterDevice(t.dataset.dev,t); }
-  else if(t.classList.contains('app-card')){ e.preventDefault(); t.click(); }
+  if(t.classList.contains('app-card')){ e.preventDefault(); t.click(); }
 });
 function verNum(v){
   const m=String(v||'').match(/(\d+)\.(\d+)\.(\d+)/);
@@ -517,7 +513,9 @@ async function fetchWithFallback(urls){
   let lastErr;
   for(const u of urls){
     try{
-      const r=await fetch(u);
+      // 追加 cache-busting 时间戳:避免 jsdelivr/browser 缓存旧 catalog 或旧文件
+      const sep=u.includes('?')?'&':'?';
+      const r=await fetch(u+sep+'t='+Date.now());
       if(!r.ok) throw new Error('HTTP '+r.status);
       return await r.arrayBuffer();
     }catch(e){ lastErr=e; }
@@ -542,42 +540,45 @@ function setHeader(dev){
   document.getElementById('hdSub').textContent=d.en+' · '+d.desc;
   document.getElementById('hdChips').innerHTML=d.tags.map(t=>`<span class="chip">${t}</span>`).join('');
 }
-function backToSelect(){
-  setHeader(null);
-  resetWorkspace();
-  document.getElementById('viewWork').classList.remove('active');
-  document.getElementById('viewSelect').classList.add('active');
+function renderDeviceList(){
+  const grid=document.getElementById('devGrid');
+  grid.innerHTML=Object.entries(DEV).map(([id,d])=>`
+    <div class="dev-card${d.ready?'':' soon'}" tabindex="0" data-dev="${id}" onclick="pickDevice('${id}')" onkeydown="if(event.key==='Enter')pickDevice('${id}')">
+      <div class="dev-icon">${d.icon}</div>
+      <div class="dev-name">${d.name}</div>
+      <div class="dev-sub">${d.en} · ${d.desc}</div>
+      <div class="dev-tag">${d.ready?d.tags[0]:'即将上线'}</div>
+    </div>`).join('');
 }
-function enterDevice(dev, el){
-  document.querySelectorAll('.dev-card').forEach(c=>c.classList.remove('sel'));
-  el.classList.add('sel');
+window.pickDevice=function(dev){
+  const d=DEV[dev];
+  if(!d) return;
+  if(!d.ready){
+    toast(d.name+' 即将上线，敬请期待！','');
+    return;
+  }
+  enterDevice(dev);
+}
+function enterDevice(dev){
   curDev=dev;
   setHeader(dev);
-  const d=DEV[dev];
-  resetWorkspace();
   document.getElementById('viewSelect').classList.remove('active');
   document.getElementById('viewWork').classList.add('active');
   loadFirmware();
   loadApps();
-  toast('已选择 '+d.name+'，进入工作台','ok');
+  toast('已选择 '+DEV[dev].name+'，进入工作台','ok');
   window.scrollTo({top:0,behavior:'smooth'});
 }
-function resetWorkspace(){
-  disconnectSerial();
-  connected=false; isFlashing=false; selFw=null; firmwareData=null;
-  setConnState(false);
-  setFwStep(1,'active');
-  modelInfo.style.display='none';
-  fileNameDisplay.textContent='未选择文件';
-  fileNameDisplay.classList.remove('has-file');
-  modelSelect.innerHTML='<option value="">正在加载固件列表…</option>';
-  modelSelect.disabled=true;
-  document.getElementById('appList').innerHTML='';
-  document.getElementById('progressWrap').classList.remove('show');
-  document.getElementById('logArea').classList.remove('show');
-  document.getElementById('fwResult').classList.remove('show');
-  updateUIState();
-  switchTab('app');
+window.backToSelect=function(){
+  document.getElementById('viewWork').classList.remove('active');
+  document.getElementById('viewDetail').classList.remove('active');
+  document.getElementById('viewSelect').classList.add('active');
+  setHeader(null);
+  curDev=null; curApp=null;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function init(){
+  renderDeviceList();
 }
 function switchTab(t){
   document.getElementById('tabFw').classList.toggle('active',t==='fw');
@@ -680,28 +681,32 @@ function updateUIState(){
   const hasSel=selFw!==null||firmwareData!==null;
   document.getElementById('btnFwGo').disabled=!connected||!hasSel||isFlashing;
 }
-function modelName(m){ return (m.name&&m.name.zh)||(m.name&&m.name.en)||m.id; }
 
 async function loadFirmware(){
   modelInfo.style.display='none';
   modelSelect.disabled=true;
   modelSelect.innerHTML='<option value="">正在加载固件列表…</option>';
   try{
-    if(!fwManifest){
-      const buf=await fetchWithFallback([`${FW_BASE}/manifest.json`,`${FW_RAW_BASE}/manifest.json`]);
-      fwManifest=JSON.parse(new TextDecoder().decode(buf));
+    if(!catalog){
+      const buf=await fetchWithFallback([CATALOG_RAW_BASE, CATALOG_BASE]);
+      catalog=JSON.parse(new TextDecoder().decode(buf));
     }
-    const models=(fwManifest.models||[]).filter(m=>!m.device||m.device===curDev)
-      .sort((a,b)=>verNum(b.version)-verNum(a.version));
-    if(!models.length){
+    // 固件列表按版本降序，最新在前
+    firmwareList=(catalog.firmware||[]).sort((a,b)=>verNum(b.version)-verNum(a.version));
+    if(!firmwareList.length){
       modelSelect.innerHTML='<option value="">该设备暂无可用固件</option>';
       modelSelect.disabled=true;
       clearFwSelection();
       return;
     }
-    modelSelect.innerHTML='<option value="">请选择固件型号</option>'+models.map(m=>
-      `<option value="${m.id}">${modelName(m)} · ${m.version||''}</option>`).join('');
+    modelSelect.innerHTML='<option value="">请选择固件版本</option>'+firmwareList.map((f,i)=>
+      `<option value="${i}">v${f.version} · ${f.date||''}${i===0?' · 最新':''}</option>`).join('');
     modelSelect.disabled=false;
+    // 默认选中最新版本
+    modelSelect.value='0';
+    selFw='0';
+    renderModelInfo();
+    updateUIState();
   }catch(e){
     modelSelect.innerHTML='<option value="">固件列表加载失败</option>';
     modelSelect.disabled=false;
@@ -710,11 +715,11 @@ async function loadFirmware(){
   }
 }
 function renderModelInfo(){
-  const m=(fwManifest.models||[]).find(x=>x.id===selFw);
-  if(!m){ modelInfo.style.display='none'; return; }
-  const sizeText=m.size?(m.size/1024/1024).toFixed(1)+' MB':'';
-  miLine.innerHTML='<b>'+modelName(m)+'</b> · '+(m.version||'')+(sizeText?' · '+sizeText:'');
-  miNotes.textContent=(m.notes&&m.notes.zh)||(m.notes&&m.notes.en)||'';
+  const f=firmwareList[Number(selFw)];
+  if(!f){ modelInfo.style.display='none'; return; }
+  const sizeText=f.size?(f.size/1024/1024).toFixed(1)+' MB':'';
+  miLine.innerHTML='<b>v'+f.version+'</b>'+(f.date?' · '+f.date:'')+(sizeText?' · '+sizeText:'');
+  miNotes.textContent=f.note||'';
   modelInfo.style.display='block';
 }
 function clearFwSelection(){
@@ -727,17 +732,17 @@ function clearFwSelection(){
 }
 modelSelect.addEventListener('change',()=>{
   const id=modelSelect.value;
-  if(!id){ clearFwSelection(); return; }
+  if(id===''){ clearFwSelection(); return; }
   selFw=id; firmwareData=null;
   fileInput.value='';
   renderModelInfo();
-  const m=(fwManifest.models||[]).find(x=>x.id===id);
-  const sizeText=m&&m.size?' ('+(m.size/1024/1024).toFixed(1)+' MB)':'';
-  fileNameDisplay.textContent=(m?m.file:'')+sizeText;
+  const f=firmwareList[Number(id)];
+  const sizeText=f&&f.size?' ('+(f.size/1024/1024).toFixed(1)+' MB)':'';
+  fileNameDisplay.textContent=(f?f.path.split('/').pop():'')+sizeText;
   fileNameDisplay.classList.add('has-file');
   setFwStep(3,'active');
   updateUIState();
-  toast('已选择固件 '+(m?(m.version||m.id):id),'');
+  toast('已选择固件 v'+(f?f.version:''),'');
 });
 fileInput.addEventListener('change',async(e)=>{
   const file=e.target.files[0];
@@ -765,31 +770,35 @@ window.startFlash=async function(){
   setProgress(0);
   setFwStep(4,'active');
 
-  if(selFw){
-    const m=(fwManifest.models||[]).find(x=>x.id===selFw);
-    if(!m){ toast('固件信息缺失，请刷新列表','err'); isFlashing=false; updateUIState(); return; }
-    log('⬇️ 正在从 GitHub 下载固件: '+m.file,'info');
+  if(selFw!==null){
+    const f=firmwareList[Number(selFw)];
+    if(!f){ toast('固件信息缺失，请刷新列表','err'); isFlashing=false; updateUIState(); return; }
+    const file=f.path.split('/').pop();
+    log('⬇️ 正在从 GitHub 下载固件: '+file,'info');
     try{
-      const buf=await fetchWithFallback([`${FW_BASE}/${m.file}`,`${FW_RAW_BASE}/${m.file}`]);
+      const buf=await fetchWithFallback([`${REPO_BASE}/${f.path}`,`${REPO_RAW_BASE}/${f.path}`]);
       firmwareData=new Uint8Array(buf);
-      log('✅ 固件下载完成: '+m.file+' ('+(firmwareData.length/1024/1024).toFixed(1)+' MB)','success');
+      log('✅ 固件下载完成: '+file+' ('+(firmwareData.length/1024/1024).toFixed(1)+' MB)','success');
     }catch(e){
       log('❌ 固件下载失败: '+(e.message||e),'error');
       setFwStep(3,'active');
       isFlashing=false; updateUIState();
       return;
     }
-    await flash(firmwareData,m);
+    await flash(firmwareData,{});
   }else{
     await flash(firmwareData,{});
   }
 };
 async function flash(fwData,cfg){
   log('🚀 开始烧录固件…','info');
+  // 自动识别固件镜像头的 flash 模式（byte[2]: 0=qio 1=qout 2=dio 3=dout），
+  // 与固件实际编译配置保持一致，避免 flash 模式不匹配导致烧录后黑屏
+  const flashMode=({0:'qio',1:'qout',2:'dio',3:'dout'}[fwData&&fwData[2]])||'dio';
   try{
     await loader.writeFlash({
       fileArray:[{ data:fwData, address:parseInt(cfg.flashOffset||'0x0',16) }],
-      flashMode:cfg.flashMode||'dio', flashFreq:cfg.flashFreq||'80m', flashSize:cfg.flashSize||'8MB',
+      flashMode:flashMode, flashFreq:cfg.flashFreq||'80m', flashSize:cfg.flashSize||'8MB',
       eraseAll:true, compress:true,
       reportProgress:(fi,written,total)=>{
         setProgress(written/total*100, (written/1024).toFixed(0)+' KB / '+(total/1024).toFixed(0)+' KB');
@@ -799,7 +808,8 @@ async function flash(fwData,cfg){
     setProgress(100,'完成');
     log('✅ 固件写入完成！','success');
     log('正在重启设备…','info');
-    await loader.after('hard_reset');
+    try{ await loader.after('hard_reset'); }
+    catch(e){ log('⚠️ 无法自动重启（USB-SERIAL-JTAG 限制），请手动断开 USB 后重新上电','warn'); }
     setFwStep(4,'done');
     fwResult.classList.add('show');
     log('🎉 固件更新成功！请断开 USB 后重新上电','success');
@@ -818,61 +828,67 @@ async function loadApps(){
   const el=document.getElementById('appList');
   el.innerHTML='<div class="app-empty">正在加载应用列表…</div>';
   try{
-    if(!appsManifest){
-      const buf=await fetchWithFallback([`${APPS_BASE}/manifest.json`,`${APPS_RAW_BASE}/manifest.json`]);
-      appsManifest=JSON.parse(new TextDecoder().decode(buf));
+    if(!catalog){
+      const buf=await fetchWithFallback([CATALOG_RAW_BASE, CATALOG_BASE]);
+      catalog=JSON.parse(new TextDecoder().decode(buf));
     }
-    const dev=appsManifest.devices[curDev];
-    const apps=(dev&&dev.apps)||[];
-    if(!apps.length){
+    appsList=catalog.apps||[];
+    if(!appsList.length){
       el.innerHTML='<div class="app-empty">该设备暂无可用应用</div>';
       return;
     }
-    el.innerHTML=apps.map(a=>`
-      <div class="app-card" tabindex="0" onclick="openApp('${a.id}')">
-        <div class="ai">${a.icon}</div>
-        <div class="an">${a.name.zh}<small>${a.name.en}</small></div>
-        <div class="adesc">${a.desc}</div>
-        <div class="ameta">v${a.version} · ${(a.size/1024).toFixed(0)} KB</div>
+    el.innerHTML=appsList.map(a=>`
+      <div class="app-card" tabindex="0" onclick="openApp('${a.app_id}')" onkeydown="if(event.key==='Enter')openApp('${a.app_id}')">
+        <div class="ai">${appIcon(a)}</div>
+        <div class="an">${a.name}</div>
       </div>`).join('');
   }catch(e){
     el.innerHTML='<div class="app-empty">应用列表加载失败<br><small style="display:block;margin-top:6px;">'+((e.message||e).replace(/</g,'&lt;'))+'</small></div>';
   }
 }
 window.openApp=function(id){
-  const dev=appsManifest.devices[curDev];
-  const a=(dev.apps||[]).find(x=>x.id===id);
+  const a=appsList.find(x=>x.app_id===id);
   if(!a) return;
   curApp=a;
-  const shots=(a.screenshots||[]).map(s=>
-    `<div class="shot"><img src="${APPS_BASE}/${s.src}" alt="${s.label}" loading="lazy" onerror="this.parentNode.style.display='none'"><div class="cap">${s.label}</div></div>`
-  ).join('');
-  const feats=(a.features||[]).map(f=>`<li>${f}</li>`).join('');
-  const usage=(a.usage||[]).map(u=>`<li>${u}</li>`).join('');
+  const d=DETAILS[a.app_id]||{features:[],needs:[],steps:[]};
+  const feats=d.features.length?d.features.map(f=>`<li>${f}</li>`).join(''):`<li>${a.description}</li>`;
+  const needs=d.needs.length?d.needs.map(n=>`<li>${n}</li>`).join(''):'<li>设备本体</li>';
+  const steps=d.steps.length?d.steps.map(s=>`<li>${s}</li>`).join(''):`<li>${a.description}</li>`;
+  const shots=(PHOTOS[a.app_id]||[]).map(name=>`
+    <figure class="shot">
+      <img src="${phShot(a.name+' · '+name)}" alt="${name}" loading="lazy">
+      <figcaption class="cap">${name}</figcaption>
+    </figure>`).join('');
   document.getElementById('detailCard').innerHTML=`
     <div class="detail-head">
       <button class="btn btn-ghost btn-sm" onclick="backToList()">← 返回应用列表</button>
     </div>
     <div class="detail-hero">
-      <div class="dh-icon">${a.icon}</div>
-      <div>
-        <div class="dh-name">${a.name.zh}<small>${a.name.en} · v${a.version}</small></div>
-        <div class="dh-desc">${a.desc}</div>
-        <span class="dh-tag">需固件 v${a.minFw||'1.4.0'} 及以上</span>
+      <div class="dh-icon">${appIcon(a)}</div>
+      <div class="dh-info">
+        <div class="dh-name">${a.name}<small>${a.name_en} · v${a.version}</small></div>
+        <div class="dh-desc">${a.description}</div>
+        <span class="dh-tag">需固件 v${a.min_firmware_version||'1.4.0'} 及以上</span>
       </div>
+      <button class="btn btn-success btn-dl" id="btnDl" onclick="downloadApp('${a.app_id}')">⬇️ 下载应用包</button>
     </div>
-    ${shots?`<div class="dh-screens">${shots}</div>`:''}
-    <div class="dh-sec">
-      <div class="dh-sec-title">✨ 功能特点</div>
-      <ul class="dh-list">${feats}</ul>
-    </div>
-    <div class="dh-sec">
-      <div class="dh-sec-title">🎮 使用方法</div>
-      <ol class="dh-steps">${usage}</ol>
-    </div>
-    <div class="dh-dl">
-      <button class="btn btn-success btn-block" id="btnDl" onclick="downloadApp('${a.id}')">⬇️ 下载应用包</button>
-      <div class="dh-dl-hint">ZIP 压缩包 · 约 ${(a.size/1024).toFixed(0)} KB<br>下载后解压，将 apps 文件夹复制到设备 U 盘根目录</div>
+    <div class="doc-box">
+      <div class="doc-sec">
+        <div class="doc-title">📋 功能介绍</div>
+        <ul class="dh-list">${feats}</ul>
+      </div>
+      <div class="doc-sec">
+        <div class="doc-title">🧰 需要什么配件</div>
+        <ul class="dh-needs">${needs}</ul>
+      </div>
+      <div class="doc-sec">
+        <div class="doc-title">🛠️ 如何使用</div>
+        <ol class="dh-steps">${steps}</ol>
+      </div>
+      <div class="doc-sec">
+        <div class="doc-title">🖼️ 界面截图</div>
+        ${shots?`<div class="dh-screens">${shots}</div>`:'<p>暂无截图（占位图生成中）</p>'}
+      </div>
     </div>`;
   document.getElementById('viewWork').classList.remove('active');
   document.getElementById('viewDetail').classList.add('active');
@@ -884,23 +900,22 @@ window.backToList=function(){
   curApp=null;
 };
 window.downloadApp=async function(id){
-  const dev=appsManifest.devices[curDev];
-  const a=(dev.apps||[]).find(x=>x.id===id);
+  const a=appsList.find(x=>x.app_id===id);
   if(!a) return;
   const btn=document.getElementById('btnDl');
   btn.disabled=true; btn.innerHTML='⏳ 下载中…';
   try{
-    const buf=await fetchWithFallback([`${APPS_BASE}/${a.zip}`,`${APPS_RAW_BASE}/${a.zip}`]);
+    const buf=await fetchWithFallback([`${REPO_BASE}/${a.path}`,`${REPO_RAW_BASE}/${a.path}`]);
     const blob=new Blob([buf],{type:'application/zip'});
     const url=URL.createObjectURL(blob);
     const link=document.createElement('a');
     link.href=url;
-    link.download=a.zip.split('/').pop();
+    link.download=a.path.split('/').pop();
     document.body.appendChild(link);
     link.click();
     link.remove();
     setTimeout(()=>URL.revokeObjectURL(url),5000);
-    toast('已开始下载 '+a.name.zh,'ok');
+    toast('已开始下载 '+a.name,'ok');
   }catch(e){
     toast('下载失败：'+(e.message||e),'err');
   }
@@ -908,13 +923,16 @@ window.downloadApp=async function(id){
 };
 
 /* 挂载到 window，供内联 onclick 调用 */
-window.enterDevice = enterDevice;
-window.backToSelect = backToSelect;
 window.toggleConnect = toggleConnect;
 window.switchTab = switchTab;
 window.loadFirmware = loadFirmware;
+window.openApp = openApp;
+window.downloadApp = downloadApp;
 
 window.addEventListener('beforeunload', async ()=>{ await disconnectSerial(); });
+
+/* 页面加载：先展示设备选择 */
+init();
 </script>
 
 
