@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
+<html lang="zh-CN"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>socolode 设备工具 · 固件升级 & 应用管理</title>
+<title>socolode 设备工具 · 固件升级 &amp; 应用管理</title>
 <style>
 :root{
   --bg1:#0f0c29; --bg2:#302b63; --bg3:#24243e;
@@ -55,28 +54,26 @@ body{
   background:rgba(255,255,255,0.04);cursor:pointer;transition:all .3s;position:relative;overflow:hidden;text-align:center;
 }
 .dev-card:hover{transform:translateY(-3px);background:var(--card-hover);}
+.dev-card:focus-visible,.app-card:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
 .dev-card.sel{border-color:var(--primary);background:rgba(110,89,245,.14);box-shadow:0 0 0 2px rgba(110,89,245,.25),0 12px 30px rgba(110,89,245,.2);}
 .dev-card .dev-icon{font-size:56px;margin-bottom:14px;line-height:1;}
+.dev-card .dev-icon svg{display:block;margin:0 auto;}
 .dev-card .dev-name{font-size:1.25em;font-weight:700;}
 .dev-card .dev-sub{font-size:.78em;color:var(--text-dim);margin-top:6px;line-height:1.6;min-height:2.6em;}
 .dev-card .dev-tag{display:inline-block;margin-top:12px;font-size:.72em;color:#b8a9ff;border:1px solid rgba(110,89,245,.4);padding:3px 12px;border-radius:16px;background:rgba(110,89,245,.12);}
-.dev-card .check{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent;transition:all .25s;}
-.dev-card.sel .check{border-color:var(--primary);color:#fff;background:var(--primary);}
 .dev-card.sel .dev-tag{border-color:var(--primary);color:#b8a9ff;}
 
-/* workspace header / device bar */
-.ws-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
-.ws-dev{display:flex;align-items:center;gap:12px;}
-.ws-dev .di{font-size:30px;width:46px;height:46px;border-radius:12px;background:rgba(110,89,245,.15);display:flex;align-items:center;justify-content:center;}
-.ws-dev .dn{font-weight:700;font-size:1.05em;}
-.ws-dev .dm{font-size:.75em;color:var(--text-faint);}
-.ws-right{display:flex;align-items:center;gap:10px;}
+/* connection badge */
 .badge{font-size:.72em;padding:5px 12px;border-radius:16px;font-weight:600;letter-spacing:.5px;}
 .badge.off{background:rgba(255,107,107,.15);color:var(--danger);}
 .badge.on{background:rgba(46,213,115,.15);color:var(--success);}
 .badge.scan{background:rgba(255,165,2,.15);color:var(--warn);}
 
-/* tabs */
+/* workspace back button */
+.wb-top{margin-bottom:16px;}
+.back-btn{background:rgba(255,255,255,.06);border:1px solid var(--border-soft);color:var(--text-dim);padding:8px 16px;border-radius:10px;font-size:.82em;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px;}
+.back-btn:hover{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(110,89,245,.4);}
+
 .tabs{display:flex;gap:8px;background:rgba(255,255,255,.05);border:1px solid var(--border-soft);border-radius:14px;padding:5px;margin-bottom:22px;}
 .tab{flex:1;padding:11px;border:none;background:transparent;color:var(--text-dim);font-size:.95em;font-weight:600;border-radius:10px;cursor:pointer;transition:all .25s;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;}
 .tab.active{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;box-shadow:0 4px 14px rgba(110,89,245,.35);}
@@ -98,32 +95,68 @@ body{
 .btn-ghost:hover{background:rgba(255,255,255,.13);}
 .btn-sm{padding:7px 14px;font-size:.8em;border-radius:9px;}
 .btn-block{width:100%;padding:13px;font-size:.95em;}
-.conn-btn{background:rgba(255,255,255,.08);border:1px solid var(--border-soft);color:var(--text);padding:9px 15px;font-size:.85em;}
-.conn-btn.on{background:rgba(46,213,115,.15);border-color:rgba(46,213,115,.4);color:var(--success);}
-.conn-btn.scanning{background:rgba(255,165,2,.15);border-color:rgba(255,165,2,.4);color:var(--warn);}
 
-/* firmware tab */
-.fw-current{display:flex;align-items:center;gap:14px;padding:16px 18px;background:rgba(110,89,245,.08);border:1px solid rgba(110,89,245,.22);border-radius:14px;margin-bottom:18px;}
-.fw-current .lbl{font-size:.76em;color:var(--text-faint);letter-spacing:1px;}
-.fw-current .ver{font-size:1.5em;font-weight:800;color:#b8a9ff;margin-top:2px;}
-.fw-current .st{margin-left:auto;font-size:.8em;color:var(--text-dim);text-align:right;line-height:1.5;}
-.fw-current .st b{color:var(--success);}
-.fw-list .item{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--border-soft);border-radius:12px;margin-bottom:10px;background:rgba(255,255,255,.03);transition:all .2s;cursor:pointer;}
-.fw-list .item:hover{background:rgba(255,255,255,.06);}
-.fw-list .item.sel{border-color:var(--primary);background:rgba(110,89,245,.12);box-shadow:0 0 0 2px rgba(110,89,245,.2);}
-.fw-list .item .radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
-.fw-list .item.sel .radio{border-color:var(--primary);}
-.fw-list .item.sel .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--primary-2);}
-.fw-list .item .v{font-weight:700;font-size:.98em;}
-.fw-list .item .meta{font-size:.75em;color:var(--text-faint);margin-top:2px;}
-.fw-list .item .tag{margin-left:auto;font-size:.68em;padding:3px 10px;border-radius:12px;flex-shrink:0;}
-.fw-list .item .tag.new{background:rgba(46,213,115,.15);color:var(--success);}
-.fw-list .item .tag.his{background:rgba(255,255,255,.08);color:var(--text-faint);}
-.fw-empty{text-align:center;padding:26px;color:var(--text-faint);font-size:.88em;border:1px dashed var(--border-soft);border-radius:12px;}
-.fw-action{display:flex;gap:10px;margin-top:16px;}
-.fw-tip{margin-top:14px;font-size:.78em;color:var(--text-faint);text-align:center;line-height:1.7;}
-.fw-note{margin-top:10px;font-size:.78em;color:var(--text-faint);text-align:center;}
-.fw-note b{color:#b8a9ff;}
+/* firmware panel: step cards */
+.fw-step{display:flex;gap:14px;position:relative;background:rgba(255,255,255,.03);border:1px solid var(--border-soft);border-radius:14px;padding:14px 16px;margin-bottom:20px;transition:all .3s;}
+.fw-step:not(:last-of-type)::after{content:"";position:absolute;left:29px;top:42px;bottom:-20px;width:2px;background:rgba(110,89,245,.22);border-radius:2px;}
+.fw-step .fs-no{flex-shrink:0;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.07);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;font-size:.84em;font-weight:700;color:var(--text-dim);position:relative;z-index:1;transition:all .3s;}
+.fw-step.active{border-color:rgba(110,89,245,.55);background:rgba(110,89,245,.07);box-shadow:0 0 0 1px rgba(110,89,245,.18),0 0 18px rgba(110,89,245,.12);}
+.fw-step.done{border-color:rgba(46,213,115,.25);background:rgba(46,213,115,.04);}
+.fw-step.active .fs-no{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 0 12px rgba(110,89,245,.45);}
+.fw-step.done .fs-no{background:rgba(46,213,115,.15);border-color:rgba(46,213,115,.5);color:var(--success);font-size:0;}
+.fw-step.done .fs-no::before{content:"✓";font-size:.84em;font-weight:700;}
+.fw-step .fs-body{flex:1;min-width:0;}
+.fw-step .fs-title{font-size:.98em;font-weight:600;color:#fff;display:flex;align-items:center;gap:8px;}
+.fw-step .fs-title::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--primary);opacity:0;transition:opacity .3s;}
+.fw-step.active .fs-title::before{opacity:1;box-shadow:0 0 8px var(--primary);}
+.fw-step.done .fs-title{color:var(--text-dim);}
+.fw-step .fs-desc{font-size:.82em;color:var(--text-faint);margin:4px 0 12px;line-height:1.6;}
+.fw-step .fs-desc b{color:#b8a9ff;}
+.fw-step .fs-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.fw-step .fs-actions .btn{padding:11px 22px;font-size:.95em;flex-shrink:0;}
+.fw-step .fs-actions .badge{margin-left:auto;}
+.fw-step .pick-guide{margin-top:16px;border:1px dashed var(--border-soft);border-radius:12px;background:rgba(255,255,255,.02);overflow:hidden;}
+.fw-step .pick-guide.show{padding:12px 14px 14px;border-style:solid;border-color:rgba(110,89,245,.18);}
+.fw-step .pick-guide summary{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;list-style:none;user-select:none;transition:background .3s;}
+.fw-step .pick-guide summary:hover{background:rgba(110,89,245,.06);}
+.fw-step .pick-guide summary::-webkit-details-marker{display:none;}
+.fw-step .pg-hint{flex:1;font-size:.82em;color:var(--text-dim);}
+.fw-step .pg-hint b{color:#b8a9ff;}
+.fw-step .pg-more{flex-shrink:0;font-size:.78em;color:#b8a9ff;background:rgba(110,89,245,.12);border:1px solid rgba(110,89,245,.3);padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:5px;transition:all .3s;}
+.fw-step .pg-more::after{content:"▾";font-size:.8em;transition:transform .3s;}
+.fw-step .pick-guide[open] .pg-more{background:var(--primary);color:#fff;border-color:var(--primary);}
+.fw-step .pick-guide[open] .pg-more::after{transform:rotate(180deg);}
+.fw-step .pg-body{padding:2px 14px 14px;}
+.fw-step .pg-caption{font-size:.78em;color:var(--text-faint);margin-bottom:10px;}
+.fw-step .pick-guide img{display:block;width:min(460px,100%);border-radius:12px;border:1px solid var(--border-soft);box-shadow:0 10px 28px rgba(0,0,0,.3);}
+
+/* firmware panel: model select */
+.model-select{display:flex;gap:10px;align-items:center;}
+.model-select select{flex:1;padding:12px 14px;background:rgba(255,255,255,.06);border-radius:10px;color:#fff;font-size:.92em;font-family:inherit;border:1px solid rgba(110,89,245,.35);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:linear-gradient(45deg,transparent 50%,#b8a9ff 50%),linear-gradient(135deg,#b8a9ff 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;}
+.model-select select:disabled{opacity:.5;cursor:not-allowed;}
+.model-select select option{background:#1c1a35;color:#fff;}
+.model-select .btn-refresh{width:auto;flex-shrink:0;}
+.model-info{margin-top:12px;padding:12px 16px;background:rgba(110,89,245,.08);border:1px solid rgba(110,89,245,.2);border-radius:10px;font-size:.85em;color:var(--text-dim);line-height:1.6;}
+.model-info b{color:#b8a9ff;}
+.model-info .mi-notes{margin-top:2px;color:var(--text-faint);}
+.divider{display:flex;align-items:center;gap:12px;margin:16px 0 12px;color:var(--text-faint);font-size:.74em;white-space:nowrap;}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border-soft);}
+.file-select{display:flex;gap:10px;align-items:center;}
+.file-select input[type="file"]{display:none;}
+.file-select .file-name{flex:1;padding:11px 14px;background:rgba(255,255,255,.04);border-radius:10px;color:var(--text-faint);font-size:.85em;border:1px solid var(--border-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.file-select .file-name.has-file{color:#fff;}
+.file-select .btn{width:auto;flex-shrink:0;}
+
+/* firmware panel: actions + result */
+.result-success{text-align:center;padding:24px 16px;display:none;}
+.result-success.show{display:block;}
+.result-success .big-icon{font-size:52px;margin-bottom:10px;}
+.result-success h2{color:var(--success);font-size:1.3em;margin-bottom:6px;}
+.result-success p{color:var(--text-dim);font-size:.88em;}
+
+/* device select note */
+.sel-note{margin-top:18px;text-align:center;font-size:.8em;color:var(--text-faint);line-height:1.7;}
+.sel-note strong{color:#b8a9ff;font-weight:600;}
 
 /* progress + log */
 .progress-wrap{margin-top:16px;display:none;}
@@ -139,12 +172,12 @@ body{
 .log-area .line.error{color:var(--danger);}
 .log-area .line.warn{color:var(--warn);}
 
-/* app tab */
-.app-note{display:flex;gap:12px;padding:14px 16px;background:rgba(110,89,245,.08);border:1px solid rgba(110,89,245,.22);border-radius:14px;margin-bottom:18px;align-items:flex-start;}
-.app-note .ic{font-size:1.4em;flex-shrink:0;line-height:1.2;}
-.app-note .t{font-size:.92em;font-weight:700;}
-.app-note .d{font-size:.8em;color:var(--text-dim);margin-top:4px;line-height:1.6;}
-.app-note .d b{color:#b8a9ff;}
+/* panel note (shared by firmware & apps) */
+.panel-note{display:flex;gap:12px;padding:14px 16px;background:rgba(110,89,245,.08);border:1px solid rgba(110,89,245,.22);border-radius:14px;margin-bottom:18px;align-items:flex-start;}
+.panel-note .ic{font-size:1.4em;flex-shrink:0;line-height:1.2;}
+.panel-note .t{font-size:.92em;font-weight:700;}
+.panel-note .d{font-size:.8em;color:var(--text-dim);margin-top:4px;line-height:1.6;}
+.panel-note .d b{color:#b8a9ff;}
 .app-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .app-card{
   border:1.5px solid var(--border-soft);border-radius:16px;padding:20px 18px;cursor:pointer;
@@ -215,10 +248,6 @@ body{
   .dev-grid{grid-template-columns:1fr;}
   .app-grid{grid-template-columns:1fr;}
   .dh-screens{grid-template-columns:1fr;}
-  .ws-bar{flex-direction:column;align-items:flex-start;}
-  .ws-right{width:100%;}
-  .ws-right .conn-btn{flex:1;}
-  .fw-list .item .meta{white-space:normal;}
 }
 </style>
 </head>
@@ -232,114 +261,183 @@ body{
 <div class="wrap">
   <!-- ===== 头部 ===== -->
   <div class="hd">
-    <div class="logo">🛠️</div>
-    <h1>socolode 设备工具</h1>
-    <p>固件升级 · 应用管理 · 浏览器直连设备</p>
-    <div class="chips"><span class="chip">无需安装软件</span><span class="chip">支持 Chrome / Edge</span><span class="chip">固件在线烧录</span></div>
+    <div class="logo" id="hdLogo">🛠️</div>
+    <h1 id="hdTitle">socolode 设备工具</h1>
+    <p id="hdSub">固件升级 · 应用管理 · 浏览器直连设备</p>
+    <div class="chips" id="hdChips"><span class="chip">无需安装软件</span><span class="chip">支持 Chrome / Edge</span><span class="chip">固件在线烧录</span></div>
   </div>
 
   <!-- ===== 视图 1：设备选择 ===== -->
   <div id="viewSelect" class="view active">
     <div class="card">
-      <div class="sec-label">01 · 选择设备类型</div>
+      <div class="sec-label">选择设备类型</div>
       <div class="dev-grid">
-        <div class="dev-card" data-dev="firefly-t1" onclick="enterDevice('firefly-t1',this)">
-          <div class="check">✓</div>
-          <div class="dev-icon">🪄</div>
+        <div class="dev-card sel" tabindex="0" data-dev="firefly-t1" onclick="enterDevice('firefly-t1',this)">
+          <div class="dev-icon"><svg viewBox="0 0 24 24" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="18.2" cy="15.2" r="7" fill="#ffd94d" opacity=".18"/><circle cx="18.2" cy="15.2" r="4.6" fill="#ffd94d" opacity=".45"/><circle cx="18.2" cy="15.2" r="2.4" fill="#ffe98a"/><ellipse cx="8" cy="13.6" rx="3.4" ry="4.9" fill="#3a2f66"/><circle cx="5.2" cy="10.4" r="2.1" fill="#3a2f66"/><path d="M5.4 8.9 L3.8 6.2 M5.4 8.9 L7 6.2" stroke="#3a2f66" stroke-width=".9" stroke-linecap="round"/><path d="M9.2 11.2 C11.8 8.4 14.6 9.2 15.2 11.2 C13.6 12.8 11 12.6 9.2 11.2 Z" fill="#a58bff" opacity=".5"/><path d="M8.6 14.4 C11 11.6 14 12.6 14.6 14.8 C13 16 10.4 15.8 8.6 14.4 Z" fill="#a58bff" opacity=".32"/><circle cx="10.6" cy="10" r=".6" fill="#ffe98a"/></svg></div>
           <div class="dev-name">萤火虫 T1</div>
           <div class="dev-sub">Firefly T1 · 光绘 / 彩灯<br>5 款应用可下载</div>
           <div class="dev-tag">ESP32-S3 · 8MB</div>
         </div>
-        <div class="dev-card" data-dev="beetle-s1" onclick="enterDevice('beetle-s1',this)">
-          <div class="check">✓</div>
+        <div class="dev-card" tabindex="0" data-dev="beetle-s1" onclick="enterDevice('beetle-s1',this)">
           <div class="dev-icon">🪲</div>
           <div class="dev-name">独角仙 S1</div>
           <div class="dev-sub">Beetle S1 · 光绘 / 彩灯<br>4 款应用可下载</div>
           <div class="dev-tag">ESP32-S3 · 8MB</div>
         </div>
       </div>
-      <div class="fw-note" style="margin-top:18px;text-align:center;">👆 点击上方设备卡片即可进入工作台，提供<strong>固件升级</strong>与<strong>应用管理</strong>两类操作</div>
+      <div class="sel-note">👆 点击上方设备卡片进入工作台，提供<strong>固件升级</strong>与<strong>应用管理</strong>两类操作</div>
     </div>
   </div>
 
   <!-- ===== 视图 2：工作台 ===== -->
   <div id="viewWork" class="view">
-    <!-- 设备条 -->
-    <div class="card" style="padding:18px 22px;margin-bottom:16px;">
-      <div class="ws-bar">
-        <div class="ws-dev">
-          <div class="di" id="wsIcon">🪄</div>
-          <div>
-            <div class="dn" id="wsName">萤火虫 T1</div>
-            <div class="dm" id="wsSub">Firefly T1</div>
-          </div>
-        </div>
-        <div class="ws-right">
-          <span class="badge off" id="devBadge">⚪ 未连接</span>
-          <button class="conn-btn" id="btnConn" onclick="toggleConnect()">🔗 连接设备</button>
-        </div>
-      </div>
+    <!-- 返回 -->
+    <div class="wb-top">
+      <button class="back-btn" onclick="backToSelect()">← 返回设备选择</button>
     </div>
-
     <!-- 页签 -->
     <div class="tabs">
-      <button class="tab active" id="tabFw" onclick="switchTab('fw')"><span class="emo">⚙️</span> 固件升级</button>
-      <button class="tab" id="tabApp" onclick="switchTab('app')"><span class="emo">📦</span> 应用管理</button>
+      <button class="tab active" id="tabApp" onclick="switchTab('app')"><span class="emo">📦</span> 应用下载</button>
+      <button class="tab" id="tabFw" onclick="switchTab('fw')"><span class="emo">⚙️</span> 固件升级</button>
     </div>
 
     <!-- ===== 固件升级面板 ===== -->
-    <div class="view active" id="panelFw">
-      <div class="card">
-        <div class="sec-label">02 · 固件升级</div>
-        <div class="fw-current">
-          <div>
-            <div class="lbl">当前固件版本</div>
-            <div class="ver" id="fwCurVer">—</div>
-          </div>
-          <div class="st" id="fwCurState">未连接设备<br><b>连接后可开始升级</b></div>
+    <div class="view" id="panelFw">
+      <div class="panel-note">
+        <div class="ic">⚙️</div>
+        <div>
+          <div class="t">固件升级</div>
+          <div class="d">按顺序完成下方 4 步即可烧录固件，全程通过浏览器直连设备，无需安装软件。</div>
         </div>
-        <div class="sec-label">可选固件版本 <span class="n" id="fwCount"></span></div>
-        <div class="fw-list" id="fwList"></div>
-        <div class="fw-action">
-          <button class="btn btn-ghost" id="btnFwRefresh" onclick="loadFirmware()">↻ 刷新版本列表</button>
-          <button class="btn btn-success" id="btnFwGo" style="flex:1" disabled onclick="startFlash()">⚡ 开始升级所选固件</button>
-        </div>
-        <div class="progress-wrap" id="progressWrap">
-          <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
-          <div class="progress-text"><span id="progressPercent">0%</span><span id="progressSpeed"></span></div>
-        </div>
-        <div class="log-area" id="logArea"></div>
-
-        <details class="help" open>
-          <summary>🤔 如何进行固件升级 <span class="arrow">▾</span></summary>
-          <div class="help-body">
-            <div style="margin-bottom:2px;"><b>完整步骤：</b></div>
-            <ol class="help-steps">
-              <li><b>进入下载模式</b><small>按住摇杆<b>右方向键（BOOT）不松</b>，再插入 USB 数据线，等页面识别到设备。</small></li>
-              <li><b>点击「连接设备」</b><small>浏览器弹出串口授权时选择设备并允许；连接成功后顶栏变为「已连接」。</small></li>
-              <li><b>选择目标固件版本</b><small>点击列表中的版本；已标记「最新」的即推荐版本，也可选择历史版本。</small></li>
-              <li><b>点击「开始升级所选固件」</b><small>等待进度条走完，期间<b>保持连接、不要拔线</b>。</small></li>
-              <li><b>完成后重启</b><small>升级成功会提示；断开 USB 重新上电即可使用新固件。</small></li>
-            </ol>
-            <div class="help-callout warn"><span class="ic">⚠️</span><span><b>重要：</b>升级过程中设备会重启进入 bootloader，请<span class="hl">避免中途断线 / 断电 / 关闭标签页</span>，否则可能损坏固件。</span></div>
-            <div class="help-callout ok"><span class="ic">✅</span><span><b>升级固件不会删除你的应用和数据</b>（应用在 SD 卡上），但为确保兼容，升级后建议到「应用管理」重新下载需要的应用。</span></div>
-          </div>
-        </details>
       </div>
+      <!-- 步骤 1 -->
+      <div class="fw-step active" id="fwS1">
+        <div class="fs-no">1</div>
+        <div class="fs-body">
+          <div class="fs-title">进入下载模式</div>
+          <div class="fs-desc">先<b>关机</b>，按住设备上的<b>右键</b>不放，同时用数据线连接电脑，连接后松开右键。</div>
+          <div class="pick-guide show">
+            <div class="pg-caption">完整操作示意：① 关机 → ② 按住右键「不放」→ ③ 同时插上数据线连接电脑</div>
+            <img src="assets/download-mode.png" alt="进入下载模式操作示意">
+          </div>
+        </div>
+      </div>
+      <!-- 步骤 2 -->
+      <div class="fw-step" id="fwS2">
+        <div class="fs-no">2</div>
+        <div class="fs-body">
+          <div class="fs-title">连接设备</div>
+          <div class="fs-desc">点击下方按钮，在系统弹窗中选择对应的串口设备。</div>
+          <div class="fs-actions">
+            <button class="btn btn-primary" id="btnConn" onclick="toggleConnect()">🔗 连接设备</button>
+            <span class="badge off" id="devBadge">⚪ 未连接</span>
+          </div>
+          <details class="pick-guide">
+            <summary>
+              <span class="pg-hint">💡 现在可以<b>松开右键</b>了，选择列表中的 <b>USB JTAG/serial debug unit</b>，再点击「连接」</span>
+              <span class="pg-more">查看弹窗示例</span>
+            </summary>
+            <div class="pg-body">
+              <div class="pg-caption">点击「连接设备」后，浏览器会弹出串口选择窗口，如图所示：</div>
+              <img src="assets/serial-picker.png" alt="串口选择弹窗示例">
+            </div>
+          </details>
+        </div>
+      </div>
+      <!-- 步骤 3 -->
+      <div class="fw-step" id="fwS3">
+        <div class="fs-no">3</div>
+        <div class="fs-body">
+          <div class="fs-title">选择固件</div>
+          <div class="fs-desc">从下方列表选择官方固件版本，或上传本地 <b>.bin</b> 固件文件。</div>
+          <div class="model-select">
+            <select id="modelSelect" disabled>
+              <option value="">正在加载固件列表…</option>
+            </select>
+            <button class="btn btn-ghost btn-refresh" id="btnFwRefresh" onclick="loadFirmware()">↻ 刷新</button>
+          </div>
+          <div class="model-info" id="modelInfo" style="display:none">
+            <div id="miLine"></div>
+            <div class="mi-notes" id="miNotes"></div>
+          </div>
+          <div class="divider"><span>或从本地选择文件（高级）</span></div>
+          <div class="file-select">
+            <input type="file" id="fileInput" accept=".bin">
+            <div class="file-name" id="fileNameDisplay">未选择文件</div>
+            <button class="btn btn-ghost" onclick="document.getElementById('fileInput').click()">选择</button>
+          </div>
+        </div>
+      </div>
+      <!-- 步骤 4 -->
+      <div class="fw-step" id="fwS4">
+        <div class="fs-no">4</div>
+        <div class="fs-body">
+          <div class="fs-title">开始更新</div>
+          <div class="fs-desc">确认设备已连接、固件已选择后，点击下方按钮开始烧录；更新过程中请勿断开 USB。</div>
+          <button class="btn btn-success btn-block" id="btnFwGo" onclick="startFlash()" disabled>⚡ 开始更新</button>
+          <div class="progress-wrap" id="progressWrap">
+            <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
+            <div class="progress-text"><span id="progressPercent">0%</span><span id="progressSpeed"></span></div>
+          </div>
+          <div class="log-area" id="logArea"></div>
+          <div class="result-success" id="fwResult">
+            <div class="big-icon">✅</div>
+            <h2>更新完成！</h2>
+            <p>请断开 USB 连接，重新插电即可启动新固件</p>
+          </div>
+        </div>
+      </div>
+
+      <details class="help" open="">
+        <summary>⚠️ 注意事项 <span class="arrow">▾</span></summary>
+        <div class="help-body">
+          <div class="help-callout warn"><span class="ic">⚠️</span><span><b>升级过程中设备会重启</b>，请<span class="hl">避免中途断线 / 断电 / 关闭标签页</span>，否则可能损坏固件。</span></div>
+          <div class="help-callout ok"><span class="ic">✅</span><span><b>升级固件不会删除你的应用和数据</b>（应用在 SD 卡上），但为确保兼容，升级后建议到「应用下载」重新下载需要的应用。</span></div>
+        </div>
+      </details>
     </div>
 
     <!-- ===== 应用管理面板 ===== -->
-    <div class="view" id="panelApp">
+    <div class="view active" id="panelApp">
       <div class="card">
-        <div class="sec-label">03 · 应用管理</div>
-        <div class="app-note">
+        <div class="panel-note">
           <div class="ic">📦</div>
           <div>
-            <div class="t">下载应用包，手动安装到设备</div>
+            <div class="t">应用下载</div>
             <div class="d">点击下方应用卡片查看详情与下载应用包。下载后解压，将 <b>apps</b> 文件夹整体复制到设备 U 盘的根目录即可。</div>
           </div>
         </div>
-        <div class="app-grid" id="appList"></div>
+        <div class="app-grid" id="appList">
+      <div class="app-card" tabindex="0" onclick="openApp('light-painter')">
+        <div class="ai">✨</div>
+        <div class="an">光绘棒<small>Glow</small></div>
+        <div class="adesc">专业光绘摄影应用，支持 BMP 图片逐行播放，长曝光拍摄绚丽光绘。</div>
+        <div class="ameta">v1.0.0 · 225 KB</div>
+      </div>
+      <div class="app-card" tabindex="0" onclick="openApp('color-wheel')">
+        <div class="ai">🎨</div>
+        <div class="an">色相环<small>Hue</small></div>
+        <div class="adesc">通过色相 / 饱和度 / 亮度三参数，精确控制 WS2812 灯棒颜色。</div>
+        <div class="ameta">v1.0.0 · 371 KB</div>
+      </div>
+      <div class="app-card" tabindex="0" onclick="openApp('palette')">
+        <div class="ai">🎯</div>
+        <div class="an">调色盘<small>Tone</small></div>
+        <div class="adesc">从内置色板快速选色，支持多种光效模式与自动轮播。</div>
+        <div class="ameta">v1.0.0 · 156 KB</div>
+      </div>
+      <div class="app-card" tabindex="0" onclick="openApp('soundlight')">
+        <div class="ai">🎵</div>
+        <div class="an">拾音灯<small>Beat</small></div>
+        <div class="adesc">根据环境声音控制灯棒亮度与模式，随音乐律动。</div>
+        <div class="ameta">v1.0.0 · 171 KB</div>
+      </div>
+      <div class="app-card" tabindex="0" onclick="openApp('wifi-send')">
+        <div class="ai">📡</div>
+        <div class="an">热点通<small>WiFi</small></div>
+        <div class="adesc">设备开启 WiFi 热点，通过手机 / 电脑浏览器上传与管理图片文件。</div>
+        <div class="ameta">v1.0.0 · 692 KB</div>
+      </div></div>
 
         <details class="help">
           <summary>🤔 应用如何安装到设备 <span class="arrow">▾</span></summary>
@@ -367,7 +465,7 @@ body{
   <div class="foot">固件与应用列表均从 GitHub 实时拉取 · 固件通过浏览器串口直连烧录<br>不支持 iOS 设备，请使用电脑 Chrome / Edge 浏览器操作</div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast ok" id="toast">已选择 萤火虫 T1，进入工作台</div>
 
 <script type="importmap">
 {
@@ -392,9 +490,11 @@ const FW_RAW_BASE = `https://raw.githubusercontent.com/${FW_SOURCE.owner}/${FW_S
 const APPS_BASE = `https://cdn.jsdelivr.net/gh/${FW_SOURCE.owner}/${FW_SOURCE.repo}@${FW_SOURCE.branch}/apps`;
 const APPS_RAW_BASE = `https://raw.githubusercontent.com/${FW_SOURCE.owner}/${FW_SOURCE.repo}/${FW_SOURCE.branch}/apps`;
 
+const FIREFLY_SVG = `<svg viewBox="0 0 24 24" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="18.2" cy="15.2" r="7" fill="#ffd94d" opacity=".18"/><circle cx="18.2" cy="15.2" r="4.6" fill="#ffd94d" opacity=".45"/><circle cx="18.2" cy="15.2" r="2.4" fill="#ffe98a"/><ellipse cx="8" cy="13.6" rx="3.4" ry="4.9" fill="#3a2f66"/><circle cx="5.2" cy="10.4" r="2.1" fill="#3a2f66"/><path d="M5.4 8.9 L3.8 6.2 M5.4 8.9 L7 6.2" stroke="#3a2f66" stroke-width=".9" stroke-linecap="round"/><path d="M9.2 11.2 C11.8 8.4 14.6 9.2 15.2 11.2 C13.6 12.8 11 12.6 9.2 11.2 Z" fill="#a58bff" opacity=".5"/><path d="M8.6 14.4 C11 11.6 14 12.6 14.6 14.8 C13 16 10.4 15.8 8.6 14.4 Z" fill="#a58bff" opacity=".32"/><circle cx="10.6" cy="10" r=".6" fill="#ffe98a"/></svg>`;
+
 const DEV = {
-  "firefly-t1": { name:"萤火虫 T1", en:"Firefly T1", icon:"🪄" },
-  "beetle-s1":  { name:"独角仙 S1", en:"Beetle S1", icon:"🪲" }
+  "firefly-t1": { name:"萤火虫 T1", en:"Firefly T1", icon:FIREFLY_SVG, desc:"光绘 / 彩灯", tags:["ESP32-S3 · 8MB","5 款应用可下载"] },
+  "beetle-s1":  { name:"独角仙 S1", en:"Beetle S1", icon:"🪲", desc:"光绘 / 彩灯", tags:["ESP32-S3 · 8MB","4 款应用可下载"] }
 };
 
 let curDev=null, connected=false, isFlashing=false, selFw=null;
@@ -402,6 +502,13 @@ let fwManifest=null, appsManifest=null, curApp=null;
 let port=null, transport=null, loader=null;
 
 /* ---------- 通用 ---------- */
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter') return;
+  const t=e.target;
+  if(!t||!t.classList) return;
+  if(t.classList.contains('dev-card')){ e.preventDefault(); enterDevice(t.dataset.dev,t); }
+  else if(t.classList.contains('app-card')){ e.preventDefault(); t.click(); }
+});
 function verNum(v){
   const m=String(v||'').match(/(\d+)\.(\d+)\.(\d+)/);
   return m?(+m[1])*10000+(+m[2])*100+(+m[3]):0;
@@ -421,14 +528,32 @@ function toast(msg,type){ const t=document.getElementById('toast'); t.textConten
 let toastTimer;
 
 /* ---------- 视图切换 ---------- */
+function setHeader(dev){
+  if(!dev){
+    document.getElementById('hdLogo').textContent='🛠️';
+    document.getElementById('hdTitle').textContent='socolode 设备工具';
+    document.getElementById('hdSub').textContent='固件升级 · 应用管理 · 浏览器直连设备';
+    document.getElementById('hdChips').innerHTML='<span class="chip">无需安装软件</span><span class="chip">支持 Chrome / Edge</span><span class="chip">固件在线烧录</span>';
+    return;
+  }
+  const d=DEV[dev];
+  document.getElementById('hdLogo').innerHTML=d.icon;
+  document.getElementById('hdTitle').textContent=d.name;
+  document.getElementById('hdSub').textContent=d.en+' · '+d.desc;
+  document.getElementById('hdChips').innerHTML=d.tags.map(t=>`<span class="chip">${t}</span>`).join('');
+}
+function backToSelect(){
+  setHeader(null);
+  resetWorkspace();
+  document.getElementById('viewWork').classList.remove('active');
+  document.getElementById('viewSelect').classList.add('active');
+}
 function enterDevice(dev, el){
   document.querySelectorAll('.dev-card').forEach(c=>c.classList.remove('sel'));
   el.classList.add('sel');
   curDev=dev;
+  setHeader(dev);
   const d=DEV[dev];
-  document.getElementById('wsIcon').textContent=d.icon;
-  document.getElementById('wsName').textContent=d.name;
-  document.getElementById('wsSub').textContent=d.en;
   resetWorkspace();
   document.getElementById('viewSelect').classList.remove('active');
   document.getElementById('viewWork').classList.add('active');
@@ -439,17 +564,20 @@ function enterDevice(dev, el){
 }
 function resetWorkspace(){
   disconnectSerial();
-  connected=false; isFlashing=false; selFw=null;
+  connected=false; isFlashing=false; selFw=null; firmwareData=null;
   setConnState(false);
-  document.getElementById('fwCurVer').textContent='—';
-  document.getElementById('fwCurState').innerHTML='未连接设备<br><b>连接后可开始升级</b>';
-  document.getElementById('btnFwGo').disabled=true;
-  document.getElementById('fwList').innerHTML='';
-  document.getElementById('fwCount').textContent='';
+  setFwStep(1,'active');
+  modelInfo.style.display='none';
+  fileNameDisplay.textContent='未选择文件';
+  fileNameDisplay.classList.remove('has-file');
+  modelSelect.innerHTML='<option value="">正在加载固件列表…</option>';
+  modelSelect.disabled=true;
   document.getElementById('appList').innerHTML='';
   document.getElementById('progressWrap').classList.remove('show');
   document.getElementById('logArea').classList.remove('show');
-  switchTab('fw');
+  document.getElementById('fwResult').classList.remove('show');
+  updateUIState();
+  switchTab('app');
 }
 function switchTab(t){
   document.getElementById('tabFw').classList.toggle('active',t==='fw');
@@ -461,9 +589,9 @@ function switchTab(t){
 /* ---------- 串口连接（固件烧录用） ---------- */
 function setConnState(s){
   const b=document.getElementById('devBadge'), c=document.getElementById('btnConn');
-  if(s===true){ b.className='badge on'; b.textContent='🟢 已连接'; c.textContent='🔌 断开'; c.classList.add('on'); }
-  else if(s==='scan'){ b.className='badge scan'; b.textContent='⏳ 连接中…'; c.textContent='⏳ 检测中…'; c.classList.add('scanning'); }
-  else { b.className='badge off'; b.textContent='⚪ 未连接'; c.textContent='🔗 连接设备'; c.classList.remove('on','scanning'); }
+  if(s===true){ b.className='badge on'; b.textContent='✅ 已连接'; c.innerHTML='🔌 断开连接'; c.className='btn btn-success'; c.disabled=false; }
+  else if(s==='scan'){ b.className='badge scan'; b.textContent='⏳ 正在检测…'; c.innerHTML='⏳ 检测中…'; c.className='btn btn-primary'; c.disabled=true; }
+  else { b.className='badge off'; b.textContent='⚪ 未连接'; c.innerHTML='🔗 连接设备'; c.className='btn btn-primary'; c.disabled=false; }
 }
 function log(msg,type){
   const el=document.getElementById('logArea');
@@ -487,8 +615,17 @@ async function disconnectSerial(){
   port=null; transport=null; loader=null;
 }
 async function toggleConnect(){
-  if(connected){ await disconnectSerial(); connected=false; setConnState(false); toast('已断开设备',''); return; }
+  if(connected){
+    await disconnectSerial();
+    connected=false;
+    setConnState(false);
+    setFwStep(2,'active');
+    updateUIState();
+    toast('已断开设备','');
+    return;
+  }
   setConnState('scan');
+  setFwStep(2,'active');
   try{
     port = await navigator.serial.requestPort();
     transport = new Transport(port, true);
@@ -500,26 +637,55 @@ async function toggleConnect(){
     log('串口已打开，正在检测芯片…','info');
     const chipName = await loader.main();
     log('✅ 检测到芯片: '+chipName,'success');
-    if(!chipName.toLowerCase().includes('esp32')) log('⚠️ 请确认设备处于下载模式（按住 BOOT 键连接）','warn');
+    if(!chipName.toLowerCase().includes('esp32')) log('⚠️ 请确认设备处于下载模式（先关机，按住右键再插数据线）','warn');
     connected=true;
     setConnState(true);
-    document.getElementById('fwCurState').innerHTML='设备已连接<br><b>选择固件后点击「开始升级」</b>';
-    log('✅ 设备连接成功！请选择固件版本后点击「开始升级所选固件」','success');
+    setFwStep(3,'active');
+    log('✅ 设备连接成功！请选择固件后点击「开始更新」','success');
     toast('设备连接成功','ok');
   }catch(err){
     if(err.name==='NotFoundError') log('❌ 未选择设备，请重试','error');
     else if(err.name==='SecurityError'||(err.message||'').includes('security')) log('❌ 浏览器未授权串口访问','error');
     else log('❌ 连接失败: '+(err.message||err),'error');
     setConnState(false);
+    setFwStep(2,'active');
     await disconnectSerial();
   }
+  updateUIState();
 }
 
 /* ---------- 固件 ---------- */
+let fwTop=1;
+const modelSelect=document.getElementById('modelSelect');
+const modelInfo=document.getElementById('modelInfo');
+const miLine=document.getElementById('miLine');
+const miNotes=document.getElementById('miNotes');
+const fileInput=document.getElementById('fileInput');
+const fileNameDisplay=document.getElementById('fileNameDisplay');
+const fwResult=document.getElementById('fwResult');
+let firmwareData=null;
+
+function setFwStep(n,state){
+  if(state==='active') fwTop=n;
+  else if(state==='done'&&n>=fwTop) fwTop=n;
+  for(let i=1;i<=4;i++){
+    const s=document.getElementById('fwS'+i);
+    const isDone=(state==='done'&&i===n)||i<fwTop;
+    const isAct=i===fwTop&&!(state==='done'&&i===n);
+    s.classList.toggle('done',isDone);
+    s.classList.toggle('active',isAct);
+  }
+}
+function updateUIState(){
+  const hasSel=selFw!==null||firmwareData!==null;
+  document.getElementById('btnFwGo').disabled=!connected||!hasSel||isFlashing;
+}
+function modelName(m){ return (m.name&&m.name.zh)||(m.name&&m.name.en)||m.id; }
+
 async function loadFirmware(){
-  const el=document.getElementById('fwList');
-  document.getElementById('fwCount').textContent='';
-  el.innerHTML='<div class="fw-empty">正在加载固件列表…</div>';
+  modelInfo.style.display='none';
+  modelSelect.disabled=true;
+  modelSelect.innerHTML='<option value="">正在加载固件列表…</option>';
   try{
     if(!fwManifest){
       const buf=await fetchWithFallback([`${FW_BASE}/manifest.json`,`${FW_RAW_BASE}/manifest.json`]);
@@ -528,66 +694,102 @@ async function loadFirmware(){
     const models=(fwManifest.models||[]).filter(m=>!m.device||m.device===curDev)
       .sort((a,b)=>verNum(b.version)-verNum(a.version));
     if(!models.length){
-      el.innerHTML='<div class="fw-empty">该设备暂无可用固件<br><small style="display:block;margin-top:6px;">固件发布后会自动出现在这里</small></div>';
-      document.getElementById('btnFwGo').disabled=true;
+      modelSelect.innerHTML='<option value="">该设备暂无可用固件</option>';
+      modelSelect.disabled=true;
+      clearFwSelection();
       return;
     }
-    document.getElementById('fwCount').textContent='（'+models.length+'）';
-    el.innerHTML=models.map((m,i)=>{
-      const tag=i===0?'<span class="tag new">最新</span>':'<span class="tag his">历史</span>';
-      const note=(m.notes&&m.notes.zh)||m.notes?.en||'';
-      const size=m.size?(m.size/1024/1024).toFixed(1)+' MB':'';
-      return `<div class="item ${i===0?'sel':''}" data-id="${m.id}" onclick="pickFw(this,'${m.id}')">
-        <div class="radio"></div>
-        <div><div class="v">${m.version||m.id}</div><div class="meta">${note}${size?' · '+size:''}</div></div>
-        ${tag}
-      </div>`;
-    }).join('');
-    selFw=models[0].id;
-    document.getElementById('btnFwGo').disabled=false;
+    modelSelect.innerHTML='<option value="">请选择固件型号</option>'+models.map(m=>
+      `<option value="${m.id}">${modelName(m)} · ${m.version||''}</option>`).join('');
+    modelSelect.disabled=false;
   }catch(e){
-    el.innerHTML='<div class="fw-empty">固件列表加载失败<br><small style="display:block;margin-top:6px;">'+((e.message||e).replace(/</g,'&lt;'))+'</small></div>';
-    document.getElementById('btnFwGo').disabled=true;
+    modelSelect.innerHTML='<option value="">固件列表加载失败</option>';
+    modelSelect.disabled=false;
+    log('❌ 固件列表加载失败: '+(e.message||e),'error');
+    clearFwSelection();
   }
 }
-window.pickFw=function(el,id){
-  el.parentNode.querySelectorAll('.item').forEach(x=>x.classList.remove('sel'));
-  el.classList.add('sel');
-  selFw=id;
-  toast('已选择固件 '+id,'');
-};
+function renderModelInfo(){
+  const m=(fwManifest.models||[]).find(x=>x.id===selFw);
+  if(!m){ modelInfo.style.display='none'; return; }
+  const sizeText=m.size?(m.size/1024/1024).toFixed(1)+' MB':'';
+  miLine.innerHTML='<b>'+modelName(m)+'</b> · '+(m.version||'')+(sizeText?' · '+sizeText:'');
+  miNotes.textContent=(m.notes&&m.notes.zh)||(m.notes&&m.notes.en)||'';
+  modelInfo.style.display='block';
+}
+function clearFwSelection(){
+  selFw=null; firmwareData=null;
+  fileInput.value='';
+  fileNameDisplay.textContent='未选择文件';
+  fileNameDisplay.classList.remove('has-file');
+  modelInfo.style.display='none';
+  updateUIState();
+}
+modelSelect.addEventListener('change',()=>{
+  const id=modelSelect.value;
+  if(!id){ clearFwSelection(); return; }
+  selFw=id; firmwareData=null;
+  fileInput.value='';
+  renderModelInfo();
+  const m=(fwManifest.models||[]).find(x=>x.id===id);
+  const sizeText=m&&m.size?' ('+(m.size/1024/1024).toFixed(1)+' MB)':'';
+  fileNameDisplay.textContent=(m?m.file:'')+sizeText;
+  fileNameDisplay.classList.add('has-file');
+  setFwStep(3,'active');
+  updateUIState();
+  toast('已选择固件 '+(m?(m.version||m.id):id),'');
+});
+fileInput.addEventListener('change',async(e)=>{
+  const file=e.target.files[0];
+  if(!file) return;
+  fileNameDisplay.textContent=file.name+' ('+(file.size/1024).toFixed(1)+' KB)';
+  fileNameDisplay.classList.add('has-file');
+  firmwareData=new Uint8Array(await file.arrayBuffer());
+  selFw=null;
+  modelInfo.style.display='none';
+  if(modelSelect.value) modelSelect.value='';
+  setFwStep(3,'active');
+  updateUIState();
+  log('✅ 已选择本地固件: '+file.name+' ('+(file.size/1024).toFixed(1)+' KB)','success');
+});
+
 window.startFlash=async function(){
   if(!connected){ toast('请先连接设备（需进入下载模式）','err'); return; }
-  if(!selFw){ toast('请先选择固件版本','err'); return; }
+  if(!selFw&&!firmwareData){ toast('请先选择固件','err'); return; }
   if(isFlashing) return;
-  const models=(fwManifest.models||[]).filter(m=>!m.device||m.device===curDev);
-  const m=models.find(x=>x.id===selFw);
-  if(!m){ toast('固件信息缺失，请刷新列表','err'); return; }
-
   isFlashing=true;
-  document.getElementById('btnFwGo').disabled=true;
+  updateUIState();
   clearLog();
+  fwResult.classList.remove('show');
   document.getElementById('progressWrap').classList.add('show');
   setProgress(0);
+  setFwStep(4,'active');
 
-  // 从 GitHub 下载固件
-  log('⬇️ 正在从 GitHub 下载固件: '+m.file,'info');
-  let firmwareData;
-  try{
-    const buf=await fetchWithFallback([`${FW_BASE}/${m.file}`,`${FW_RAW_BASE}/${m.file}`]);
-    firmwareData=new Uint8Array(buf);
-    log('✅ 固件下载完成: '+m.file+' ('+(firmwareData.length/1024/1024).toFixed(1)+' MB)','success');
-  }catch(e){
-    log('❌ 固件下载失败: '+(e.message||e),'error');
-    isFlashing=false; document.getElementById('btnFwGo').disabled=false;
-    return;
+  if(selFw){
+    const m=(fwManifest.models||[]).find(x=>x.id===selFw);
+    if(!m){ toast('固件信息缺失，请刷新列表','err'); isFlashing=false; updateUIState(); return; }
+    log('⬇️ 正在从 GitHub 下载固件: '+m.file,'info');
+    try{
+      const buf=await fetchWithFallback([`${FW_BASE}/${m.file}`,`${FW_RAW_BASE}/${m.file}`]);
+      firmwareData=new Uint8Array(buf);
+      log('✅ 固件下载完成: '+m.file+' ('+(firmwareData.length/1024/1024).toFixed(1)+' MB)','success');
+    }catch(e){
+      log('❌ 固件下载失败: '+(e.message||e),'error');
+      setFwStep(3,'active');
+      isFlashing=false; updateUIState();
+      return;
+    }
+    await flash(firmwareData,m);
+  }else{
+    await flash(firmwareData,{});
   }
-
+};
+async function flash(fwData,cfg){
   log('🚀 开始烧录固件…','info');
   try{
     await loader.writeFlash({
-      fileArray:[{ data:firmwareData, address:parseInt(m.flashOffset||'0x0',16) }],
-      flashMode:m.flashMode||'qio', flashFreq:m.flashFreq||'80m', flashSize:m.flashSize||'8MB',
+      fileArray:[{ data:fwData, address:parseInt(cfg.flashOffset||'0x0',16) }],
+      flashMode:cfg.flashMode||'dio', flashFreq:cfg.flashFreq||'80m', flashSize:cfg.flashSize||'8MB',
       eraseAll:true, compress:true,
       reportProgress:(fi,written,total)=>{
         setProgress(written/total*100, (written/1024).toFixed(0)+' KB / '+(total/1024).toFixed(0)+' KB');
@@ -598,16 +800,18 @@ window.startFlash=async function(){
     log('✅ 固件写入完成！','success');
     log('正在重启设备…','info');
     await loader.after('hard_reset');
+    setFwStep(4,'done');
+    fwResult.classList.add('show');
     log('🎉 固件更新成功！请断开 USB 后重新上电','success');
     toast('固件更新成功！','ok');
   }catch(err){
     log('❌ 烧录失败: '+(err.message||err),'error');
-    setProgress(0);
+    setProgress(0); setFwStep(4,'active');
   }finally{
     isFlashing=false;
-    document.getElementById('btnFwGo').disabled=false;
+    updateUIState();
   }
-};
+}
 
 /* ---------- 应用 ---------- */
 async function loadApps(){
@@ -625,7 +829,7 @@ async function loadApps(){
       return;
     }
     el.innerHTML=apps.map(a=>`
-      <div class="app-card" onclick="openApp('${a.id}')">
+      <div class="app-card" tabindex="0" onclick="openApp('${a.id}')">
         <div class="ai">${a.icon}</div>
         <div class="an">${a.name.zh}<small>${a.name.en}</small></div>
         <div class="adesc">${a.desc}</div>
@@ -703,7 +907,15 @@ window.downloadApp=async function(id){
   btn.disabled=false; btn.innerHTML='⬇️ 下载应用包';
 };
 
+/* 挂载到 window，供内联 onclick 调用 */
+window.enterDevice = enterDevice;
+window.backToSelect = backToSelect;
+window.toggleConnect = toggleConnect;
+window.switchTab = switchTab;
+window.loadFirmware = loadFirmware;
+
 window.addEventListener('beforeunload', async ()=>{ await disconnectSerial(); });
 </script>
-</body>
-</html>
+
+
+</body></html>

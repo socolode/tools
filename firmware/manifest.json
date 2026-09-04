@@ -10,7 +10,7 @@
       "file": "fireflyt1-v1.1.0.bin",
       "size": 2038432,
       "flashOffset": "0x0",
-      "flashMode": "qio",
+      "flashMode": "dio",
       "flashFreq": "80m",
       "flashSize": "8MB",
       "notes": { "en": "MicroPython build for ESP32-S3 (SPIRAM-OCT).", "zh": "ESP32-S3（SPIRAM-OCT）MicroPython 固件。" }
@@ -23,7 +23,7 @@
       "file": "fireflyt1-v1.2.0.bin",
       "size": 2038432,
       "flashOffset": "0x0",
-      "flashMode": "qio",
+      "flashMode": "dio",
       "flashFreq": "80m",
       "flashSize": "8MB",
       "notes": { "en": "Simulated newer version (same binary).", "zh": "模拟的更新版本（同一固件）。" }
@@ -36,7 +36,7 @@
       "file": "fireflyt1-v1.3.0.bin",
       "size": 2092928,
       "flashOffset": "0x0",
-      "flashMode": "qio",
+      "flashMode": "dio",
       "flashFreq": "80m",
       "flashSize": "8MB",
       "notes": { "en": "Real firmware build (Launcher & system layer frozen).", "zh": "真实固件构建（冻结 Launcher 与系统层）。" }
