@@ -432,15 +432,15 @@ import { ESPLoader, Transport } from 'esptool-js';
 /* =========================================================================
    socolode 设备工具（正式版）
    - 固件：Web Serial + esptool-js 直连烧录
-   - 应用：从 GitHub 产物仓库 corelight-releases 拉取 catalog.json
+   - 应用：从 GitHub 产物仓库 corelight-releases 拉取 catalog-<device>.json（每设备独立）
      （单仓库文件方式：firmware/ 按版本、apps/ 按应用 zip，catalog 为索引）
    ========================================================================= */
 
 const CATALOG_SOURCE = { owner:'socolode', repo:'corelight-releases', branch:'main' };
-const CATALOG_BASE = `https://cdn.jsdelivr.net/gh/${CATALOG_SOURCE.owner}/${CATALOG_SOURCE.repo}@${CATALOG_SOURCE.branch}/catalog.json`;
-const CATALOG_RAW_BASE = `https://raw.githubusercontent.com/${CATALOG_SOURCE.owner}/${CATALOG_SOURCE.repo}/${CATALOG_SOURCE.branch}/catalog.json`;
 const REPO_BASE = `https://cdn.jsdelivr.net/gh/${CATALOG_SOURCE.owner}/${CATALOG_SOURCE.repo}@${CATALOG_SOURCE.branch}`;
 const REPO_RAW_BASE = `https://raw.githubusercontent.com/${CATALOG_SOURCE.owner}/${CATALOG_SOURCE.repo}/${CATALOG_SOURCE.branch}`;
+// 每设备独立 catalog 文件: catalog-<device>.json
+const catBase = ()=>({ cdn:`${REPO_BASE}/catalog-${curDev}.json`, raw:`${REPO_RAW_BASE}/catalog-${curDev}.json` });
 
 const FIREFLY_SVG = `<svg viewBox="0 0 24 24" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="18.2" cy="15.2" r="7" fill="#ffd94d" opacity=".18"/><circle cx="18.2" cy="15.2" r="4.6" fill="#ffd94d" opacity=".45"/><circle cx="18.2" cy="15.2" r="2.4" fill="#ffe98a"/><ellipse cx="8" cy="13.6" rx="3.4" ry="4.9" fill="#3a2f66"/><circle cx="5.2" cy="10.4" r="2.1" fill="#3a2f66"/><path d="M5.4 8.9 L3.8 6.2 M5.4 8.9 L7 6.2" stroke="#3a2f66" stroke-width=".9" stroke-linecap="round"/><path d="M9.2 11.2 C11.8 8.4 14.6 9.2 15.2 11.2 C13.6 12.8 11 12.6 9.2 11.2 Z" fill="#a58bff" opacity=".5"/><path d="M8.6 14.4 C11 11.6 14 12.6 14.6 14.8 C13 16 10.4 15.8 8.6 14.4 Z" fill="#a58bff" opacity=".32"/><circle cx="10.6" cy="10" r=".6" fill="#ffe98a"/></svg>`;
 
@@ -448,7 +448,7 @@ const BEETLE_SVG = `<svg viewBox="0 0 24 24" width="1em" height="1em" xmlns="htt
 
 const DEV = {
   "firefly-t1": { name:"萤火虫 T1", en:"Firefly T1", icon:FIREFLY_SVG, desc:"光绘 / 彩灯", tags:["ESP32-S3 · 8MB","固件升级 · 应用下载"], ready:true },
-  "beetle-s1": { name:"独角仙 S1", en:"Beetle S1", icon:BEETLE_SVG, desc:"光绘 / 彩灯", tags:["ESP32-S3 · 8MB","即将上线"], ready:false }
+  "beetle-s1": { name:"独角仙 S1", en:"Beetle S1", icon:BEETLE_SVG, desc:"光绘 / 彩灯", tags:["ESP32-S3 · 8MB","固件升级 · 应用下载"], ready:true }
 };
 
 /* 应用图标（release catalog 里的 icon 多为占位，这里按 app_id 换成更贴切的表情图标） */
@@ -525,6 +525,17 @@ async function fetchWithFallback(urls){
 function toast(msg,type){ const t=document.getElementById('toast'); t.textContent=msg; t.className='toast show'+(type?' '+type:''); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2600); }
 let toastTimer;
 
+/* 拉取当前设备的 catalog-<device>.json（每设备独立，唯一数据源）。
+   先尝试 raw 保证拿到最新索引，失败再回退 CDN（详见仓库 对接说明.md）。
+   结果缓存到全局 catalog；切设备时 enterDevice() 会清空目录以避免串用。 */
+async function getCatalog(){
+  if(catalog) return catalog;
+  const c=catBase();
+  const buf=await fetchWithFallback([c.raw, c.cdn]);
+  catalog=JSON.parse(new TextDecoder().decode(buf));
+  return catalog;
+}
+
 /* ---------- 视图切换 ---------- */
 function setHeader(dev){
   if(!dev){
@@ -560,6 +571,8 @@ window.pickDevice=function(dev){
   enterDevice(dev);
 }
 function enterDevice(dev){
+  // 每设备独立 catalog，进入前必须清空缓存，避免串用上一台设备数据
+  catalog=null;
   curDev=dev;
   setHeader(dev);
   document.getElementById('viewSelect').classList.remove('active');
@@ -687,10 +700,7 @@ async function loadFirmware(){
   modelSelect.disabled=true;
   modelSelect.innerHTML='<option value="">正在加载固件列表…</option>';
   try{
-    if(!catalog){
-      const buf=await fetchWithFallback([CATALOG_RAW_BASE, CATALOG_BASE]);
-      catalog=JSON.parse(new TextDecoder().decode(buf));
-    }
+    await getCatalog();
     // 固件列表按版本降序，最新在前
     firmwareList=(catalog.firmware||[]).sort((a,b)=>verNum(b.version)-verNum(a.version));
     if(!firmwareList.length){
@@ -828,10 +838,7 @@ async function loadApps(){
   const el=document.getElementById('appList');
   el.innerHTML='<div class="app-empty">正在加载应用列表…</div>';
   try{
-    if(!catalog){
-      const buf=await fetchWithFallback([CATALOG_RAW_BASE, CATALOG_BASE]);
-      catalog=JSON.parse(new TextDecoder().decode(buf));
-    }
+    await getCatalog();
     appsList=catalog.apps||[];
     if(!appsList.length){
       el.innerHTML='<div class="app-empty">该设备暂无可用应用</div>';
